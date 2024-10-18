@@ -1,0 +1,338 @@
+INSERT INTO USERS (
+    USER_ID,
+    USER_NAME,
+    USER_PW,
+    USER_BIRTHDATE,
+    USER_GENDER,
+    USER_TEL
+) VALUES (
+    'qwer123',
+    '김박',
+    '1234',
+    '20040512',
+    '남',
+    '01012345678'
+);
+
+INSERT INTO USERS (
+    USER_ID,
+    USER_NAME,
+    USER_PW,
+    USER_BIRTHDATE,
+    USER_GENDER,
+    USER_TEL
+) VALUES (
+    'hong123',
+    '홍길동',
+    '1234',
+    '19800808',
+    '남',
+    '01012345678'
+);
+
+INSERT INTO USERS (
+    USER_ID,
+    USER_NAME,
+    USER_PW,
+    USER_BIRTHDATE,
+    USER_GENDER,
+    USER_TEL
+) VALUES (
+    'asd123',
+    '금춘봉',
+    '1234',
+    '20121212',
+    '여',
+    '01012345678'
+);
+
+COMMIT;
+
+INSERT INTO SKILLS (
+    Skill_Id,
+    Skill_Name
+) VALUES (
+    10,
+    '자바'
+);
+
+INSERT INTO SKILLS (
+    Skill_Id,
+    Skill_Name
+) VALUES (
+    20,
+    '오라클'
+);
+
+INSERT INTO SKILLS (
+    Skill_Id,
+    Skill_Name
+) VALUES (
+    30,
+    '스프링'
+);
+
+COMMIT;
+
+
+INSERT INTO RESUME (
+    USER_ID,
+    RESUME_ID,
+    RESUME_TITLE,
+    COVER_LETTER
+) VALUES (
+    'asd123',
+    (SELECT NVL(MAX(RESUME_ID)+1,1) FROM RESUME),
+    '춘씨 헛소리말고 짐이나 날라',
+    '자기소개입니다.'
+);
+
+INSERT INTO RESUME (
+    USER_ID,
+    RESUME_ID,
+    RESUME_TITLE,
+    COVER_LETTER
+) VALUES (
+    'asd123',
+    (SELECT NVL(MAX(RESUME_ID)+1,1) FROM RESUME),
+    '집가고 싶다',
+    '자기소개입니다.'
+);
+
+COMMIT;
+
+INSERT INTO RESUME_SKILLS (
+    RESUME_SID,
+    RESUME_ID,
+    SKILL_ID
+) VALUES (
+    (SELECT NVL(MAX(RESUME_ID)+1,1) FROM RESUME_SKILLS),
+    1,
+    10
+);
+
+INSERT INTO RESUME_SKILLS (
+    RESUME_SID,
+    RESUME_ID,
+    SKILL_ID
+) VALUES (
+    (SELECT NVL(MAX(RESUME_SID)+1,1) FROM RESUME_SKILLS),
+    1,
+    20
+);
+
+INSERT INTO RESUME_SKILLS (
+    RESUME_SID,
+    RESUME_ID,
+    SKILL_ID
+) VALUES (
+    (SELECT NVL(MAX(RESUME_SID)+1,1) FROM RESUME_SKILLS),
+    1,
+    30
+);
+
+COMMIT;
+
+/* 유저 이력서 기술스택 조회
+SELECT R.USER_ID, R.RESUME_TITLE ,SKILL_NAME
+FROM RESUME R, RESUME_SKILLS RS, SKILLS S
+WHERE R.RESUME_ID(+) = RS.RESUME_ID
+      AND RS.SKILL_ID(+) = S.SKILL_ID;
+*/
+
+INSERT INTO benefits (
+    BENEFIT_ID,
+    BENEFIT_NAME
+) VALUES (
+    (SELECT NVL(MAX(BENEFIT_ID)+10,10) FROM BENEFITS),
+    '무료기숙사'
+);
+
+INSERT INTO benefits (
+    BENEFIT_ID,
+    BENEFIT_NAME
+) VALUES (
+    (SELECT NVL(MAX(BENEFIT_ID)+10,10) FROM BENEFITS),
+    '젋은연령층'
+);
+
+INSERT INTO benefits (
+    BENEFIT_ID,
+    BENEFIT_NAME
+) VALUES (
+    (SELECT NVL(MAX(BENEFIT_ID)+10,10) FROM BENEFITS),
+    '자유복장'
+);
+
+COMMIT;
+
+INSERT INTO COMPANIES (
+    COMPANY_ID,
+    COMPANY_PW,
+    COMPANY_NAME,
+    COMPANY_NUM,
+    COMPANY_TEL,
+    REP_NAME,
+    COMPANY_EMAIL
+) VALUES (
+    'qwe123',
+    '1234',
+    '그린아카데미',
+    '123123451231233',
+    '0551231234',
+    '김나박',
+    'qwe123@naver.com'
+);
+
+INSERT INTO COMPANIES (
+    COMPANY_ID,
+    COMPANY_PW,
+    COMPANY_NAME,
+    COMPANY_NUM,
+    COMPANY_TEL,
+    REP_NAME,
+    COMPANY_EMAIL
+) VALUES (
+    'wer123',
+    '1234',
+    '레드훅',
+    '123123451231234',
+    '0551231234',
+    '정하연',
+    'wer123@naver.com'
+);
+
+INSERT INTO COMPANIES (
+    COMPANY_ID,
+    COMPANY_PW,
+    COMPANY_NAME,
+    COMPANY_NUM,
+    COMPANY_TEL,
+    REP_NAME,
+    COMPANY_EMAIL
+) VALUES (
+    'dfg123',
+    '1234',
+    '블랙맘바',
+    '123123451231235',
+    '0551231234',
+    '이미래',
+    'dfg123@naver.com'
+);
+
+COMMIT;
+
+INSERT INTO POST (
+    POST_ID,
+    COMPANY_ID,
+    POST_TITLE,
+    POST_CONTENT
+) VALUES (
+    (SELECT NVL(MAX(POST_ID)+1,1) FROM POST),
+    'wer123',
+    '인재 모집합니다.',
+    '인재 찾았습니다.'
+);
+
+INSERT INTO POST (
+    POST_ID,
+    COMPANY_ID,
+    POST_TITLE,
+    POST_CONTENT
+) VALUES (
+    (SELECT NVL(MAX(POST_ID)+1,1) FROM POST),
+    'wer123',
+    '미래를 모집합니다.',
+    '인재 찾았습니다.'
+);
+
+INSERT INTO POST (
+    POST_ID,
+    COMPANY_ID,
+    POST_TITLE,
+    POST_CONTENT
+) VALUES (
+    (SELECT NVL(MAX(POST_ID)+1,1) FROM POST),
+    'wer123',
+    '백엔드 개발자 모집니다.',
+    '인재 찾았습니다..'
+);
+
+COMMIT;
+
+INSERT INTO POST_BENEFITS (
+    CBENEFIT_ID,
+    BENEFIT_ID,
+    POST_ID
+) VALUES (
+    (SELECT NVL(MAX(CBENEFIT_ID)+1,1) FROM POST_BENEFITS),
+    10,
+    2
+);
+
+INSERT INTO POST_BENEFITS (
+    CBENEFIT_ID,
+    BENEFIT_ID,
+    POST_ID
+) VALUES (
+    (SELECT NVL(MAX(CBENEFIT_ID)+1,1) FROM POST_BENEFITS),
+    20,
+    2
+);
+
+INSERT INTO POST_BENEFITS (
+    CBENEFIT_ID,
+    BENEFIT_ID,
+    POST_ID
+) VALUES (
+    (SELECT NVL(MAX(CBENEFIT_ID)+1,1) FROM POST_BENEFITS),
+    30,
+    2
+);
+
+COMMIT;
+
+/* 복지 조회
+SELECT P.POST_ID, C.COMPANY_ID, P.POST_TITLE, B.BENEFIT_NAME
+FROM POST P, COMPANIES C, BENEFITS B, POST_BENEFITS PB
+WHERE P.COMPANY_ID = C.COMPANY_ID
+      AND P.POST_ID = PB.POST_ID
+      AND PB.BENEFIT_ID = B.BENEFIT_ID;
+*/
+
+INSERT INTO EMPLOYMENT (
+    EMP_ID,
+    EMP_NAME
+) VALUES (
+    (SELECT NVL(MAX(EMP_ID)+10,10) FROM EMPLOYMENT),
+    :v1
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prj.users.mapper.UserMapper">  
+  
+  <insert id="insertUser">
+  	INSERT INTO users (
+	    USER_IDX,
+	    USER_ID,
+	    USER_NAME,
+	    USER_PW,
+	    USER_BIRTHDATE,
+	    USER_GENDER,
+	    USER_EMAIL,
+	    USER_TEL
+) VALUES (
+    	(SELECT NVL(MAX(USER_IDX)+1,0) FROM USERS),
+	    #{user_id},
+	    #{user_name},
+	    #{user_pw},
+	    #{user_birthdate},
+	    #{user_gender},
+	    #{user_email},
+	    #{user_tel}
+)
+  </insert>
+  
+  <select id="login">
+  	SELECT *
+  	FROM USERS
+  	WHERE USER_ID = #{arg0} AND USER_PW = #{arg1}
+  </select>
+ 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

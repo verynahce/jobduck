@@ -1,19 +1,21 @@
-package com.prj.user.controller;
+package com.prj.company.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("User")
-public class UserController {
+@RequestMapping("Company")
+public class CompanyController {
 	
 	@RequestMapping("/LoginForm")
 	public String loginForm() {
-		return "user/loginForm";
+		return "company/loginForm";
 	}
 	
 	@RequestMapping("/RegisterForm")
-	public String regiserForm() {
-		return "user/registerForm";
+	public String registerForm() {
+		return "company/registerForm";
 	}
+	
+	
 }

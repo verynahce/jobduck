@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="/js/common.js" defer></script>
 </head>
 <body>
 	<%@include file="/WEB-INF/include/header.jsp" %>

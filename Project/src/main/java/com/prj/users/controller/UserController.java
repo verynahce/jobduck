@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.prj.users.mapper.UserMapper;
@@ -27,7 +28,7 @@ public class UserController {
 	public String loginForm() {
 		return "user/loginForm";
 	}
-	
+	/*
 	@PostMapping("/Login")
 	public String login(HttpServletRequest requset,
 					    HttpServletRequest response ) {
@@ -36,15 +37,15 @@ public class UserController {
 		System.out.println(response);
 		String 		 userid = requset.getParameter("user_id");
 		String 		 passwd = requset.getParameter("user_pw");
+		String 		 uri = requset.getParameter("uri");
 		// db 조회
 		UserVo 		 vo     = userMapper.login(userid,passwd);
-		System.out.println(vo);
 		
 		HttpSession session = requset.getSession();
 		session.setAttribute("login", vo);
-		return "redirect:/";
+		return "redirect:/" + uri;
 	}	
-	
+	*/
 	
 	
 	

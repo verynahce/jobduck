@@ -29,6 +29,8 @@ a {
 
 /* common header */
 header {
+  border-bottom: solid 1px #EBECF1;
+
   & .inner {
     display: flex;
     justify-content: space-between;
@@ -153,14 +155,7 @@ header.menu-btn-active {
 
   & .header-gnb {
     position: absolute;
-    top: 100px;
-    font-size : 24px;
-  }
-  
-   & .header-comunity ul.menu-btn-active {
-    display: block;
-    box-shadow: none;
-    background : none;
+    top: 20%;
   }
 }
 
@@ -242,7 +237,7 @@ footer {
   & .main-post-list {
     display: grid;
     grid-template-columns: repeat(4, auto);
-    gap: 36px 56px;
+    gap: 56px 36px;
     font-weight: 500;
   }
 
@@ -277,7 +272,7 @@ footer {
 /* user_loginForm */
 .login-inner {
   width: 378px;
-  margin: 60px auto;
+  margin: 100px auto;
 
   & h1 {
     font-size: 36px;
@@ -392,9 +387,8 @@ footer {
         border: none;
         width: auto;
         color: #333;
-        font-size: 18px;
+        font-size: 14px;
         margin-left: 12px;
-        font-weight: 500;
       }
       
     }
@@ -447,6 +441,85 @@ footer {
  
   }
   
+}
+
+/* jops */
+.jobs{
+  margin-top: 60px;
+
+  & h3{
+    font-weight: 700;
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+
+  & .filter-input{
+    margin-bottom: 40px;
+
+    & select,input{
+      height: 50px;
+      margin-right: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      border: solid 1px #ccc;
+      color: #767676;
+      min-width: 90px
+    }
+    
+    & .skill-div{display: inline-block; position: relative;
+    
+    	& .skill-input{
+    		width : 250px
+    	};
+    	
+    	& ul{
+    		display : none;
+    		position: absolute;
+    		z-index : 2;
+    		width : 250px;
+    		border-radius : 12px;
+    		border : solid 1px #ccc;
+    		overflow : hidden;
+    		
+    		& li{
+    			padding : 12px;
+    			background: #fff;
+    			border-bottom: solid 1px #ccc;
+    			cursor: pointer;
+    		};
+    		
+    	 & li:last-child{
+    				border-bottom : none
+    			}
+    	}
+    };
+    
+    & .stack-list{
+    display: flex;
+    gap : 8px;
+    margin-top : 12px;
+    
+    	& li{
+    		padding : 0 36px 0 12px;
+    		height: 40px;
+    		text-align: middle;
+    		line-height: 40px;
+    		position: relative;
+    		background : #EBECF1;
+    		color : #333;
+    		font-size : 14px;
+    		border-radius : 8px;
+    	
+    		& img{
+    			position : absolute;
+    			top : 50%;
+    			right: 12px;
+    			transform : translateY(-50%);
+    			cursor: pointer;
+    		}
+    	}
+    }
+  }
 }
 
 

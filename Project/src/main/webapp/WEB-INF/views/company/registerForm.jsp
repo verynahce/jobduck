@@ -19,7 +19,7 @@
             <li><a href="/User/RegisterForm">개인회원</a></li>
             <li class="active"><a href="/Company/RegisterForm">기업회원</a></li>
           </ul>
-          <form>
+          <form action="/Company/Register" method="POST">
           <ul class="login-input">
             <li><input type="text" name="company_id" placeholder="아이디"></li>
             <li><input type="text" name="company_pw" placeholder="비밀번호"></li>
@@ -36,7 +36,7 @@
           <ul class="login-input">
             <li><input type="text" name="rep_name" placeholder="담당자 이름"></li>
             <li>
-              <input type="text" name="company_birthdate" placeholder="연락처">
+              <input type="text" name="company_tel" placeholder="연락처">
             </li>
             <li>
               <input type="text" name="company_email" placeholder="담당자 이메일">

@@ -1,6 +1,7 @@
 package com.prj.intercepter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,9 +20,9 @@ public class AuthInterceptor implements HandlerInterceptor {@Override
 							 Object 				handler)
 			throws Exception {
 	
-
 		String requestURI	= request.getRequestURI();
 		String uri = requestURI.split("/")[1];
+		System.out.println(uri);
 		
 		// /Users/LoginForm, // /Users/Login 를 제외
 		if(requestURI.contains("/User/Login") || 
@@ -34,7 +35,7 @@ public class AuthInterceptor implements HandlerInterceptor {@Override
 		Object login = session.getAttribute("login");;
 		if(login == null) {
 			// 로그인이 안 돼있다 -> 로그인 페이지
-			response.sendRedirect("/User/LoginForm");
+			response.sendRedirect("/User/LoginForm?uri=" + uri);
 			return false;
 		}
 		

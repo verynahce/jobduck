@@ -16,7 +16,7 @@
         <div class="inner">
           <h3>채용정보</h3>
           <div class="filter-input">
-          	<form action="Main/Filter">
+          	<form action="Main/JobsFilter">
 	            <select id="cityId" name="city_id">
 	              <option value="" selected="selected" style="display: none">지역</option>
 	              <option value="">전국</option>
@@ -50,7 +50,6 @@
 		            />
 		         <button type="reset" onclick='deleteSkill()'>초기화</button>
 		            <ul >
-		    
 		            	<c:forEach var="skill" items="${skillList}">
 		            		<li>${skill}</li>
 		            	</c:forEach>
@@ -139,7 +138,7 @@
 			        let empId = $("#empId").val();
 			        console.log($("#cityId").val())
 			        $.ajax({
-			            url: '/Main/Filter',
+			            url: '/Main/JobsFilter',
 			            type: 'GET',
 			            dataType: 'json',
 			            data: { "city_id": cityId, "duty_id": dutyId, "emp_id": empId },

@@ -16,13 +16,14 @@ import com.prj.main.vo.PostVo;
 
 @RestController
 @RequestMapping("Main")
-public class MainController {
+public class JopsController {
 	
 	@Autowired
 	private MainMapper mainMapper;
 	
-	
-	@RequestMapping("/Jobs")
+	/* Jobs 관련 */
+	/*================================================================================*/
+	@RequestMapping("/Jobs/List")
 	@ResponseBody
 	public ModelAndView jobs() {
 		List<String> skillList = mainMapper.getSkill();
@@ -32,11 +33,11 @@ public class MainController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("skillList",skillList);
 		mv.addObject("postList",postList);
-		mv.setViewName("main/jobs");
+		mv.setViewName("main/jobs/list");
 		return mv;
 	}
 	
-	@RequestMapping("/PostFilter")
+	@RequestMapping("/JobsFilter")
 	public Map<String, Object> filterJobs(
 	        @RequestParam(required = false, value="city_id") String city_id,
 	        @RequestParam(required = false, value="duty_id") String duty_id,
@@ -52,20 +53,6 @@ public class MainController {
 	    response.put("postList", filteredPosts);
 	    response.put("message", "데이터를 성공적으로 가져왔습니다.");
 	    return response;
-	}
-	
-	@RequestMapping("/Hrs")
-	@ResponseBody
-	public ModelAndView hrs() {
-		List<String> skillList = mainMapper.getSkill();
-		List<PostVo> postList  = mainMapper.getPostList(); 
-		
-		System.out.println(postList);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("skillList",skillList);
-		mv.addObject("postList",postList);
-		mv.setViewName("main/hrs");
-		return mv;
 	}
 	
 }

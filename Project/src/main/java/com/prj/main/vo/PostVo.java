@@ -20,4 +20,5 @@ public class PostVo {
 	private String 	post_ddate;
 	private String 	post_cdate;
 	private String 	post_fdate;
+	private int[]   post_skill;
 }

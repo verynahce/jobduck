@@ -14,7 +14,7 @@
 	<%@include file="/WEB-INF/include/header.jsp" %>
    <main class="jobs">
         <div class="inner">
-          <h3>채용정보</h3>
+          <h3>인재정보</h3>
           <div class="filter-input">
           	<form action="Main/Filter">
 	            <select id="cityId" name="city_id">
@@ -42,16 +42,16 @@
 		              <option value="20">비정규직</option>
 		              <option value="30">아르바이트</option>
 		            </select>
+		            <input type="hidden" name="skill_id">
 							<div class="skill-div">
 		            <input
 		              class="skill-input"
 		              type="text"
 		              placeholder="기술 스택 검색"
 		            />
-		         <button type="reset" onclick='deleteSkill()'>초기화</button>
+		            <button type="reset" onclick='deleteSkill()'>초기화</button>
 		            <ul >
-		    
-		            	<c:forEach var="skill" items="${skillList}">
+		            	<c:forEach var="skill" items="${skillList }">
 		            		<li>${skill}</li>
 		            	</c:forEach>
 		            </ul>
@@ -60,24 +60,45 @@
           	<ul class="stack-list">
           	</ul>
           </div>
-          <div class="main-post">
-            <div class="main-post-list">
-          <c:forEach var="card" items="${postList}">
-          	<div class="post-card">
-                <ul>
-                  <li class="post-card-img"><a href="#">기업로고/직무이미지</a></li>
-                  <li class="post-card-company">${card.post_idx}</li>
-                  <li class="post-card-title"><a href="#">${card.post_title}</a></li>
-                  <li class="post-card-info">${card.city_name}, 직무, 기술스택 등</li>
-                </ul>
-              </div>
-          </c:forEach>
-            </div>
+						<table class="main-resume">
+							<colgroup>
+								<col width="17.5%">
+								<col width="40%">
+								<col width="7.5%">
+								<col width="10%">
+								<col width="7.5%">
+								<col width="17.5%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>이름</th>
+									<th>이력서 요약</th>
+									<th>경력</th>
+									<th>희망직무</th>
+									<th>희망근무지역</th>
+									<th>수정일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>홍길동<span>(남,22세)</span></td>
+									<td>
+										<div>이력서 제목</div>
+										<ul class="stack-list">
+											<li>기술 스택</li>
+										</ul>
+									</td>
+									<td>0년</td>
+									<td>IT개발자</td>
+									<td>부산</td>
+									<td>2024.10.21</td>
+								</tr>
+							</tbody>
+						</table>
           </div>
-        </div>
         </main>
 	<%@include file="/WEB-INF/include/footer.jsp" %>
-  <script>
+ <script>
   
   			// 스택 검색을 위한 element
 		    const $skillInput = document.querySelector(".skill-input");
@@ -139,7 +160,7 @@
 			        let empId = $("#empId").val();
 			        console.log($("#cityId").val())
 			        $.ajax({
-			            url: '/Main/Filter',
+			            url: '/Main/PostFilter',
 			            type: 'GET',
 			            dataType: 'json',
 			            data: { "city_id": cityId, "duty_id": dutyId, "emp_id": empId },

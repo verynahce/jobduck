@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 public class PostVo {
 	private int 	post_idx;
 	private int 	company_idx;
-	private int 	duty_id;
-	private int 	career_id;
-	private int 	emp_id;
-	private int 	city_id;
+	private String 	city_name;
+	private String 	duty_name;
 	private String 	post_eb;
 	private String 	post_title;
 	private String 	post_content;

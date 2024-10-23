@@ -5,9 +5,9 @@
      <h1><a href="/">JOBDUCK</a></h1>
      <ul class="header-gnb">
        <li><a href="/Main/Jobs">채용정보</a></li>
-       <li><a href="#">인재정보</a></li>
+       <li><a href="/Main/Hrs">인재정보</a></li>
        <li class="header-comunity">
-         <a href="#">커뮤니티</a>
+         커뮤니티
          <ul>
            <li><a href="#">자유게시판</a></li>
            <li><a href="#">기업리뷰</a></li>

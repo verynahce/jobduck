@@ -29,34 +29,28 @@
                  </ul>
              </div>
              <div class="post-card">
-               <a href="#">
                  <ul>
                    <li class="post-card-img">기업로고/직무이미지</li>
                    <li class="post-card-company">기업이름</li>
                    <li class="post-card-title">채용공고 제목</li>
                    <li class="post-card-info">경력, 직무, 기술스택 등</li>
                  </ul>
-               </a>
              </div>
              <div class="post-card">
-               <a href="#">
                  <ul>
                    <li class="post-card-img">기업로고/직무이미지</li>
                    <li class="post-card-company">기업이름</li>
                    <li class="post-card-title">채용공고 제목</li>
                    <li class="post-card-info">경력, 직무, 기술스택 등</li>
                  </ul>
-               </a>
              </div>
              <div class="post-card">
-               <a href="#">
                  <ul>
                    <li class="post-card-img">기업로고/직무이미지</li>
                    <li class="post-card-company">기업이름</li>
                    <li class="post-card-title">채용공고 제목</li>
                    <li class="post-card-info">경력, 직무, 기술스택 등</li>
                  </ul>
-               </a>
              </div>
            </div>
          </div>

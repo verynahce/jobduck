@@ -7,11 +7,7 @@
        <li><a href="/Main/Jobs/List">채용정보</a></li>
        <li><a href="/Main/Hrs/List">인재정보</a></li>
        <li class="header-comunity">
-         커뮤니티
-         <ul>
-           <li><a href="#">자유게시판</a></li>
-           <li><a href="/Main/Comunity/Review/List">기업리뷰</a></li>
-         </ul>
+         <a href="/Main/Comunity/Review/List">기업리뷰</a>
        </li>
        <li><a href="#">고객센터</a></li>
      </ul>

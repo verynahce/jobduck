@@ -3,7 +3,7 @@
 <mapper namespace="com.prj.companies.mapper.CompanyMapper">  
   
   <insert id="insertCompany">
-		INSERT INTO COMPANIES (
+		INSERT INTO COMPANYS (
     COMPANY_IDX,
     COMPANY_ID,
     COMPANY_PW,
@@ -14,7 +14,7 @@
     REP_NAME,
     COMPANY_EMAIL
 ) VALUES (
-    (SELECT NVL(MAX(company_idx)+1,0) FROM COMPANIES),
+    (SELECT NVL(MAX(company_idx)+1,0) FROM COMPANYS),
     #{company_id},
     #{company_pw},
     #{company_name},

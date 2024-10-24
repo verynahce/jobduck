@@ -26,12 +26,14 @@ public class JopsController {
 	@RequestMapping("/Jobs/List")
 	@ResponseBody
 	public ModelAndView jobs() {
-		List<String> skillList = mainMapper.getSkill();
-		List<PostVo> postList  = mainMapper.getPostList(); 
+		/*List<String> cityList = mainMapper.getCityList();
+		List<String> dutyList = mainMapper.getDutyList();
+		List<String> careerList = mainMapper.getCareerList();
+		List<String> empList = mainMapper.getEmpList();*/
 		
-		System.out.println(postList);
+		
+		List<PostVo> postList = mainMapper.getPostList();
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("skillList",skillList);
 		mv.addObject("postList",postList);
 		mv.setViewName("main/jobs/list");
 		return mv;
@@ -45,12 +47,12 @@ public class JopsController {
 	        @RequestParam(required = false, value="emp_id") String emp_id,
 	        @RequestParam(required = false, value="skills") String skills) {
 	    
-	    List<PostVo> filteredPosts = mainMapper.getFilteredPosts(city_id, duty_id, career_id, emp_id, skills);
+	    List<PostVo> jopsFilter = mainMapper.getFilteredPosts(city_id, duty_id, career_id, emp_id, skills);
 	    
-	    System.out.println(filteredPosts);
+	    System.out.println(jopsFilter);
 	    
 	    Map<String, Object> response = new HashMap<>();
-	    response.put("postList", filteredPosts);
+	    response.put("postList", jopsFilter);
 	    response.put("message", "데이터를 성공적으로 가져왔습니다.");
 	    return response;
 	}

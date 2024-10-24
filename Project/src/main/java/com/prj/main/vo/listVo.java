@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostVo {
+public class listVo {
 	private int 	post_idx;
 	private String 	company_name;
 	private String 	duty_name;

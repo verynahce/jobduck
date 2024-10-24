@@ -26,12 +26,9 @@ public class HrsController {
 	@RequestMapping("/Hrs/List")
 	@ResponseBody
 	public ModelAndView hrs() {
-		List<String> skillList = mainMapper.getSkill();
 		List<PostVo> postList  = mainMapper.getPostList(); 
-		
 		System.out.println(postList);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("skillList",skillList);
 		mv.addObject("postList",postList);
 		mv.setViewName("main/hrs/list");
 		return mv;

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.prj.companys.vo.CompanyVo;
 import com.prj.main.mapper.MainMapper;
 import com.prj.main.vo.CareerVo;
 import com.prj.main.vo.CityVo;
 import com.prj.main.vo.DutyVo;
 import com.prj.main.vo.EmpVo;
 import com.prj.main.vo.PostVo;
-import com.prj.main.vo.ResumeVo;
 import com.prj.main.vo.SkillVo;
 
 @RestController
@@ -39,7 +39,7 @@ public class JopsController {
 		List<SkillVo> 	skillList 	= mainMapper.getSkillList();
 	
 		
-		List<ResumeVo> resumeList = mainMapper.getResumeList();
+		List<PostVo> resumeList = mainMapper.getPostList();
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("postList",resumeList);
 		mv.addObject("cityList",cityList);
@@ -67,6 +67,19 @@ public class JopsController {
 	    response.put("postList", jopsFilter);
 	    response.put("message", "데이터를 성공적으로 가져왔습니다.");
 	    return response;
+	}
+	
+	@RequestMapping("/Jobs/View")
+	public ModelAndView view(@RequestParam(required = true, value="post_idx")  String post_idx) {
+		
+		CompanyVo cVo = mainMapper.getCompany(post_idx);
+		PostVo pvo = mainMapper.getPost(post_idx);
+		
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("cVo",cVo);
+		mv.setViewName("main/jobs/view");
+		return mv;
 	}
 	
 }

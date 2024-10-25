@@ -79,11 +79,12 @@ public class UserController {
 		return mv;
 	}
 	
+	/*
 	// ajax 방식 호출
 	// 아이디 중복확인 - 페이지를 변경하지 않고 data 조회
 	// 비동기 호출로 구현 AJAX
 	// /Users/IdDupCheck?userid=aaa
-	/*@RequestMapping(
+	@RequestMapping(
 			value   = "/IdDupCheck",
 			method  = RequestMethod.GET,
 			headers = "Accept=application/json")  // 결과를 json으로 처리
@@ -100,40 +101,7 @@ public class UserController {
 		model.addAttribute("nowpage",nowpage);
 		return "users/login";
 	}	
-	
-	@PostMapping("/Login")
-	public String Login(HttpServletRequest requset,
-					    HttpServletRequest response ) {
-
-		String 		 userid = requset.getParameter("userid");
-		String 		 passwd = requset.getParameter("passwd");
-		String 		 uri = requset.getParameter("uri");
-		String 		 menu_id = requset.getParameter("menu_id");
-		String 		 nowpage = requset.getParameter("nowpage");
-		System.out.println(menu_id);
-		// db 조회
-		UserVo 		 vo     = userMapper.login(userid,passwd);
-		//System.out.println(vo);
-		
-		HttpSession session = requset.getSession();
-		session.setAttribute("login", vo);
-		return "redirect:/" + uri + "/List?menu_id=" +menu_id+ "&nowpage=" + nowpage;
-	}	
-	
-	// /Users/Logout
-	@RequestMapping(
-		value =	"/Logout",
-		method = RequestMethod.GET)
-	public String Logout(
-			HttpServletRequest requset,
-			HttpServletRequest response,
-			HttpSession        session) {
-		//Object url = session.getAttribute("URL");
-		session.invalidate();
-		//return "redirect:" + (String)url;
-		return "redirect:/" ;
-	}*/
-	
+	*/
 	
 	
 	

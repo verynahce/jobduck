@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/common.js" defer ></script>
 
 <style>
 /*오버레이*/
@@ -399,15 +400,14 @@ cursor: pointer;
   <div class="inner">
     <div id="main-layout">
     <main>
-     
-      <h2 class="main-title">채용공고제목</h2>
+      <h2 class="main-title">${vo.post_title}</h2>
       <hr>
       <div id="info">
         <img src="" alt=""/>
         <div id="info-content">
-           <h3 id="info-title">기업이름</h3>
+           <h3 id="info-title">${vo.company_name}</h3>
            <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (5.0)</p>
-           <p>email@email.com</p>
+           <p>${vo.company_emil}</p>
            <p>010-1234-1234<p/>
         </div>
       </div>
@@ -543,6 +543,18 @@ cursor: pointer;
 	})
 
   })
+  
+  window.addEventListener("scroll",() => {
+	  let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+	  if(scrollLocation > 0 ){
+	  	$("header").slideUp();		  
+	  }else{
+		  $("header").slideDown();		 
+	  }
+	  
+  })
+  
+  
   </script>
 </body>
 </html>

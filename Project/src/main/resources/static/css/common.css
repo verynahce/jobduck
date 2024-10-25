@@ -31,6 +31,13 @@ body{
   font-weight: 300;
 }
 
+.postSkill{
+	background: #f1f3f5;
+	color : #8890b9;
+	padding : 4px 8px;
+	border-radius: 8px;
+	margin-left : 4px;
+}
 
 /* common header ========================================================== */
 header {
@@ -612,7 +619,6 @@ footer {
     	}
     }
   }
-  
   
   /* hrs ================================================================== */
 .main-resume{

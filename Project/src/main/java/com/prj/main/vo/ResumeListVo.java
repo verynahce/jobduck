@@ -7,9 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResumeVo {
+public class ResumeListVo {
 	private int  	resume_idx;
 	private String 	user_name;
+	private String 	user_age;
+	private String 	user_gender;
+	private String 	user_year;
+	private String 	user_tel;
+	private String 	user_email;
 	private String 	resume_title;
 	private String 	eb_name;
 	private String 	edu_name;
@@ -20,6 +25,8 @@ public class ResumeVo {
 	private String 	career_cname;
 	private String 	career_sdate;
 	private String 	career_edate;
+	private String  career_year;
+	private String  career_month;
 	private String 	career_description;
 	private String 	cover_letter; 
 	private int 	resume_hit; 

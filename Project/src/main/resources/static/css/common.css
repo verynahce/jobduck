@@ -16,6 +16,9 @@ a {
   text-decoration: none;
 }
 
+body{
+	padding-top : 94px
+}
 
 /* common style =========================================================== */
 
@@ -233,8 +236,8 @@ footer {
 
 /* home ================================================================== */
 
-main .inner{
-	margin-top : 136px
+.home-main{
+	margin-top : 30px
 }
 
 .main-visual {

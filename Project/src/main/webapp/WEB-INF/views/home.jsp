@@ -11,7 +11,7 @@
 <body>
 	<%@include file="/WEB-INF/include/header.jsp" %>
 	<main>
-       <div class="inner home-inner">
+       <div class="inner home-main">
          <div class="main-visual">
            <p><span>구직</span> 과 <span>채용</span>, 망설이고 있진 않나요?</p>
            <h2>지금 바로 시작하세요</h2>

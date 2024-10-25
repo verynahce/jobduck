@@ -10,8 +10,6 @@
 
 
 <style>
-*{
-}
 main {
    background-color:#F0F2F5;
 
@@ -78,11 +76,7 @@ main {
    margin-right:10px;
    
  }
-.active-color {
-  background-color:#EBECF1;
-  color: #111 !important;
-   
-}
+
  .container {
 
      width:  100%;
@@ -333,7 +327,7 @@ p {
 		<tr>
 		  <td colspan="2" class="sub-skill">업무스킬
            <div class="sub-skill-layout">
-           <!-- for문 필요! <c:> -->
+
               <div>JAVA </div> <div>HTML/CSS </div> 
            </div> 
          </td>

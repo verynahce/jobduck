@@ -28,7 +28,7 @@ public class UserController {
 	public String loginForm() {
 		return "user/loginForm";
 	}
-	/*
+	
 	@PostMapping("/Login")
 	public String login(HttpServletRequest requset,
 					    HttpServletRequest response ) {
@@ -39,16 +39,31 @@ public class UserController {
 		String 		 passwd = requset.getParameter("user_pw");
 		String 		 uri = requset.getParameter("uri");
 		// db 조회
+		System.out.println(uri);
+		System.out.println(passwd);
 		UserVo 		 vo     = userMapper.login(userid,passwd);
+		System.out.println(vo);
 		
 		HttpSession session = requset.getSession();
 		session.setAttribute("login", vo);
-		return "redirect:/" + uri;
+		return "redirect:/";
 	}	
-	*/
 	
+	// /Users/Logout 
+	@RequestMapping(
+		value =	"/Logout",
+		method = RequestMethod.GET)
+	public String Logout(
+			HttpServletRequest requset,
+			HttpServletRequest response,
+			HttpSession        session) {
+		Object url = session.getAttribute("URL");
+		session.invalidate();
+		//return "redirect:" + (String)url;
+		return "redirect:/";
+	}
 	
-	
+
 	
 	@RequestMapping("/RegisterForm")
 	public String regiserForm() {
@@ -118,6 +133,8 @@ public class UserController {
 		//return "redirect:" + (String)url;
 		return "redirect:/" ;
 	}*/
+	
+	
 	
 	
 }

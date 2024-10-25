@@ -5,7 +5,8 @@
    const $utilBtn        = document.querySelector(".menu-btn button");
    const $headerComunity = document.querySelector(".header-comunity")
    const $submenu = document.querySelector(".header-comunity ul")
-
+   const $userBar = document.querySelector(".user-bar");
+	 const $userLogin = document.querySelector(".user-login");
    
    let menuActive = false;
    $menuBtn.addEventListener("click", (e) => {
@@ -31,3 +32,14 @@
        }
      }
    });
+   
+   let userBarActive = true
+   $userBar.addEventListener("click",function(){
+		if(userBarActive){
+		$userLogin.style.display = "block"
+		userBarActive = !userBarActive
+		}else{
+			$userLogin.style.display = "none"
+		userBarActive = !userBarActive
+		}
+	 })

@@ -73,11 +73,8 @@
    margin-right:10px;
    
  }
-.active-color {
-  background-color:#EBECF1;
-  color: #111 !important;
-   
-}
+
+
  .container {
 
      width:  100%;

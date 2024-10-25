@@ -2,8 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.prj.main.mapper.MainMapper">  
 
+	<select id="getCityList">
+	SELECT *
+	FROM CITY
+	</select>
+	
+	<select id="getDutyList">
+	SELECT *
+	FROM DUTY
+	</select>
+	
+		<select id="getCareerList">
+	SELECT *
+	FROM CAREER
+	</select>
+	
+		<select id="getEmpList">
+	SELECT *
+	FROM EMP
+	</select>
+	
+		<select id="getSkillList">
+	SELECT *
+	FROM SKILL
+	</select>
+	
   <select id="getPostList">
-  	SELECT
+  SELECT
 	    P.POST_IDX,
 	    CO.COMPANY_NAME,
 	    D.DUTY_NAME,
@@ -11,6 +36,7 @@
 	    E.EMP_NAME,
 	    C.CITY_NAME,
 	    ED.EDU_NAME,
+	    S.SKILL_NAME,
 	    POST_TITLE,
 	    POST_CONTENT,
 	    POST_SALARY,
@@ -25,10 +51,12 @@
 	           LEFT JOIN EMP E ON P.EMP_ID = E.EMP_ID
 	           LEFT JOIN EDU ED ON P.EDU_ID = ED.EDU_ID 
 	           LEFT JOIN COMPANYS CO ON P.COMPANY_IDX = CO.COMPANY_IDX
+	           LEFT JOIN POST_SKILL PS ON P.POST_IDX = PS.POST_IDX
+             LEFT JOIN SKILL S ON PS.SKILL_ID = S.SKILL_ID
   </select>
-  
+ 
   <select id="getFilteredPosts">
-		   	SELECT
+		  	SELECT
 	    P.POST_IDX,
 	    CO.COMPANY_NAME,
 	    D.DUTY_NAME,
@@ -36,6 +64,7 @@
 	    E.EMP_NAME,
 	    C.CITY_NAME,
 	    ED.EDU_NAME,
+	    S.SKILL_NAME,
 	    POST_TITLE,
 	    POST_CONTENT,
 	    POST_SALARY,
@@ -50,6 +79,8 @@
 	           LEFT JOIN EMP E ON P.EMP_ID = E.EMP_ID
 	           LEFT JOIN EDU ED ON P.EDU_ID = ED.EDU_ID 
 	           LEFT JOIN COMPANYS CO ON P.COMPANY_IDX = CO.COMPANY_IDX
+	           LEFT JOIN POST_SKILL PS ON P.POST_IDX = PS.POST_IDX
+             LEFT JOIN SKILL S ON PS.SKILL_ID = S.SKILL_ID
     WHERE 1=1
     <if test="city_id != null and city_id != ''">
       AND P.city_id = #{city_id}
@@ -63,9 +94,49 @@
     <if test="emp_id != null and emp_id != ''">
       AND P.emp_id = #{emp_id}
     </if>
+    <if test="skill_id != null and skill_id != ''">
+      AND PS.skill_id = #{skill_id}
+    </if>
 
   </select>
  
+ 	<select id="getResumeList">
+ 		  SELECT
+    R.RESUME_IDX,
+    U.USER_NAME,
+    RESUME_TITLE,
+    EB_NAME,
+    ED.EDU_NAME,
+    S.SKILL_NAME,
+    C.CITY_NAME,
+    D.DUTY_NAME,
+    E.EMP_NAME,
+    RC.CAREER_CNAME,
+    RC.CAREER_SDATE,
+    RC.CAREER_EDATE,
+    RC.CAREER_DESCRIPTION,
+    COVER_LETTER, 
+    RESUME_HIT, 
+    RESUME_CDATE, 
+    RESUME_FDATE
+	FROM
+	    RESUME R LEFT JOIN DUTY D ON R.DUTY_ID = D.DUTY_ID
+	           LEFT JOIN CITY C ON R.CITY_ID = C.CITY_ID
+	           LEFT JOIN EMP E ON R.EMP_ID = E.EMP_ID
+	           LEFT JOIN EDU ED ON R.EDU_ID = ED.EDU_ID 
+	           LEFT JOIN USERS U ON R.USER_IDX = U.USER_IDX
+               LEFT JOIN RESUME_SKILL RS ON R.RESUME_IDX = RS.RESUME_IDX
+               LEFT JOIN SKILL S ON RS.SKILL_ID = S.SKILL_ID
+               LEFT JOIN RESUME_CAREER RC ON R.RESUME_IDX = RC.RESUME_IDX; 
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 	</select>
 </mapper>
 
 

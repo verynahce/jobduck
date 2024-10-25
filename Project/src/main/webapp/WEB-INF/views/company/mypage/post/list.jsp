@@ -59,9 +59,6 @@
    margin-right:10px;
    
  }
- .img {
-   width:24px;
-   height:24px;}
 
  .container {
    margin-top:25px;
@@ -73,7 +70,7 @@
  
   #title {
    font-weight:550;
-   font-size:26px;
+   font-size:36px;
  }
  
  .content {
@@ -125,36 +122,27 @@
       <div class="innercontents">
       <div class="sidebar">
          <table>
-         <tr><th>개인서비스</th></tr>
+         <tr><th>기업서비스</th></tr>
          <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
+         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
+         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
          <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">
        <div>
-     	<h2 id="title">이력서 관리</h2>
+     	<h2 id="title">채용공고 관리</h2>
        </div>
        <div class="content">
         <table class="post-writebox">
          <tr>
-          <td><a href=""><img src="/images/plus.png"><br>새 이력서 작성</a></td>
+          <td><a href=""><img src="/images/plus.png"><br>새 채용 공고 작성</a></td>
          </tr>
         </table>
         <table class="post-box">
          <tr>
-          <td id="postname"><a href="">이력서 제목</a></td>
-          <td id="dots"><a href="" class="link"><img src="/images/dots.png" class="img" data-hover="/images/dots2.png"></a></td>
-         </tr>
-         <tr>
-          <td id="posteddate">2024. 10. 14</td>
-         </tr>
-        </table>
-        <table class="post-box">
-         <tr>
-          <td id="postname"><a href="">이력서 제목</a></td>
-          <td id="dots"><a href="" class="link"><img src="/images/dots.png" class="img" data-hover="/images/dots2.png"></a></td>
+          <td id="postname"><a href="">공고 제목</a></td>
+          <td id="dots"><a href=""><img src="/images/dots.png"></a></td>
          </tr>
          <tr>
           <td id="posteddate">2024. 10. 14</td>

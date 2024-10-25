@@ -69,22 +69,21 @@
    display :flex;
    flex-direction:column;
    width:100%;
-   gap:30px;
  }
  
- #title {
+ .title {
    font-weight:550;
    font-size:36px;
  }
  
  .subtitles {
-   padding-left:10px;
-   margin-top:12px;
+   margin-top:30px;
    margin-bottom:12px;
  }
  .subtitle {
    width:750px;
    border-collapse:collapse;
+   margin-top:20px;
  }
  .subtitle tr{
    border-bottom:1px solid #E0DEDE;
@@ -140,6 +139,10 @@
    font-weight:250;
    color:gray;
  }
+ 
+ .subtitle td:nth-child(4) {
+   text-align:right;
+ }
 
  .img {
    width:24px;
@@ -156,6 +159,26 @@
    font-size:19px;
  }
  
+ #postname {
+   font-size:18px;
+   font-weight:450;
+ }
+ 
+ #posteddate {
+   font-size:14px;
+   color:#B2B0B0;
+ }
+ 
+ .post-box {
+   border:1px solid #E0DEDE;
+   border-radius:10px;
+   text-align:left;
+   width:220px;
+   height:150px;
+   padding-left:15px;
+   margin-top:20px;
+ }
+ 
 </style>
 </head>
 <body>
@@ -168,33 +191,41 @@
          <tr><th>개인서비스</th></tr>
          <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
          <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/arrow2.svg" class="img">지원내역</a></td></tr>
+         <tr><td><a href="" class="active-color"><img src="/images/icon33.svg" class="img" >관심기업 / 받은제의</a></td></tr>
+         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">
        <div>
-     	<h2 id="title">지원내역</h2>
+     	<h2 class="title">관심기업</h2>
        </div>
-       <div class="content">
+         <table class="post-box">
+         <tr>
+          <td id="postname"><a href="">기업명</a></td>
+          <td id="dots"><a href=""><img src="/images/bmstar.png"></a></td>
+         </tr>
+         <tr>
+          <td id="posteddate">2024.10.14</td>
+         </tr>
+        </table>
        	<div class="subtitles">
+       	 <div>
+     	  <h2 class="title">받은제의</h2>
+         </div>
        	 <table class="subtitle">
        	  <tr>
-       	   <th>지원일</th>
+       	   <th>제의날짜</th>
        	   <th>회사명/공고제목</th>
-       	   <th>모집마감일</th>
-       	   <th colspan="2">지원현황</th>
+       	   <th colspan="2">모집마감일</th>
        	  </tr>
        	  <tr>
        	   <td>2024.05.05</td>
        	   <td><span id="coname">회사명</span><br><span id="posttitle">공고 제목</span></td>
        	   <td>~2024.06.05</td>
-       	   <td>합격/불합격</td>
-       	   <td><a href="" class="link"><img src="/images/cancel.png" class="img2" data-hover="/images/cancel2.png"></a></td>
+       	   <td><a href="" class="link"><img src="/images/applybtn.png" class="img2" data-hover="/images/applybtn2.png"></a></td>
        	  </tr>
        	 </table>
        	</div>
-       </div>
       </div>
    </div>
  </div>

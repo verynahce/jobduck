@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.prj.main.mapper.MainMapper;
+import com.prj.main.vo.CareerVo;
+import com.prj.main.vo.CityVo;
+import com.prj.main.vo.DutyVo;
+import com.prj.main.vo.EmpVo;
 import com.prj.main.vo.PostVo;
+import com.prj.main.vo.SkillVo;
 
 @RestController
 @RequestMapping("Main")
@@ -26,15 +31,21 @@ public class JopsController {
 	@RequestMapping("/Jobs/List")
 	@ResponseBody
 	public ModelAndView jobs() {
-		/*List<String> cityList = mainMapper.getCityList();
-		List<String> dutyList = mainMapper.getDutyList();
-		List<String> careerList = mainMapper.getCareerList();
-		List<String> empList = mainMapper.getEmpList();*/
-		
+		List<CityVo> 	cityList 	= mainMapper.getCityList();
+		List<DutyVo> 	dutyList 	= mainMapper.getDutyList();
+		List<CareerVo> 	careerList 	= mainMapper.getCareerList();
+		List<EmpVo> 	empList 	= mainMapper.getEmpList();
+		List<SkillVo> 	skillList 	= mainMapper.getSkillList();
+	
 		
 		List<PostVo> postList = mainMapper.getPostList();
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("postList",postList);
+		mv.addObject("cityList",cityList);
+		mv.addObject("dutyList",dutyList);
+		mv.addObject("careerList",careerList);
+		mv.addObject("empList",empList);
+		mv.addObject("skillList",skillList);
 		mv.setViewName("main/jobs/list");
 		return mv;
 	}
@@ -45,9 +56,9 @@ public class JopsController {
 	        @RequestParam(required = false, value="duty_id") String duty_id,
 	        @RequestParam(required = false, value="career_id") String career_id,
 	        @RequestParam(required = false, value="emp_id") String emp_id,
-	        @RequestParam(required = false, value="skills") String skills) {
+	        @RequestParam(required = false, value="skill_id") String skill_id) {
 	    
-	    List<PostVo> jopsFilter = mainMapper.getFilteredPosts(city_id, duty_id, career_id, emp_id, skills);
+	    List<PostVo> jopsFilter = mainMapper.getFilteredPosts(city_id, duty_id, career_id, emp_id, skill_id);
 	    
 	    System.out.println(jopsFilter);
 	    

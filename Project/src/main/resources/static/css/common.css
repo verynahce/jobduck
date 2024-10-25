@@ -32,8 +32,14 @@ a {
 /* common header ========================================================== */
 header {
   border-bottom: solid 1px #EBECF1;
+  position : fixed;
+  z-index : 999;
+  width : 100%;
+  background : #fff;
+  top : 0;
 
   & .inner {
+  	width : 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -142,8 +148,52 @@ header {
     align-items: center;
     font-size: 14px;
     color: #767676;
-  }
-}
+		
+		 }
+    }
+
+  .user-bar{
+    position : relative;
+    padding-right : 24px;
+    background : url("/images/icon/btn-down.png") no-repeat right center;
+    cursor : pointer; 
+    	& .user-login{
+     display : none;
+		 position : absolute;
+		 right : 0;
+		 width : 160px;
+		 background: #fff;
+		 border : solid 1px #EDEEF0;
+		 border-radius: 8px;
+		 overflow: hidden;
+
+		 	& li{
+		 		 padding-left : 20px;}
+		 		 
+		   &  a{
+		 			display : block;
+			 		height : 40px;
+			 		line-height: 40px;
+		 			padding-left : 30px;
+		 			background : url("/images/icon/setting.png") no-repeat left center;
+		 	}
+		 	
+		 	& li:nth-child(2) a{
+		 		background : url("/images/icon/user.png") no-repeat left center;
+		 	}
+		 	& li:nth-child(3) a{
+		 		background : url("/images/icon/logout.png") no-repeat left center;
+		 	}
+		 	
+		 	& li:not(:first-child){
+				border-top : solid 1px #EDEEF0};
+		 		 
+		 		 };
+} 		 
+		 	
+
+
+
 
 header.menu-btn-active {
   width: 100%;
@@ -160,6 +210,7 @@ header.menu-btn-active {
     top: 20%;
   }
 }
+
 
 
 /* common footer ========================================================== */
@@ -181,8 +232,12 @@ footer {
 
 
 /* home ================================================================== */
+
+main .inner{
+	margin-top : 136px
+}
+
 .main-visual {
-  margin-top: 30px;
   background: #ccc;
   height: 400px;
   border-radius: 24px;
@@ -240,7 +295,7 @@ footer {
 
   & .main-post-list {
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(4, 1fr);
     gap: 56px 36px;
     font-weight: 500;
   }
@@ -853,5 +908,17 @@ footer {
       }
       
 
+/*side & layout 통일정리 =================================================*/
+
+
+.active-color {
+  background-color:#F0F5FF;
+  color: #111 !important;
+}
+
+.innercontents {	
+	padding-top:30px; 
+
+}
 
 

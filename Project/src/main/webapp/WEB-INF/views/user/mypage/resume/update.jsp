@@ -12,10 +12,6 @@
 
 <style>
 
-main {
-
-
-}
  .innercontents {
    display:flex;
      gap:30px;
@@ -79,11 +75,6 @@ main {
    margin-right:10px;
    
  }
-.active-color {
-  background-color:#EBECF1;
-  color: #111 !important;
-   
-}
 
  .container {
 

@@ -13,13 +13,14 @@ public class PostVo {
 	private String 	duty_name;
 	private String 	career_name;
 	private String 	city_name;
-	private String 	edu_name;
+	private String 	edu_name;	
+	private String  emp_name;
+	private String  skill_name;
 	private String 	post_title;
 	private String 	post_content;
 	private String 	post_Salary;
 	private int 	post_hit;
-	private String 	post_date;
+	private String 	post_ddate;
 	private String 	post_cdate;
 	private String 	post_fdate;
-	private int[]   post_skillList;
 }

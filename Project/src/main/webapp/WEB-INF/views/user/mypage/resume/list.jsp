@@ -7,20 +7,19 @@
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
 <style>
+
  .innercontents {
    display:flex;
    gap:30px;
+
  }
  
  .sidebar {
    border :1px solid #ccc;
    width:300px;
-   height:378px;
    border-radius:15px;
    overflow:hidden;
    margin:0;
-   position:sticky;
-   top:20px;
  }
  
  .sidebar table {
@@ -62,6 +61,9 @@
    margin-right:10px;
    
  }
+ .img {
+   width:24px;
+   height:24px;}
 
  .container {
    margin-top:25px;
@@ -71,92 +73,33 @@
    width:100%;
  }
  
- .title {
+  #title {
    font-weight:550;
-   font-size:26px;
+   font-size:36px;
  }
  
- .subtitles {
-   margin-top:30px;
-   margin-bottom:12px;
- }
- .subtitle {
-   width:750px;
-   border-collapse:collapse;
-   margin-top:20px;
- }
- .subtitle tr{
-   border-bottom:1px solid #E0DEDE;
+ .content {
+   margin-top:35px;
+   display:flex;
+   gap:15px;
  }
  
- .subtitle th{
-   font-weight:400;
-   color:gray;
-   padding-top:10px;
-   padding-bottom:10px;
-   font-size:12px;
- }
- .subtitle th:nth-child(1) {
-   width:110px;
+ .post-writebox {
+   border:1px solid #E0DEDE;
+   border-radius:10px;
+   padding:45px;
    text-align:center;
+   width:220px;
+   height:150px;
  }
  
- .subtitle th:nth-child(2) {
-   width:300px;
- }
- 
- .subtitle th:nth-child(3) {
-   width:160px;
+ .post-box {
+   border:1px solid #E0DEDE;
+   border-radius:10px;
    text-align:left;
-   padding-left:30px;
- }
- .subtitle th:nth-child(4) {
-   text-align:left;
+   width:220px;
+   height:150px;
    padding-left:15px;
- }
- 
- .subtitle td {
-   padding-top:15px;
-   padding-bottom:15px;
-   line-height:0.9;
- }
- 
- .subtitle td:nth-child(1) {
-   text-align:center;
-   font-size:15px;
-   font-weight:250;
-   color:gray;
- }
- 
- .subtitle td:nth-child(2) {
-   padding-left:30px;
-   
- }
- 
- .subtitle td:nth-child(3) {
-   padding-left:18px;
-   font-size:15px;
-   font-weight:250;
-   color:gray;
- }
- 
- .subtitle td:nth-child(4) {
-   text-align:right;
- }
-
- .img {
-   width:24px;
-   height:24px;
- }
- 
- #coname {
-   color:gray;
-   font-size:14px;
- }
- 
- #posttitle {
-   font-weight:500;
-   font-size:19px;
  }
  
  #postname {
@@ -169,16 +112,12 @@
    color:#B2B0B0;
  }
  
- .post-box {
-   border:1px solid #E0DEDE;
-   border-radius:10px;
-   text-align:left;
-   width:220px;
-   height:150px;
-   padding-left:15px;
-   margin-top:20px;
+ #dots {
+   text-align:right;
+   padding-right:15px;
  }
  
+
 </style>
 </head>
 <body>
@@ -190,43 +129,41 @@
          <table>
          <tr><th>개인서비스</th></tr>
          <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
+         <tr><td><a href="" class="active-color"><img src="/images/icon22.svg" class="img">이력서</a></td></tr>
          <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
          <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">
        <div>
-     	<h2 class="title">관심기업</h2>
+     	<h2 id="title">이력서 관리</h2>
        </div>
-         <table class="post-box">
+       <div class="content">
+        <table class="post-writebox">
          <tr>
-          <td id="postname"><a href="">기업명</a></td>
-          <td id="dots"><a href=""><img src="/images/bmstar.png"></a></td>
-         </tr>
-         <tr>
-          <td id="posteddate">2024.10.14</td>
+          <td><a href=""><img src="/images/plus.png"><br>새 이력서 작성</a></td>
          </tr>
         </table>
-       	<div class="subtitles">
-       	 <div>
-     	  <h2 class="title">받은제의</h2>
-         </div>
-       	 <table class="subtitle">
-       	  <tr>
-       	   <th>제의날짜</th>
-       	   <th>회사명/공고제목</th>
-       	   <th colspan="2">모집마감일</th>
-       	  </tr>
-       	  <tr>
-       	   <td>2024.05.05</td>
-       	   <td><span id="coname">회사명</span><br><span id="posttitle">공고 제목</span></td>
-       	   <td>~2024.06.05</td>
-       	   <td><a href="" class="link"><img src="/images/applybtn.png" class="img2" data-hover="/images/applybtn2.png"></a></td>
-       	  </tr>
-       	 </table>
-       	</div>
-      </div>
+        <table class="post-box">
+         <tr>
+          <td id="postname"><a href="">이력서 제목</a></td>
+          <td id="dots"><a href="" class="link"><img src="/images/dots.png" class="img" data-hover="/images/dots2.png"></a></td>
+         </tr>
+         <tr>
+          <td id="posteddate">2024. 10. 14</td>
+         </tr>
+        </table>
+        <table class="post-box">
+         <tr>
+          <td id="postname"><a href="">이력서 제목</a></td>
+          <td id="dots"><a href="" class="link"><img src="/images/dots.png" class="img" data-hover="/images/dots2.png"></a></td>
+         </tr>
+         <tr>
+          <td id="posteddate">2024. 10. 14</td>
+         </tr>
+        </table>
+       </div>
+       </div>
    </div>
  </div>
 
@@ -237,7 +174,7 @@
     const links = document.querySelectorAll(".link");
 
     links.forEach(link => {
-        const img = link.querySelector(".img, .img2");
+        const img = link.querySelector(".img");
         const originalSrc = img.src;
         const hoverSrc = img.getAttribute("data-hover");
 

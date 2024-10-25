@@ -70,7 +70,7 @@
  
   #title {
    font-weight:550;
-   font-size:26px;
+   font-size:36px;
  }
  
  .content {
@@ -121,7 +121,7 @@
          <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
          <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
          <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="" class="active-color"><img src="/images/arrow2.svg" class="img">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">

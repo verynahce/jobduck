@@ -11,11 +11,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-
-main {
-
-
-}
  .innercontents {
    display:flex;
      gap:30px;
@@ -79,18 +74,12 @@ main {
    margin-right:10px;
    
  }
-/*사이드바 색 고정*/
-.active-color {
-  background-color:#EBECF1;
-  color: #111 !important;
-   
-} 
  .container {
 
      width:  100%;
      display:flex;
       flex-direction: column; 
-    justify-content: center;
+      justify-content: center;
  }
  
   .contain-body {

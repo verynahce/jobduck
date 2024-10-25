@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("Main/Comunity/Review")
+@RequestMapping("Main/Review")
 public class ReviewController {
 	
 	/* review 관련 */
@@ -14,7 +14,7 @@ public class ReviewController {
 	public ModelAndView list() {
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("main/comunity/review/list");
+		mv.setViewName("main/review/list");
 		return mv;
 	}
 	
@@ -22,7 +22,7 @@ public class ReviewController {
 	public ModelAndView view() {
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("main/comunity/review/view");
+		mv.setViewName("main/review/view");
 		return mv;
 	}
 	

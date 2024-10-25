@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CityVo {
-	private int 	city_id;
-	private String  city_name;
+public class SkillVo {
+	private int 	skill_id;
+	private String  skill_name;
 }

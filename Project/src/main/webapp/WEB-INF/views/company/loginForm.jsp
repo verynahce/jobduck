@@ -19,7 +19,7 @@
             <li><a href="/User/LoginForm">개인회원</a></li>
             <li class="active"><a href="/Company/LoginForm">기업회원</a></li>
           </ul>
-          <form>
+          <form action="/Company/Register" method="POST">
           <ul class="login-input">
             <li><input type="text" name="company_id" placeholder="아이디"></li>
             <li><input type="text" name="company_pw" placeholder="비밀번호"></li>

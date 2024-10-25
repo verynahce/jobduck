@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,38 +21,16 @@
          <div class="main-post">
            <h3>오늘의 추천공고</h3>
            <div class="main-post-list">
-             <div class="post-card">
-                 <ul>
-                   <li class="post-card-img">기업로고/직무이미지</li>
-                   <li class="post-card-company">기업이름</li>
-                   <li class="post-card-title">채용공고 제목</li>
-                   <li class="post-card-info">경력, 직무, 기술스택 등</li>
-                 </ul>
-             </div>
-             <div class="post-card">
-                 <ul>
-                   <li class="post-card-img">기업로고/직무이미지</li>
-                   <li class="post-card-company">기업이름</li>
-                   <li class="post-card-title">채용공고 제목</li>
-                   <li class="post-card-info">경력, 직무, 기술스택 등</li>
-                 </ul>
-             </div>
-             <div class="post-card">
-                 <ul>
-                   <li class="post-card-img">기업로고/직무이미지</li>
-                   <li class="post-card-company">기업이름</li>
-                   <li class="post-card-title">채용공고 제목</li>
-                   <li class="post-card-info">경력, 직무, 기술스택 등</li>
-                 </ul>
-             </div>
-             <div class="post-card">
-                 <ul>
-                   <li class="post-card-img">기업로고/직무이미지</li>
-                   <li class="post-card-company">기업이름</li>
-                   <li class="post-card-title">채용공고 제목</li>
-                   <li class="post-card-info">경력, 직무, 기술스택 등</li>
-                 </ul>
-             </div>
+						<c:forEach var="card" items="${postList}">
+          	<div class="post-card">
+                <ul>
+                  <li class="post-card-img"><a href="#">기업로고/직무이미지</a></li>
+                  <li class="post-card-company">${card.company_name}</li>
+                  <li class="post-card-title"><a href="#">${card.post_title}</a></li>
+                  <li class="post-card-info">${card.city_name}, ${card.duty_name}, 기술스택 등</li>
+                </ul>
+              </div>
+          </c:forEach>
            </div>
          </div>
        </div>

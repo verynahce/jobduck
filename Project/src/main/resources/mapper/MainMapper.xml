@@ -127,15 +127,7 @@
 	           LEFT JOIN USERS U ON R.USER_IDX = U.USER_IDX
                LEFT JOIN RESUME_SKILL RS ON R.RESUME_IDX = RS.RESUME_IDX
                LEFT JOIN SKILL S ON RS.SKILL_ID = S.SKILL_ID
-               LEFT JOIN RESUME_CAREER RC ON R.RESUME_IDX = RC.RESUME_IDX; 
- 		
- 		
- 		
- 		
- 		
- 		
- 		
- 		
+               LEFT JOIN RESUME_CAREER RC ON R.RESUME_IDX = RC.RESUME_IDX
  	</select>
 </mapper>
 

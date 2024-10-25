@@ -17,6 +17,7 @@ import com.prj.main.vo.CityVo;
 import com.prj.main.vo.DutyVo;
 import com.prj.main.vo.EmpVo;
 import com.prj.main.vo.PostVo;
+import com.prj.main.vo.ResumeVo;
 import com.prj.main.vo.SkillVo;
 
 @RestController
@@ -38,9 +39,9 @@ public class JopsController {
 		List<SkillVo> 	skillList 	= mainMapper.getSkillList();
 	
 		
-		List<PostVo> postList = mainMapper.getPostList();
+		List<ResumeVo> resumeList = mainMapper.getResumeList();
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("postList",postList);
+		mv.addObject("postList",resumeList);
 		mv.addObject("cityList",cityList);
 		mv.addObject("dutyList",dutyList);
 		mv.addObject("careerList",careerList);

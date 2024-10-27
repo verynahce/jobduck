@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/common.js" defer ></script>
+<script src="/js/header.js" defer ></script>
 
 <style>
 /*오버레이*/
@@ -375,27 +376,34 @@ cursor: pointer;
 </head>
 <body>
 
+<%@include file="/WEB-INF/include/header.jsp" %>
 <div class="overlay">  
+<c:choose>
+  <c:when test="${not empty resumeVo }">
  <div class="support"> 
-   <div class="s-header">
+  	<div class="s-header">
       <h2 class="s-title">이력서</h2><span class="s-delete">x</span>
    </div>
    <hr>
-   
    <table class="s-list">
-     <tr>
-     <td><input type="checkbox"name="" id="resume_id1"> <label for="resume_id1">이력서1</label></td>
-     <td>
-     <p>2024.10.14</p>
-     </td>
-   </tr>
-  </table>
-  
+     <c:forEach var="resume" items="${resumeVo}">
+       <tr>
+	     <td><input type="checkbox"name="" id="resume_id1"> <label for="resume_id1">${resume.resume_title}</label></td>
+	     <td><p>${resume.resume_fdate}</p></td>
+   	   </tr>
+     </c:forEach>
+  </table>  
    <div class="s-btn" ><a href ="#">입사지원</a></div> 
  </div>
+  </c:when>
+  <c:otherwise>
+  	<div class="support login-alter">
+      <h2 class="s-title">로그인이 필요합니다.</h2>
+	  <a href ="/User/LoginForm">로그인</a>
+   </div>
+  </c:otherwise>
+</c:choose>
 </div>
-	<%@include file="/WEB-INF/include/header.jsp" %>
-
 <div id="job">
   <div class="inner">
     <div id="main-layout">
@@ -406,75 +414,69 @@ cursor: pointer;
         <img src="" alt=""/>
         <div id="info-content">
            <h3 id="info-title">${vo.company_name}</h3>
-           <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (5.0)</p>
-           <p>${vo.company_emil}</p>
-           <p>010-1234-1234<p/>
+           <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (${vo.tot_point })</p>
+           <p>${vo.company_email}</p>
+           <p>${vo.company_tel }<p/>
         </div>
       </div>
-
       <div class="sub-filed">
         <h4 class="sub-title">모집조건</h4>
         <hr>
         <table class="sub-topic">
         <tr>
           <td>직무</td>
-          <td>IT개발</td>
+          <td>${vo.duty_name}</td>
         </tr>
 		<tr>
 		 <td>경력</td>
-		  <td>경력무관</td>
+		  <td>${vo.career_name}</td>
 		</tr>
 		<tr>
 		  <td>최종학력</td>
-		  <td>학력무관</td>
+		  <td>${vo.edu_name}</td>
 		</tr>
 		<tr>
 		  <td>급여</td>
-		  <td>회사내규에 따름</td>
+		  <td>연봉 ${vo.post_salary}</td>
 		</tr>
-		<tr>
-		  <td colspan="2" class="sub-skill">업무스킬
-           <div class="sub-skill-layout">
-
-              <div>JAVA </div> <div>HTML/CSS </div> 
-           </div> 
-         </td>
-		</tr>
+		<c:if test="${not empty vo.skill_name}">
+			<tr>
+			  <td colspan="2" class="sub-skill">업무스킬
+	           <div class="sub-skill-layout">
+	              <div>${vo.skill_name}</div>
+	           </div> 
+	         </td>
+			</tr>		
+		</c:if>
         </table>
       </div>
-
-
-
       <div class="sub-filed">
 	    <h4 class="sub-title">근무조건</h4>
 	    <hr> 
 	    <table class="sub-topic">
 		<tr>
 	      <td>근무형태</td>
-	      <td>정규직</td>
+	      <td>${vo.emp_name}</td>
 	    </tr>
 	    <tr>
 	      <td>근무지역</td>
-	      <td>부산시 부산진구</td>
+	      <td>${vo.city_name}</td>
 	    </tr>
 	   </table>
 	  </div>
-
-
-	
       <div class="sub-filed">
 	    <h4 class="sub-title" >상세내용</h4>
 	    <hr> 
-	    <div class ="sub-content"> 나에 대해 자유롭게 설명하고 채용기회의 확률을 높이세요</div>
+	    <div class ="sub-content">${vo.post_content}</div>
 	  </div>
-	
+
 	  <div class="sub-filed">
 	    <h4 class="sub-title">접수기간</h4>
 	    <hr> 
 	    <table class="sub-topic">
 	     <tr>
 	       <td>접수기간</td>
-	       <td>정규직</td>
+	       <td>${vo.post_cdate} ~ ${vo.post_ddate}</td>
 	     </tr>
    
         <tr>
@@ -493,21 +495,17 @@ cursor: pointer;
         <hr> 
         <p>입사지원 서류에 허위사실이 발견될 경우, 채용확정 이후에도 채용이 취소될 수 있습니다<p>
      </div>
-     
-     
-     
-     
-     
+
     </main>
-    <div class="btn-back"><a href ="#">돌아가기</a></div>
+    <div class="btn-back"><a href ="List">돌아가기</a></div>
    </div>
 
     <div id="side-menu">
        <div id ="side-frame">
-         <p>최종수정일:2024.10.10<p>
+         <p>최종수정일 : ${vo.post_fdate}<p>
          <hr>
-         <h4>공고제목</h4>
-         <p id="side-hit">조회수 1 <p>
+         <h4>${vo.post_title}</h4>
+         <p id="side-hit">조회수 ${vo.post_hit}<p>
 
          <div id="side-bottom">
            <button class="btn" id="btn-apply">입사지원</button>
@@ -517,11 +515,7 @@ cursor: pointer;
          </div>
        </div>
     </div>
-        
-    
    </div>
-  
-     
  </div>
  
  <%@include file="/WEB-INF/include/footer.jsp" %>
@@ -536,25 +530,20 @@ cursor: pointer;
 				
 	})
 	$('.s-delete').on('click', function(){
-		$('.overlay').fadeOut();				
+		$('.overlay').hide();				
 	})
 	$('.s-btn').on('click', function(){
-		$('.overlay').fadeOut();				
+		$('.overlay').hide();				
+	})
+	$(".overlay").click(()=>{
+		$('.overlay').hide();	
+		$(".support").click(e=>{
+			e.stopPropagation();	
+		})
 	})
 
   })
-  
-  window.addEventListener("scroll",() => {
-	  let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
-	  if(scrollLocation > 0 ){
-	  	$("header").slideUp();		  
-	  }else{
-		  $("header").slideDown();		 
-	  }
-	  
-  })
-  
-  
+
   </script>
 </body>
 </html>

@@ -1,16 +1,16 @@
 package com.prj.users.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.prj.main.mapper.MainMapper;
+import com.prj.main.vo.ResumeListVo;
 import com.prj.users.mapper.UserMapper;
 import com.prj.users.vo.UserVo;
 
@@ -23,6 +23,9 @@ public class UserController {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private MainMapper mainMapper;
 	
 	@RequestMapping("/LoginForm")
 	public String loginForm() {
@@ -37,13 +40,12 @@ public class UserController {
 		System.out.println(response);
 		String 		 userid = requset.getParameter("user_id");
 		String 		 passwd = requset.getParameter("user_pw");
-		String 		 uri = requset.getParameter("uri");
+		String 		 uri    = requset.getParameter("uri");
 		// db 조회
 		System.out.println(uri);
 		System.out.println(passwd);
-		UserVo 		 vo     = userMapper.login(userid,passwd);
-		System.out.println(vo);
-		
+		UserVo 		       vo     = userMapper.login(userid,passwd);
+
 		HttpSession session = requset.getSession();
 		session.setAttribute("login", vo);
 		return "redirect:/";

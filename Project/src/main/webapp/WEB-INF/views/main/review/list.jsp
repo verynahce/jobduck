@@ -21,12 +21,13 @@
 		<div class="review-banner">
 
 			<div class="banner-inner">
-				<a href="#"><img src="/images/review/phone.png"></a>
+				<a href="WriteForm" class="phone"><img src="/images/review/phone.png"></a>
 				<div class="banner-title">
 					<h2>
 						현재 <span>0개</span>의 기업리뷰가 등록됐어요!
 					</h2>
 					<p>회사 리뷰 남기고, 나와 맞는 기업을 저장하세요!</p>
+					<span class="myreview"><a href="MyReview">내가 쓴 리뷰보기</a></span>
 				</div>
 			</div>
 		</div>

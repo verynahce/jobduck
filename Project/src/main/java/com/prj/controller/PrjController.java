@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.prj.main.mapper.MainMapper;
-import com.prj.main.vo.PostVo;
+import com.prj.main.vo.PostListVo;
 
 @Controller
 public class PrjController {
@@ -19,8 +19,7 @@ public class PrjController {
 	@RequestMapping("/")
 	public ModelAndView home() {
 		
-		List<PostVo> postList = mainMapper.getPostList();
-		
+		List<PostListVo> postList = mainMapper.getPostList();
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("postList",postList);
 		mv.setViewName("home");

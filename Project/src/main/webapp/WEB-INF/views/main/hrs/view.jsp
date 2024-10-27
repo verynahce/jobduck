@@ -7,7 +7,9 @@
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/common.js" defer></script>
+<script src="/js/header.js" defer></script>
 
 <style>
 /*오버레이*/
@@ -383,39 +385,50 @@ cursor: pointer;
 
 </head>
 <body >
-
-<div class="overlay">  
- <div class="support"> 
-   <div class="s-header">
-      <h2 class="s-title">채용제의</h2><span class="s-delete">x</span>
-   </div>
-   <select class="s-select">
-     <option>공고선택</option>
-     <option>공고1</option>
-     <option>공고2</option>
-     </select>
-   <textarea class="s-content" placeholder="제의내용"></textarea>
-   <div class="s-btn" ><a href ="#">채용제의</a></div> 
-
-</div>
-
-</div>
 	<%@include file="/WEB-INF/include/header.jsp" %>
+	<div class="overlay">  
+	<c:choose>
+		<c:when test="">
+			 <div class="support"> 
+			   <div class="s-header">
+			      <h2 class="s-title">채용제의</h2><span class="s-delete">x</span>
+			   </div>
+			   <select class="s-select">
+			     <option>공고선택</option>
+			     <c:forEach var="post" items="${sessionScope.post}">
+			     	<option>공고1</option>
+			     	<option>공고2</option>
+			     </c:forEach>
+			   </select>
+			   <textarea class="s-content" placeholder="제의내용"></textarea>
+			   <div class="s-btn" ><a href ="#">채용제의</a></div> 
+			</div>
+		</c:when>
+		  <c:otherwise>
+		  	<div class="support login-alter">
+		      <h2 class="s-title">로그인이 필요합니다.</h2>
+			  <a href ="/Company/LoginForm">로그인</a>
+		   </div>
+		  </c:otherwise>
+	</c:choose>	
+	
+
+</div>
 
 <div id="job">
   <div class="inner">
     <div id="main-layout">
     <main>
      
-      <h2 class="main-title">이력서 제목</h2>
+      <h2 class="main-title">${vo.resume_title}</h2>
       <hr>
       <div id="info">
         <img src="" alt=""/>
         <div id="info-content">
-           <h3 id="info-title">회원이름</h3>
-           <p>성별,나이 (태어난 연도)</p>
-           <p>email@email.com</p>
-           <p>010-1234-1234<p/>
+           <h3 id="info-title">${vo.user_name}</h3>
+           <p>${vo.user_gender},${vo.user_age}세 (${vo.user_year})</p>
+           <p>${vo.user_email}</p>
+           <p>${vo.user_tel}<p/>
         </div>
       </div>
 
@@ -425,13 +438,11 @@ cursor: pointer;
         <table class="sub-topic">
         <tr>
           <td>최종학력</td>
-          <td>00대학교 졸업</td>
+          <td>${vo.eb_name} ${vo.edu_name}</td>
         </tr>
-	
-		
         </table>
       </div>
-     
+     <c:if test="${vo.skill_name }">
       <div class="sub-filed">
         <h4 class="sub-title">업무 및 스킬</h4>
         <hr>
@@ -440,15 +451,13 @@ cursor: pointer;
 		   <td colspan="2" class="sub-skill">
            <div class="sub-skill-layout">
 
-              <div>JAVA </div> <div>HTML/CSS </div> 
+              <div>${vo.skill_name }</div>
            </div> 
          </td>
 		</tr>
         </table>
       </div>
-
-
-
+     </c:if>
 
       <div class="sub-filed">
 	    <h4 class="sub-title">희망 근무조건</h4>
@@ -456,15 +465,15 @@ cursor: pointer;
 	    <table class="sub-topic">
 		<tr>
 	      <td>희망근무지</td>
-	      <td>부산</td>
+	      <td>${vo.city_name}</td>
 	    </tr>
 	    <tr>
 	      <td>희망직무</td>
-	      <td>IT개발</td>
+	      <td>${vo.duty_name}개발</td>
 	    </tr>
 	    <tr>
 	      <td>희망고용형태</td>
-	      <td>정규직</td>
+	      <td>${vo.emp_name}</td>
 	    </tr>
 	   </table>
 	  </div>
@@ -476,16 +485,16 @@ cursor: pointer;
 	    <table class="sub-topic">
 	     <tr>
 	       <td>회사명</td>
-	       <td>회사명</td>
+	       <td>${vo.career_cname}</td>
 	     </tr>
    
         <tr>
           <td>근무기간</td>
-          <td>2024.07 ~ 2025.01</td>
+          <td>${vo.career_sdate} ~ ${vo.career_edate}</td>
         </tr>
         <tr id="sub-duty">
            <td><div>담당업무</div></td>
-           <td><div>담당업무를 작성하세요</div></td>
+           <td><div>${vo.career_description}</div></td>
         </tr>
        </table>
      </div>
@@ -494,7 +503,7 @@ cursor: pointer;
       <div class="sub-filed">
 	    <h4 class="sub-title" >자기소개서</h4>
 	    <hr> 
-	    <div class ="sub-content"> 나에 대해 자유롭게 설명하고 채용기회의 확률을 높이세요</div>
+	    <div class ="sub-content"> ${vo.cover_letter}</div>
 	  </div>
 	
 
@@ -503,15 +512,15 @@ cursor: pointer;
      
      
     </main>
-    <div class="btn-back"><a href ="#">돌아가기</a></div>
+    <div class="btn-back"><a href ="List">돌아가기</a></div>
    </div>
 
     <div id="side-menu">
        <div id ="side-frame">
-         <p>최종수정일:2024.10.10<p>
+         <p>최종수정일 : ${vo.resume_fdate}<p>
          <hr>
          <h4>이력서 제목</h4>
-         <p id="side-hit">조회수 1 <p>
+         <p id="side-hit">조회수 ${vo.resume_hit}<p>
 
          <div id="side-bottom">
            <button class="btn" id="btn-apply">채용제의</button>
@@ -551,8 +560,19 @@ cursor: pointer;
 	})
 
   })
+  
 
-
+  window.addEventListener('wheel', e => {
+  const scrollUp = e.deltaY <= 0;
+  if ( window.scrollY > 100 &&  scrollUp ||  scrollUp != 0) {
+	  $("header").slideDown();	
+  } else {
+	  $("header").slideUp();	
+  }
+});
+  
+  
+  
   
   </script>
   

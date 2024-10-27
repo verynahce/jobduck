@@ -1,5 +1,8 @@
 package com.prj.companys.controller;
 
+import java.util.List;
+
+import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.prj.companys.mapper.CompanyMapper;
 import com.prj.companys.vo.CompanyVo;
+import com.prj.main.mapper.MainMapper;
+import com.prj.main.vo.PostListVo;
 import com.prj.users.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +24,9 @@ public class CompanyController {
 	
 	@Autowired
 	private CompanyMapper companyMapper;
+	
+	@Autowired
+	private MainMapper mainMapper;
 	
 	@RequestMapping("/LoginForm")
 	public String loginForm() {
@@ -35,11 +43,15 @@ public class CompanyController {
 		String 		 userid = requset.getParameter("company_id");
 		String 		 passwd = requset.getParameter("company_pw");
 		// db 조회
-		CompanyVo 		 vo     = companyMapper.login(userid,passwd);
+		CompanyVo 		       vo     = companyMapper.login(userid,passwd);
 		System.out.println(vo);
+		List<PostListVo>       post   = mainMapper.getCompanyPost(vo.getCompany_idx());
+		System.out.println(post);
+		
 		
 		HttpSession session = requset.getSession();
 		session.setAttribute("login", vo);
+		session.setAttribute("post", post);
 		return "redirect:/";
 	}	
 	

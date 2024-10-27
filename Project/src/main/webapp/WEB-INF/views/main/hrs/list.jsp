@@ -13,95 +13,101 @@
 <body>
 	<%@include file="/WEB-INF/include/header.jsp" %>
    <main class="jobs">
-        <div class="inner">
-          <h3>인재정보</h3>
-                   <div class="filter-input">
-          	<form action="Main/JobsFilter">
-	            <select id="cityId" name="city_id">
-	              <option value="" selected="selected" style="display: none">지역</option>
-	              <option value="">전국</option>
-	              <c:forEach var="city" items="${cityList}">
-	              	<option value="${city.city_id}">${city.city_name}</option>
-	              </c:forEach>
-	            </select>
-	            <select id="dutyId" name="duty_id">
-	              <option value="" selected="selected" style="display: none" >직무</option>
-	              <option value="">직무무관</option>
-            		<c:forEach var="duty" items="${dutyList}">
-	              		<option value="${duty.duty_id}">${duty.duty_name}</option>
-	              </c:forEach>
-	            </select>
-	            <select id="careerId" name="career_id">
-	              <option value="" selected="selected" style="display: none">경력</option>
-	            <option value="">경력무관</option>
-            <c:forEach var="career" items="${careerList}">
-	              	<option value="${career.career_id}">${career.career_name}</option>
-	              </c:forEach>
-	            </select>
-		            <select id="empId" name="emp_id">
-		              <option value="" selected="selected" style="display: none">고용형태</option>
-		            <option value="">고용형태</option>
-            <c:forEach var="emp" items="${empList}">
-	              	<option value="${emp.emp_id}">${emp.emp_name}</option>
-	              </c:forEach>
-		            </select>
-							<div class="skill-div">
-		            <input
-		              class="skill-input"
-		              type="text"
-		              placeholder="기술 스택 검색"
-		            />
-		            <input type="hidden" id="skillId">
-		         <button type="reset" onclick='window.location.reload()'>초기화</button>
-		            <ul class="sub-skill">
-		            	<c:forEach var="skill" items="${skillList}">
-		            		<li data-id="${ skill.skill_id}">${skill.skill_name}</li>
-		            	</c:forEach>
-		            </ul>
-							</div>
-          	</form>
-          	 <ul class="stack-list">
-          	</ul>
-          </div>
-						<table class="main-resume">
-							<colgroup>
-								<col width="17.5%">
-								<col width="40%">
-								<col width="7.5%">
-								<col width="10%">
-								<col width="7.5%">
-								<col width="17.5%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th>이름</th>
-									<th>이력서 요약</th>
-									<th>경력</th>
-									<th>희망직무</th>
-									<th>희망근무지역</th>
-									<th>수정일</th>
-								</tr>
-							</thead>
-							<tbody>
-							<c:forEach var="resume" items="${resumeList}">
-								<tr>
-									<td>${resume.user_name}</td>
-									<td>
-										<div>${resume.resume_title}</div>
-										<ul class="stack-list">
-											<li>기술 스택</li>
-										</ul>
-									</td>
-									<td>년</td>
-									<td>IT개발자</td>
-									<td>부산</td>
-									<td>2024.10.21</td>
-								</tr>
-							</c:forEach>
-							</tbody>
-						</table>
-          </div>
-        </main>
+  <div class="inner">
+    <h3>인재정보</h3>
+    <div class="filter-input">
+      <form action="Main/JobsFilter">
+        <select id="cityId" name="city_id">
+          <option value="" selected="selected" style="display: none">지역</option>
+          <option value="">전국</option>
+          <c:forEach var="city" items="${cityList}">
+            <option value="${city.city_id}">${city.city_name}</option>
+          </c:forEach>
+        </select>
+
+        <select id="dutyId" name="duty_id">
+          <option value="" selected="selected" style="display: none">직무</option>
+          <option value="">직무무관</option>
+          <c:forEach var="duty" items="${dutyList}">
+            <option value="${duty.duty_id}">${duty.duty_name}</option>
+          </c:forEach>
+        </select>
+
+        <select id="careerId" name="career_id">
+          <option value="" selected="selected" style="display: none">경력</option>
+          <option value="">경력무관</option>
+          <c:forEach var="career" items="${careerList}">
+            <option value="${career.career_id}">${career.career_name}</option>
+          </c:forEach>
+        </select>
+
+        <select id="empId" name="emp_id">
+          <option value="" selected="selected" style="display: none">고용형태</option>
+          <option value="">고용형태</option>
+          <c:forEach var="emp" items="${empList}">
+            <option value="${emp.emp_id}">${emp.emp_name}</option>
+          </c:forEach>
+        </select>
+
+        <div class="skill-div">
+          <input class="skill-input" type="text" placeholder="기술 스택 검색" />
+          <input type="hidden" id="skillId">
+          <button type="reset" onclick='window.location.reload()'>초기화</button>
+          <ul class="sub-skill">
+            <c:forEach var="skill" items="${skillList}">
+              <li data-id="${skill.skill_id}">${skill.skill_name}</li>
+            </c:forEach>
+          </ul>
+        </div>
+      </form>
+      <ul class="stack-list"></ul>
+    </div>
+
+    <table class="main-resume">
+      <colgroup>
+        <col width="17.5%">
+        <col width="40%">
+        <col width="7.5%">
+        <col width="10%">
+        <col width="7.5%">
+        <col width="17.5%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>이력서 요약</th>
+          <th>경력</th>
+          <th>희망직무</th>
+          <th>희망근무지역</th>
+          <th>수정일</th>
+        </tr>
+      </thead>
+      <tbody class="resume-list">
+        <c:forEach var="resume" items="${resumeList}">
+          <tr>
+            <td>${resume.user_name}<span>(${resume.user_gender},${resume.user_age}세)</span></td>
+            <td>
+              <div><a href="View?resume_idx=${resume.resume_idx}">${resume.resume_title}</a></div>
+              <ul class="stack-list">
+                <c:if test="${resume.skill_name}"><li>${resume.skill_name}</li></c:if>
+              </ul>
+            </td>
+            <td>
+              <c:choose>
+                <c:when test="${resume.career_year != 0}">${resume.career_year}년</c:when>
+                <c:when test="${resume.career_month != 0}">${resume.career_month}개월</c:when>
+                <c:otherwise>신입</c:otherwise>
+              </c:choose>
+            </td>
+            <td>${resume.duty_name}</td>
+            <td>${resume.city_name}</td>
+            <td>${resume.resume_fdate}</td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+  </div>
+</main>
 	<%@include file="/WEB-INF/include/footer.jsp" %>
    <script>
   
@@ -186,26 +192,38 @@ document.addEventListener('keydown', function(event) {
 	        let dutyId = $("#dutyId").val();
 	        let careerId= $("#careerId").val();
 	        let empId = $("#empId").val();
-					let skillId = $("#skillId").val()
+			let skillId = $("#skillId").val()
 	        $.ajax({
-	            url: '/Main/JobsFilter',
+	            url: '/Main/HrsFilter',
 	            type: 'GET',
 	            dataType: 'json',
 	            data: { "city_id": cityId, "duty_id": dutyId,"career_id" : careerId ,"emp_id": empId, "skill_id" :skillId},
 	            success: function(response) {
-	                $('.main-post-list').html("");
-	                response.postList.forEach(a => {
-	                    $('.main-post-list').append(`
-	                        <div class="post-card">		
-	                            <ul>
-	                                <li class="post-card-img"><a href="#">기업로고/직무이미지</a></li>
-	                                <li class="post-card-company">`+ a.company_name +`</li>
-	                                <li class="post-card-title"><a href="#">`+a.post_title+`</a></li>
-	                                <li class="post-card-info">`+ a.city_name + `, ` + a.duty_name + `,` + a.career_name +` ,` + a.emp_name + `</li>
-	                            </ul>
-	                        </div>
-	                    `);
+	                $('.resume-list').html("");
+	                let html = "";
+	                response.resumeList.forEach(function(a) {
+	                    html += "<tr>";
+	                    html += "<td>" + a.user_name + "<span>(" + a.user_gender + ", " + a.user_age + "세)</span></td>";
+	                    html += "<td>";
+	                    html += "<div><a href='View?resume_idx=" + a.resume_idx + "'>" + a.resume_title + "</a></div>";
+	                    html += "<ul class='stack-list'>";
+	                    if (a.skill_name) {
+	                        html += "<li>" + a.skill_name + "</li>";
+	                    }
+	                    html += "</ul>";
+	                    html += "</td>";
+	                    html += "<td>";
+	                    if (a.career_year !== "0") {html += a.career_year + "년"} 
+	                    if (a.career_month !== "0") {html += a.career_month + "개월";} else {
+	                    if (a.career_year == "0" && a.career_month == "0"){html += "신입"};
+	                    }
+	                    html += "</td>";
+	                    html += "<td>" + a.duty_name + "</td>";
+	                    html += "<td>" + a.city_name + "</td>";
+	                    html += "<td>" + a.resume_fdate + "</td>";
+	                    html += "</tr>";
 	                });
+	                $('.resume-list').append(html);
 	            },
 	            error: function(jqXHR, textStatus, errorThrown) {
 	                console.error(textStatus, errorThrown);

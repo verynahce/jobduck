@@ -9,7 +9,7 @@
        <li class="header-comunity">
          <a href="/Main/Review/List">기업리뷰</a>
        </li>
-       <li><a href="#">고객센터</a></li>
+       <li><a href="/Main/Cust/Center">고객센터</a></li>
      </ul>
      <ul class="header-util">
 	     <c:choose>

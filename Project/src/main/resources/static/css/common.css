@@ -39,6 +39,39 @@ body{
 	margin-left : 4px;
 }
 
+div.login-alter{
+	height: auto;
+	padding : 40px 24px 0;
+	text-align : center;
+	& a{
+		margin : 40px auto 24px;
+		display : block;
+		width: 170px; 
+	    height: 50px; 
+	    line-height : 50px;
+	    background: #333333; 
+	    border-radius: 8px;
+	    color:white;
+	    text-align: center;
+	    cursor: pointer;}
+}
+
+
+/*side & layout 통일정리 =================================================*/
+
+
+.active-color {
+  background-color:#F0F5FF;
+  color: #111 !important;
+}
+
+.innercontents {	
+	padding-top:30px; 
+
+}
+
+
+
 /* common header ========================================================== */
 header {
   border-bottom: solid 1px #EBECF1;
@@ -718,7 +751,7 @@ footer {
     position: absolute;
     left : 50%;
     transform : translateX(-50%);
-    & a{
+    & .phone{
     	position:absolute;
     	right: 100px;
     	bottom : 0
@@ -729,6 +762,13 @@ footer {
       padding-left : 100px;
       top : 50%;
       transform : translateY(-50%);
+    
+    & .myreview{
+    	color : #555;
+    	font-weight : 500;
+    	font-size : 20px;
+    	border-bottom: solid 1px #555;
+    	};
     
      & h2 {
       font-size: 36px;
@@ -745,6 +785,7 @@ footer {
       font-size: 24px;
       color: #b4a981;
       font-weight: 500;
+      margin-bottom : 24px;
     }
   }
 }
@@ -819,7 +860,7 @@ footer {
 
       .rview {
         width: 1200px;
-        padding: 113px;
+        padding: 0 113px;
         margin: auto;
         margin-top: 100px;
         position: relative;
@@ -848,13 +889,15 @@ footer {
         & .company-image {
           width: 120px;
           height: 120px;
-          background: #ccc;
+          background: #F8F8F8;
           line-height: 120px;
           text-align: center;
+          border-radius: 16px;
         }
 
         .company-name{
           font-size: 32px;
+          font-weight: 700;
         }
   
       }
@@ -915,19 +958,189 @@ footer {
       	width: 100%;
       	height: 100%;
       }
-      
+ 
+ 
+/* CustCenter ================================================*/
 
-/*side & layout 통일정리 =================================================*/
+	.cust-center{
+		padding-top : 80px;
+		
+		& .sub-title{
+			font-size : 20px;
+			font-weight: 500;
+			color : #555;
+			margin-bottom: 12px
+		};
+		
+		& h2{
+		 font-size : 36px;
+		 font-weight: 700
+		}
+	}
 
+	.cust-info{
+		margin-left : 80px;
+		margin-bottom : 80px;
+		& li{
+			margin-bottom : 12px
+		};
+		
+		& li:first-child{
+			font-size : 24px;
+			font-weight: 700;
+			margin-bottom: 6px
+		};
+		& span{
+			font-size : 16px;
+			font-weight: 500;
+			margin-right: 24px;
+		}
+	
+	}
+	
+		
+	.qna{
+	
+		& .qna-title{
+			font-size : 24px;
+			font-weight: 700;
+		};
+		
+		& .quset-user, .quset-company{
+			padding : 0 60px 40px 60px;
+			border : solid 1px #ccc;
+			border-radius: 24px;
+			margin : 24px 0;
+			& li{
+				color : #555;
+				padding : 30px;
+				font-size : 20px;
+				font-weight: 500;
+				border-bottom: solid 1px #ccc;
+				padding : 30px;
+				cursor : pointer;
+				background: url("/images/icon/cust-down.png") no-repeat right center;
+				& p{
+					font-size : 16px;
+					margin-top: 10px;
+					font-weight: 300;
+					color : #767676;
+					display: none;
+				}
+			}
+			
+			& li:first-child{
+				color : #333;
+				font-size: 24px;
+				line-height: 100px;
+				height: 100px;
+				padding : 0 30px;
+				font-weight: 700;
+				border-bottom : solid 1px #333;
+			}
+			
+			& li:last-child {
+				border-bottom: none;
+			}
+			
+			
+		};
+	}
 
-.active-color {
-  background-color:#F0F5FF;
-  color: #111 !important;
+/* review/writeForm ========================================== */
+.review-writeFrom{
+	& tr{
+		height : 96px;
+		
+		& .point-input{
+			width : 100px;
+			text-align: center;
+			height: 50px;
+			border : solid 1px #ccc;
+			border-radius: 12px
+		}
+	}
+	
+	& .company-select{
+	    border : none;
+		border-bottom : solid 1px #ccc;
+		height: 50px;
+		width: 100%
+	}
 }
 
-.innercontents {	
-	padding-top:30px; 
-
+.writeForm-review-title{
+	width : 100%;
+	border : none;
+	border-bottom : solid 1px #333;
+	padding : 24px 0;
+	font-size : 24px
 }
 
+.review-textarea{
+	width : 100%;
+	height: 150px;
+	resize: none;
+}
+
+.write-btnForm{
+	text-align : center;
+	margin-top : 60px;
+	& .review-btn{
+	background: #585766;
+	width: 200px;
+	height: 60px;
+	line-height: 60px;
+	border : none;
+	border-radius: 8px;
+	font-size : 16px;
+	font-weight: 500;
+	color : #fff;
+}
+}
+.form-style{
+	height : 50px;
+	line-height: 50px
+}
+
+/* myReview ===================================== */
+.myReview{
+	& ul{
+		margin: 40px 0;
+		font-size: 20px;
+		padding-left : 20px;
+		
+		& li{
+		margin-bottom : 6px;
+		list-style: disc;
+		}
+		
+		& li:first-child {
+			font-weight: 500
+}
+	}
+	
+	& h2{
+	margin-bottom: 16px}
+	
+	& table{
+		width : 100%;
+		border-collapse: collapse;
+		
+		& thead tr{
+			height : 50px;
+			border-top : solid 1px #333;
+			border-bottom : solid 1px #ccc;
+			color : #555;
+		}
+		
+		& tbody tr{
+			height: 80px;
+			font-weight: 500;
+			text-align: center;
+			border-bottom : solid 1px #ccc;
+		}
+	}
+	
+}
 

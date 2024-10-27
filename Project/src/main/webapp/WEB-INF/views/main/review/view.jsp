@@ -10,6 +10,7 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/include/header.jsp"%>
+<main>
  <div class="inner rview">
       <a class="back-btn" href="List">back</a>
       <div class="review-company-profile">
@@ -17,6 +18,8 @@
         <div class="company-info">
           <p class="company-name">기업이름</p>
           <p><span class="total">5.0</span><span class="duty">산업군</span></p>
+		  <p>Tel</p>
+		  <p>Email</p>
         </div>
       </div>
       <table class="review-table">
@@ -41,7 +44,7 @@
           <td class="point">5.0</td>
         </tr>
       </table>
-      <p class="view-title">기업리뷰<span>2건</span></p>
+      <p class="view-title">기업리뷰 <span>1건</span></p>
       <div class="review-inner">
         <ul>
           <li>전직원</li>

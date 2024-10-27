@@ -26,4 +26,27 @@ public class ReviewController {
 		return mv;
 	}
 	
+	@RequestMapping("/WriteForm")
+	public ModelAndView writeForm() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("main/review/writeForm");
+		return mv;
+	}
+	
+	@RequestMapping("/UpdateForm")
+	public ModelAndView updateForm() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("main/review/updateForm");
+		return mv;
+	}
+	
+	@RequestMapping("/MyReview")
+	public ModelAndView myReview() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("main/review/myReview");
+		return mv;
+	}
 }

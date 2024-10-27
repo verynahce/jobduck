@@ -21,7 +21,7 @@
          <div class="main-post">
            <h3>오늘의 추천공고</h3>
            <div class="main-post-list">
-						<c:forEach var="card" items="${postList}">
+		   <c:forEach var="card" items="${postList}">
           	<div class="post-card">
                 <ul>
                   <li class="post-card-img"><a href="#">기업로고/직무이미지</a></li>
@@ -30,7 +30,7 @@
                   <li class="post-card-info">${card.city_name}, ${card.duty_name}, 기술스택 등</li>
                 </ul>
               </div>
-          </c:forEach>
+            </c:forEach>
            </div>
          </div>
        </div>

@@ -11,14 +11,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.prj.companys.vo.CompanyVo;
 import com.prj.main.mapper.MainMapper;
 import com.prj.main.vo.CareerVo;
 import com.prj.main.vo.CityVo;
 import com.prj.main.vo.DutyVo;
 import com.prj.main.vo.EmpVo;
-import com.prj.main.vo.PostVo;
+import com.prj.main.vo.PostListVo;
+import com.prj.main.vo.ResumeListVo;
 import com.prj.main.vo.SkillVo;
+import com.prj.users.vo.UserVo;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("Main")
@@ -39,27 +43,27 @@ public class JopsController {
 		List<SkillVo> 	skillList 	= mainMapper.getSkillList();
 	
 		
-		List<PostVo> resumeList = mainMapper.getPostList();
+		List<PostListVo> postList = mainMapper.getPostList();
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("postList",resumeList);
-		mv.addObject("cityList",cityList);
-		mv.addObject("dutyList",dutyList);
-		mv.addObject("careerList",careerList);
-		mv.addObject("empList",empList);
-		mv.addObject("skillList",skillList);
+		mv.addObject("postList",	postList);
+		mv.addObject("cityList",	cityList);
+		mv.addObject("dutyList",	dutyList);
+		mv.addObject("careerList",	careerList);
+		mv.addObject("empList",		empList);
+		mv.addObject("skillList",	skillList);
 		mv.setViewName("main/jobs/list");
 		return mv;
 	}
 	
 	@RequestMapping("/JobsFilter")
 	public Map<String, Object> filterJobs(
-	        @RequestParam(required = false, value="city_id") String city_id,
-	        @RequestParam(required = false, value="duty_id") String duty_id,
-	        @RequestParam(required = false, value="career_id") String career_id,
-	        @RequestParam(required = false, value="emp_id") String emp_id,
-	        @RequestParam(required = false, value="skill_id") String skill_id) {
+	        @RequestParam(required = false, value="city_id") 	String city_id,
+	        @RequestParam(required = false, value="duty_id") 	String duty_id,
+	        @RequestParam(required = false, value="career_id") 	String career_id,
+	        @RequestParam(required = false, value="emp_id") 	String emp_id,
+	        @RequestParam(required = false, value="skill_id") 	String skill_id) {
 	    
-	    List<PostVo> jopsFilter = mainMapper.getFilteredPosts(city_id, duty_id, career_id, emp_id, skill_id);
+	    List<PostListVo> jopsFilter = mainMapper.getFilteredPosts(city_id, duty_id, career_id, emp_id, skill_id);
 	    
 	    System.out.println(jopsFilter);
 	    
@@ -70,14 +74,16 @@ public class JopsController {
 	}
 	
 	@RequestMapping("/Jobs/View")
-	public ModelAndView view(@RequestParam(required = true, value="post_idx")  String post_idx) {
-		
-		CompanyVo cVo = mainMapper.getCompany(post_idx);
-		PostVo pvo = mainMapper.getPost(post_idx);
-		
-
+	public ModelAndView view(HttpServletRequest request,@RequestParam(required = true, value="post_idx")  String post_idx) {
+		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("cVo",cVo);
+		PostListVo vo = mainMapper.getPost(post_idx);
+		UserVo userVo = (UserVo) session.getAttribute("login");
+		if(userVo != null) {			
+			List<ResumeListVo> resumeVo = mainMapper.getUserResume(userVo.getUser_idx());
+			mv.addObject("resumeVo",resumeVo);
+		}
+		mv.addObject("vo",vo);
 		mv.setViewName("main/jobs/view");
 		return mv;
 	}

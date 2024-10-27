@@ -10,6 +10,7 @@ import com.prj.main.vo.CareerVo;
 import com.prj.main.vo.CityVo;
 import com.prj.main.vo.DutyVo;
 import com.prj.main.vo.EmpVo;
+import com.prj.main.vo.PostListVo;
 import com.prj.main.vo.PostVo;
 import com.prj.main.vo.ResumeListVo;
 import com.prj.main.vo.SkillVo;
@@ -23,16 +24,24 @@ public interface MainMapper {
 	List<SkillVo> 	getSkillList();
 	
 	
-	PostVo 			getPost(String post_idx);
-    List<PostVo> 	getPostList();
-    List<PostVo> 	getFilteredPosts(@Param("city_id")   String cityId,
-	                                 @Param("duty_id") 	 String dutyId,
-	                                 @Param("career_id") String careerId,
-	                                 @Param("emp_id") 	 String empId,
-	                                 @Param("skill_id")  String skillId);
+	PostListVo 			getPost(String post_idx);
+	List<PostListVo>	getCompanyPost(int company_idx);
+    List<PostListVo> 	getPostList();
+    List<PostListVo> 	getFilteredPosts(@Param("city_id")    String cityId,
+	                                 	 @Param("duty_id") 	  String dutyId,
+	                                 	 @Param("career_id")  String careerId,
+	                                 	 @Param("emp_id") 	  String empId,
+	                                 	 @Param("skill_id")   String skillId);
 	
-	List<ResumeListVo> getResumeList();
-	
-	CompanyVo getCompany(String post_idx);
+    
+    ResumeListVo getResume(String resume_idx);
+    List<ResumeListVo>  getUserResume(int user_idx);
+	List<ResumeListVo> 	getResumeList();
+	List<ResumeListVo> getFilteredResumes(@Param("city_id")   String cityId,
+							        	  @Param("duty_id")   String dutyId,
+							        	  @Param("career_id") String careerId,
+							        	  @Param("emp_id") 	  String empId,
+							        	  @Param("skill_id")  String skillId);
+
 	
 }

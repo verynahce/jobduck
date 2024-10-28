@@ -186,33 +186,35 @@ document.addEventListener('keydown', function(event) {
 	            success: function(response) {
 	                $('.main-post-list').html("");
 	                response.postList.forEach(a => {
-	                	console.log(a)
-	                	if(a.skill_name){
-	                		 $('.main-post-list').append(`
-	     	                        <div class="post-card">		
-	     	                            <ul>
-	     	                                <li class="post-card-img"><a href="/Main/Jobs/View?post_idx="` + a.post_idx + `">기업로고/직무이미지</a></li>
-	     	                                <li class="post-card-company">`+ a.company_name +`</li>
-	     	                                <li class="post-card-title"><a href="/Main/Jobs/View?post_idx="` + a.post_idx + `">`+a.post_title+`</a></li>
-	     	                                <li class="post-card-info">`
-	     	                                 + a.city_name + `, ` + a.duty_name + `,` + a.career_name +` ,` + a.emp_name + `<span class="postSkill">` + a.skill_name +
-	     	                                 `</span></li>
-	     	                            </ul>
-	     	                        </div>
-	     	                    `);
-	                	}else{
-	                 		 $('.main-post-list').append(`
-		     	                        <div class="post-card">		
-		     	                            <ul>
-		     	                                <li class="post-card-img"><a href="/Main/Jobs/View?post_idx="` + a.post_idx +  `">기업로고/직무이미지</a></li>
-		     	                                <li class="post-card-company">`+ a.company_name +`</li>
-		     	                                <li class="post-card-title"><a href="/Main/Jobs/View?post_idx="` + a.post_idx + `">`+a.post_title+`</a></li>
-		     	                                <li class="post-card-info">`
-		     	                                 + a.city_name + `, ` + a.duty_name + `,` + a.career_name +` ,` + a.emp_name + `</li>
-		     	                            </ul>
-		     	                        </div>
-		     	                    `);
-	                	}
+	                	console.log(a.post_idx)
+	                	if (a.skill_name) {
+						    $('.main-post-list').append(
+						        '<div class="post-card">' +
+						            '<ul>' +
+						                '<li class="post-card-img"><a href="/Main/Jobs/View?post_idx=0">기업로고/직무이미지</a></li>' +
+						                '<li class="post-card-company">' + a.company_name + '</li>' +
+						                '<li class="post-card-title"><a href="/Main/Jobs/View?post_idx=' + a.post_idx + '">' + a.post_title + '</a></li>' +
+						                '<li class="post-card-info">' +
+						                    a.city_name + ', ' + a.duty_name + ',' + a.career_name + ' ,' + a.emp_name +
+						                    '<span class="postSkill">' + a.skill_name + '</span>' +
+						                '</li>' +
+						            '</ul>' +
+						        '</div>'
+						    );
+						} else {
+						    $('.main-post-list').append(
+						        '<div class="post-card">' +
+						            '<ul>' +
+						                '<li class="post-card-img"><a href="/Main/Jobs/View?post_idx=' + a.post_idx + '">기업로고/직무이미지</a></li>' +
+						                '<li class="post-card-company">' + a.company_name + '</li>' +
+						                '<li class="post-card-title"><a href="/Main/Jobs/View?post_idx=' + a.post_idx + '">' + a.post_title + '</a></li>' +
+						                '<li class="post-card-info">' +
+						                    a.city_name + ', ' + a.duty_name + ',' + a.career_name + ' ,' + a.emp_name +
+						                '</li>' +
+						            '</ul>' +
+						        '</div>'
+						    );
+}
 	                   
 	                });
 	            },

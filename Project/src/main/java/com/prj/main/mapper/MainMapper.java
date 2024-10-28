@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.prj.companys.vo.CompanyVo;
 import com.prj.main.vo.CareerVo;
 import com.prj.main.vo.CityVo;
 import com.prj.main.vo.DutyVo;
@@ -14,7 +13,6 @@ import com.prj.main.vo.PostListVo;
 import com.prj.main.vo.ResumeListVo;
 import com.prj.main.vo.ReviewCompanyInfoVo;
 import com.prj.main.vo.ReviewCompanyListVo;
-import com.prj.main.vo.ReviewWriterVo;
 import com.prj.main.vo.SkillVo;
 import com.prj.main.vo.UserReviewVo;
 import com.prj.users.vo.ApplicationVo;
@@ -51,11 +49,16 @@ public interface MainMapper {
 	void updateResumeHit(String resume_idx);
 	List<ReviewCompanyListVo> getCompanyList();
 	void insertApply(ApplicationVo vo);
-	void insertReview(ReviewWriterVo vo);
+	void insertReview(UserReviewVo vo);
 	ReviewCompanyInfoVo getCompanyInfo(String company_idx);
 	Integer getReviewCount(String company_idx);
-	List<ReviewWriterVo> getUserReview(String company_idx);
+	List<UserReviewVo> getUserReview(String company_idx);
 	List<UserReviewVo> getMyReview(int user_idx);
+	UserReviewVo vo(int review_idx);
+	UserReviewVo getReviewData(int review_idx);
+	void updateReview(UserReviewVo vo);
+	void deleteReview(UserReviewVo vo);
+	int getCount();
 
 	
 }

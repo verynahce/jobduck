@@ -24,7 +24,7 @@
 	      	<tr>
 	          <td class="cname">기업선택</td>
 	          <td>
-	          	<input class="cname" name="review_cname" placeholder="회사명을 입력하세요.">
+	          	<input class="cname" name="company_name" placeholder="회사명을 입력하세요.">
 	          </td>
 	        </tr>
 	        <tr>
@@ -49,7 +49,7 @@
 	        </tr>
 	      </table>
 	      <div class="review-inner">
-	        <p class="review-view-title"><input class="writeForm-review-title" type="text" placeholder="리뷰 제목을 입력해주세요."></p>
+	        <p class="review-view-title"><input class="writeForm-review-title" type="text" placeholder="리뷰 제목을 입력해주세요." name="review_title"></p>
 	        <div class="review-pros">
 	          <p class="review-sub-title">장점</p>
 	          <textarea class="review-textarea" name="review_pros"></textarea>

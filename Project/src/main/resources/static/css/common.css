@@ -1204,3 +1204,11 @@ footer {
 		margin-left: 12px;
 	}
 }
+
+.review-writeFrom input.readonly{
+	border : none;
+}
+
+.review-view-title input, .review-textarea{
+	padding : 30px;
+}

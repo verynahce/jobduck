@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYpE html>
 <html>
 <head>
@@ -8,7 +10,7 @@
 <link rel="stylesheet" href="/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="/js/common.js" defer></script>
 
 <style>
 /*오버레이*/
@@ -48,7 +50,7 @@ main {
    margin:0;
    
     position: sticky; 
-    top: 20px; 
+    top: 124px; 
   
  }
  
@@ -346,37 +348,18 @@ p {
 
 
 .s-btn {
-   width: 170px; 
-   height: 50px; 
-   padding: 10px; 
-   background: #333333; 
-   border-radius: 8px;
-   color:white;
-
-   position: absolute; /* 절대 위치 설정 */
-   bottom: 50px;
-   cursor: pointer;
-   left: 50%;
-   transform: translateX(-50%);
-   
-   &:hover {
-   background-color: #4A4A4A;
-   }
-   a{ 
-    display: block;
-    text-decoration: none; 
-    color: white; 
-    width: 100%; 
-    height: 100%;
-    text-align: center;
-    line-height: 33px;
-   }   
+  position: absolute; 
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 80;
+      
    }
 .s-delete {
  color: #767676;
-font-weight: 300;
-font-size: 36px;  
-cursor: pointer;
+ font-weight: 300;
+ font-size: 36px;  
+ cursor: pointer;
 
 }
 
@@ -385,6 +368,7 @@ cursor: pointer;
 </head>
 <body>
 <div class="overlay">  
+<form action="/User/MyPage/Apply" method="POST">
  <div class="support"> 
    <div class="s-header">
       <h2 class="s-title">이력서</h2><span class="s-delete">x</span>
@@ -392,17 +376,24 @@ cursor: pointer;
    <hr>
    
    <table class="s-list">
+   
+   <c:forEach var="item" items="${resumeList}">
      <tr>
-     <td><input type="checkbox"name="" id="resume_id1"> <label for="resume_id1">이력서1</label></td>
-     <td>
-     <p>2024.10.14</p>
+     <td><input type="radio"name="resume_idx" id="${item.resume_idx}" value="${item.resume_idx}"> <label for="${item.resume_idx}">${item.resume_title}</label></td>
+     <td>     
+     <p>${item.resume_fdate}<input type="hidden" name="post_idx" value="${postVo.post_idx}"/></p>
      </td>
    </tr>
+   </c:forEach>
   </table>
   
-   <div class="s-btn" ><a href ="#">입사지원</a></div> 
- </div>
+    <div class="s-btn">
+   <input class ="btn btn-back" type="submit" value="입사지원"/>
+    </div>
+   </div>
+ </form>
 </div>
+
 <%@include file="/WEB-INF/include/header.jsp" %>
 <main>
   <div class="inner">  
@@ -419,15 +410,15 @@ cursor: pointer;
       
       <div class="container" >
       <div class="contain-body">       
-        <h2 class="main-title">채용공고제목</h2>
+        <h2 class="main-title">${postVo.post_title}</h2>
       <hr>
       <div id="info">
         <img src="" alt=""/>
         <div id="info-content">
-           <h3 id="info-title">기업이름</h3>
+           <h3 id="info-title">${postVo.company_name}</h3>
            <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (5.0)</p>
-           <p>email@email.com</p>
-           <p>010-1234-1234<p/>
+           <p>${companyVo.company_email}</p>
+           <p>${companyVo.company_tel}<p/>
         </div>
       </div>
 
@@ -437,25 +428,25 @@ cursor: pointer;
         <table class="sub-topic">
         <tr>
           <td>직무</td>
-          <td>IT개발</td>
+          <td>${postVo.duty_name}</td>
         </tr>
 		<tr>
 		 <td>경력</td>
-		  <td>경력무관</td>
+		  <td>${postVo.career_name}</td>
 		</tr>
 		<tr>
 		  <td>최종학력</td>
-		  <td>학력무관</td>
+		  <td>${postVo.edu_name}</td>
 		</tr>
 		<tr>
 		  <td>급여</td>
-		  <td>회사내규에 따름</td>
+		  <td>${postVo.post_Salary}</td>
 		</tr>
 		<tr>
 		  <td colspan="2" class="sub-skill">업무스킬
            <div class="sub-skill-layout">
 
-              <div>JAVA </div> <div>HTML/CSS </div> 
+              <div>${postVo.skill_name} </div> 
            </div> 
          </td>
 		</tr>
@@ -470,11 +461,11 @@ cursor: pointer;
 	    <table class="sub-topic">
 		<tr>
 	      <td>근무형태</td>
-	      <td>정규직</td>
+	      <td>${postVo.emp_name}</td>
 	    </tr>
 	    <tr>
 	      <td>근무지역</td>
-	      <td>부산시 부산진구</td>
+	      <td>${postVo.city_name}</td>
 	    </tr>
 	   </table>
 	  </div>
@@ -484,7 +475,7 @@ cursor: pointer;
       <div class="sub-filed">
 	    <h4 class="sub-title" >상세내용</h4>
 	    <hr> 
-	    <div class ="sub-content"> 나에 대해 자유롭게 설명하고 채용기회의 확률을 높이세요</div>
+	    <div class ="sub-content">${postVo.post_content}</div>
 	  </div>
 	
 	  <div class="sub-filed">
@@ -493,7 +484,7 @@ cursor: pointer;
 	    <table class="sub-topic">
 	     <tr>
 	       <td>접수기간</td>
-	       <td>정규직</td>
+	       <td>${postVo.post_ddate}</td>
 	     </tr>
    
         <tr>
@@ -511,15 +502,12 @@ cursor: pointer;
         <h4 class="sub-title" >유의사항</h4>
         <hr> 
         <p>입사지원 서류에 허위사실이 발견될 경우, 채용확정 이후에도 채용이 취소될 수 있습니다<p>
-     </div>
-     
+     </div>     
          
-     
-    
           </div>
           <div class="btn-layout">
               <div class="btn btn-update"><a href ="#">입사지원</a></div>
-              <div class="btn btn-back"><a href ="#">돌아가기</a></div>
+              <div class="btn btn-back"><a href ="/User/MyPage/BookMark/List?user_idx=${user_idx}">돌아가기</a></div>
          </div>
       </div>
    </div>

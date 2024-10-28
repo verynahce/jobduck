@@ -12,7 +12,7 @@ public class PostListVo {
     private int    company_idx;
     private String post_title;
     private String company_name;
-    private int    tot_point;
+    private double    tot_point;
     private String company_email;
     private String company_tel;
     private String duty_name;

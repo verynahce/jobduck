@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/common.js" defer></script>
 <style>
  .innercontents {
    display:flex;
@@ -20,7 +23,7 @@
    overflow:hidden;
    margin:0;
    position:sticky;
-   top:20px;
+   top: 124px; 
  }
  
  .sidebar table {
@@ -177,7 +180,18 @@
    height:150px;
    padding-left:15px;
    margin-top:20px;
+   box-sizing: border-box;
  }
+ 
+.boxflex {
+ display:flex;
+ justify-content: flex-start;
+ gap:14px;
+ flex-wrap: wrap; 
+ }
+ 
+/*북마크 색 변환*/
+
  
 </style>
 </head>
@@ -192,24 +206,31 @@
          <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
          <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
          <tr><td><a href="" class="active-color"><img src="/images/icon33.svg" class="img" >관심기업 / 받은제의</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img"   data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">
        <div>
      	<h2 class="title">관심기업</h2>
        </div>
+       
+        <div class="boxflex">
+        <c:forEach var="item" items="${BookmarkList}">
          <table class="post-box">
          <tr>
-          <td id="postname"><a href="">기업명</a></td>
-          <td id="dots"><a href=""><img src="/images/bmstar.png"></a></td>
+          <td id="postname"><a href="/User/MyPage/BookMark/View?post_idx=${item.post_idx}&user_idx=${item.user_idx}">${item.post_title}</a></td>
+          <td ><input type="image" src="/images/bmstar.png" class="star" alt="${item.ub_idx}"data-post="${item.post_idx}" data-user="${item.user_idx}"/></td>
          </tr>
          <tr>
-          <td id="posteddate">2024.10.14</td>
-         </tr>
+          <td id="posteddate">${item.post_ddate}</td>
+         </tr>        
         </table>
+        </c:forEach>
+        </div>
+        
        	<div class="subtitles">
        	 <div>
+       	 <br><br>
      	  <h2 class="title">받은제의</h2>
          </div>
        	 <table class="subtitle">
@@ -218,12 +239,15 @@
        	   <th>회사명/공고제목</th>
        	   <th colspan="2">모집마감일</th>
        	  </tr>
+       	  <c:forEach var="item" items="${ScoutList}">
        	  <tr>
-       	   <td>2024.05.05</td>
-       	   <td><span id="coname">회사명</span><br><span id="posttitle">공고 제목</span></td>
-       	   <td>~2024.06.05</td>
+       	   <td>${item.scout_date}</td>
+       	   <td><span id="coname">${item.company_name}</span><br>
+       	   <span id="posttitle"><a href="/User/MyPage/BookMark/View?post_idx=${item.post_idx}&user_idx=${item.user_idx}">${item.post_title}</a></span></td>
+       	   <td>${item.post_ddate}</td>
        	   <td><a href="" class="link"><img src="/images/applybtn.png" class="img2" data-hover="/images/applybtn2.png"></a></td>
        	  </tr>
+       	  </c:forEach>
        	 </table>
        	</div>
       </div>
@@ -234,6 +258,9 @@
    <%@include file="/WEB-INF/include/footer.jsp" %>
    
 <script>
+
+$(function(){
+     //사이드바 색변경
     const links = document.querySelectorAll(".link");
 
     links.forEach(link => {
@@ -249,6 +276,66 @@
             img.src = originalSrc;
         });
     });
+    
+    // 북마크 색 변환
+          let count = 0; 	 
+         const stars = $('.star'); 
+         
+        
+         for (let i = 0; i < stars.length; i++) {
+             $(stars[i]).on('click', function() {
+            	 
+            	 if (count === 0) {
+            		 $(stars[i]).attr('src', '/images/star.png');
+                     count = 1;                    
+                     console.log($(stars[i]).attr('alt'))
+                     alert('북마크가 해제되었습니다');
+                 	$.ajax({
+            			url:'/User/MyPage/BookMark/Off',
+            			data:{ub_idx: $(stars[i]).attr('alt')}
+            		}).done(function(data){           			
+            			console.log()
+            		}).fail(function(err){
+            			console.log(err)
+            		})
+                     
+                     
+                 } else {   	
+                	 $(stars[i]).attr('src', '/images/bmstar.png');
+                     count = 0;     
+                     alert('북마크 되었습니다');
+                     $.ajax({
+             			url:'/User/MyPage/BookMark/On',
+             			data:{post_idx: $(stars[i]).data('post'),
+             				  user_idx: $(stars[i]).data('user')
+             			}
+             		}).done(function(data){           			
+             			console.log()
+             		}).fail(function(err){
+             			console.log(err)
+             		})
+                     
+                     
+                     
+                 }  	 
+            	 
+             });
+         
+         
+         }
+    	
+
+    
+    
+    
+	})
+    
+    
+    
+
+
+       
+
 </script>
 
 </body>

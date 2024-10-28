@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="/js/common.js" defer></script>
 <style>
  .innercontents {
    display:flex;
@@ -185,14 +187,18 @@
        	   <th>모집마감일</th>
        	   <th colspan="2">지원현황</th>
        	  </tr>
+       	  
+       	  <c:forEach var="item" items="${applyList}">      	  
        	  <tr>
-       	   <td>2024.05.05</td>
-       	   <td><span id="coname">회사명</span><br><span id="posttitle">공고 제목</span></td>
-       	   <td>~2024.06.05</td>
-       	   <td>합격/불합격</td>
-       	   <td><a href="" class="link"><img src="/images/cancel.png" class="img2" data-hover="/images/cancel2.png"></a></td>
+       	   <td>${item.appli_date}</td>
+       	   <td ><span id="coname">${item.company_name}</span><br><span id="posttitle">${item.post_title}</span></td>
+       	   
+       	   <td>~${item.post_ddate}</td>
+       	   <td>${item.appli_status}</td>
+       	   <td><a href="/User/MyPage/ApplyList/Delete?appli_idx=${item.appli_idx}" class="link"><img src="/images/cancel.png" class="img2" data-hover="/images/cancel2.png"></a></td>
        	  </tr>
-       	 </table>
+       	  </c:forEach>
+         </table>
        	</div>
        </div>
       </div>

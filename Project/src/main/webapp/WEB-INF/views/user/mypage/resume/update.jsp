@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/common.js" defer></script>
 
 <style>
 
@@ -31,7 +32,7 @@
    margin:0;
    
     position: sticky; 
-    top: 20px; 
+    top: 124px; 
     z-index: 1000;
   
  }
@@ -355,7 +356,8 @@ textarea {
       </div>
       
       <div class="container" >
-    <form action="#" method="Post">     
+    <form action="/User/MyPage/Resume/Update" method="Post"> 
+    <input type="hidden" name="resume_idx" value="${resumeVo.resume_idx}"/>   
       <div class="contain-body">  
        
       <h2 class="main-title">이력서 제목</h2>
@@ -363,10 +365,10 @@ textarea {
       <div id="info">
         <img src="" alt=""/>
         <div id="info-content">
-           <h3 id="info-title">회원이름</h3>
-           <p>성별,나이 (태어난 연도)</p>
-           <p>email@email.com</p>
-           <p>010-1234-1234<p/>
+           <h3 id="info-title">${resumeVo.user_name}</h3>
+           <p>${resumeVo.user_gender},${resumeVo.user_age}세 (${resumeVo.user_year}년)</p>
+           <p>${resumeVo.user_email}</p>
+           <p>${resumeVo.user_tel}<p/>
         </div>
       </div>
       
@@ -378,13 +380,12 @@ textarea {
         <tr>
           <td>최종학력</td>
           <td>
-            <input class="input-size1" id="school" type="text" value="" placeholder="학교명을 입력해주세요"  />
-            <select name="" id="schoolState">
-            <option>졸업</option>
-            <option>졸업유예</option>
-            <option>휴학</option>
-            <option>재학</option>
-            <option>중퇴</option>
+            <input class="input-size1" id="school" type="text" name="eb_name"value="${resumeVo.eb_name}" placeholder="학교명을 입력해주세요"  />
+            <select name="edu_id" id="schoolState">           
+            
+            <c:forEach var="Ed" items="${Edu}">
+            <option value="${Ed.edu_id}"  <c:if test="${Ed.edu_name == resumeVo.edu_name}">selected</c:if>>${Ed.edu_name}</option>        
+            </c:forEach>
             </select>
             
           </td>
@@ -397,13 +398,22 @@ textarea {
         <h4 class="sub-title">업무 및 스킬</h4>
         <hr>
    <input class="input-size2" id="skill" type="text" value="" placeholder="스킬을 영어로 입력해주세요" list="skillOptions"/>
-         <div id='techList'></div>
+         <div id='techList'>  
+         <c:if test="${not empty resumeVo.skill_name}">
+           <div class="pSkill">
+           ${resumeVo.skill_name}
+            <p class="skillDelete"> &nbsp; x &nbsp; </p>
+            <input type="hidden" name="skill_name" value="${resumeVo.skill_name}"/>
+           </div>
+         </c:if> 
+         
+         </div>       
+         
        <datalist id ="skillOptions">
-         <option value="java"/>
-         <option value="jquery"/>
-         <option value="oracle"/>
-         <option value="html/css"/>
-         <option value="javascript"/>
+       <c:forEach var="skill" items="${Skill}">
+         <option value="${skill.skill_name}"/>
+
+         </c:forEach>
          </datalist>
       </div>
 
@@ -414,34 +424,31 @@ textarea {
 		<tr>
 	      <td>희망근무지</td>
 	      <td> 
-	         <select name="" id="region">	      	       
-            <option>지역</option>
-            <option>부산</option>
-            <option>울산</option>
-            <option>서울</option>
+	         <select name="city_id" id="region">
+	         <c:forEach var="city" items="${City}">	       
+            <option value="${city.city_id}"<c:if test="${city.city_name == resumeVo.city_name }">selected</c:if>>${city.city_name}</option>
+           
+            </c:forEach>	      
             </select>
           </td>
 	    </tr>
 	    <tr>
 	      <td>희망직무</td>
 	         <td> 
-	         <select name="" id="field">	      	       
-            <option>직무</option>
-            <option>IT개발</option>
-            <option>마케팅</option>
-            <option>서비스</option>
+	         <select name="duty_id" id="field">
+	         <c:forEach var="duty" items="${Duty}">	      	       
+            <option value="${duty.duty_id}"<c:if test="${duty.duty_name == resumeVo.duty_name }">selected</c:if>>${duty.duty_name}</option>
+            </c:forEach>
             </select>
           </td>
 	    </tr>
 	    <tr>
 	      <td>희망고용형태</td>
 	      <td> 
-	         <select name="" id="eForm">	      	       
-            <option>고용형태</option>
-            <option>정규직</option>
-            <option>계약직</option>
-            <option>파견직</option>
-            <option>프리랜서</option>
+	         <select name="emp_id" id="eForm">
+	         <c:forEach var="emp" items="${Emp}">      	       
+            <option value="${emp.emp_id}"<c:if test="${emp.emp_name == resumeVo.emp_name }">selected</c:if>>${emp.emp_name}</option>
+            </c:forEach>	
             </select>
           </td>
 	    </tr>
@@ -469,7 +476,7 @@ textarea {
       <div class="sub-filed">
 	    <h4 class="sub-title" >자기소개서</h4>
 	    <hr> 
-	    <textarea id="cover" placeholder="나에 대해 자유롭게 설명하고 채용기회의 확률을 높이세요"></textarea>
+	    <textarea name="cover_letter"id="cover" placeholder="나에 대해 자유롭게 설명하고 채용기회의 확률을 높이세요">${resumeVo.cover_letter}</textarea>
 	  </div>     
      
     
@@ -512,7 +519,7 @@ const links = document.querySelectorAll(".link");
       });
   });	 
 	 
-//신입 경력 	 
+//신입 경력 
 $('.option').click(function() {
 	        // 모든 옵션에서 active 클래스 제거
 	        $('.option').removeClass('active');
@@ -526,54 +533,70 @@ $('.option').click(function() {
     <tr class="dynamic-row">
      <td>회사명</td>
      <td>
-         <input class="input-size1" id="company" type="text" value="" placeholder="회사명 입력해주세요"/>
+         <input name="career_cname" class="input-size1 cp" id="company" type="text" value="${resumeVo.career_cname}" placeholder="회사명 입력해주세요"/>
      </td>
  </tr>
  <tr class="dynamic-row">
      <td>근무기간</td>
      <td>
-         <select name="" id="eYear">
-             <option>입사년도</option>
+         <select id="eYear">
+         <c:if test="${empty sYear}">
+         <option>입사년도</option>
+         </c:if>
              <c:forEach var="year" begin="1930" end="2024">
-                 <option value="${year}">${year}</option>
+                 <option value="${year}"<c:if test="${year == sYear}">selected</c:if>>${year}년</option>
              </c:forEach>
          </select>
-         <select name="" id="eMonth">
-             <option>입사월</option>
+         <select id="eMonth">
+         <c:if test="${empty sMonth}">
+         <option >입사월</option>
+         </c:if>        
              <c:forEach var="month" begin="1" end="12">
-                 <option value="${month}">${month}</option>
+                 <option value="${month}" <c:if test="${month == sMonth}">selected</c:if>>${month}월</option>
              </c:forEach>
          </select>
          &nbsp;-&nbsp;
-         <select name="" id="dYear">
-             <option>퇴사년도</option>
+         <select  id="dYear">
+         <c:if test="${empty eYear}">
+         <option >퇴사년도</option>
+         </c:if>   
+         
+         
              <c:forEach var="year" begin="1930" end="2024">
-                 <option value="${year}">${year}</option>
+                 <option value="${year}"<c:if test="${year == eYear}">selected</c:if>>${year}년</option>
              </c:forEach>
          </select>
-         <select name="" id="dMonth">
-             <option>퇴사월</option>
+         <select  id="dMonth">
+         <c:if test="${empty eYear}">
+         <option >퇴사월</option>
+         </c:if>
+         
              <c:forEach var="month" begin="1" end="12">
-                 <option value="${month}">${month}</option>
+                 <option value="${month}" <c:if test="${month == eMonth} ">selected</c:if>>${month}월</option>
              </c:forEach>
          </select>
      </td>
  </tr>
  <tr class="dynamic-row">
-     <td><div id="sub-duty">담당업무</div></td>
+     <td><div id="sub-duty">담당업무 </div></td>
      <td>
-         <textarea id="DutyContent" placeholder="담당업무와 업무를 적어주세요"></textarea>
+         <textarea name="career_description" id="DutyContent" placeholder="담당업무와 업무를 적어주세요">${resumeVo.career_description}</textarea>
+         <input type="hidden" name="career_sdate" id="sdate" />
+         <input type="hidden" name="career_edate" id="edate" />
      </td>
  </tr>`
  
-
+ 
  
  // input 값이 하나라도 있으면 경력이 보인다(수정 예정)
-if ( $('#company').val() !== '') {   
+if ( $('.cp').val() !== '') {  
+	 $('#experienced').addClass('active');
 	 $('.career').html(addRow); 
+	 console.log($('.cp').val())
 	 }else {
 		 
 	 }
+  
  
  //신입 경력 클릭시 
  $('#experienced').click(function(){
@@ -586,11 +609,48 @@ $('#newbie').click(function(){
 })	 
 
 
+// 경력 기간 value값 보내기
+  
+   
+    const eMonth = $('#eMonth').val();
+    const dYear = $('#dYear').val();
+    const dMonth = $('#dMonth').val();
+    const eYear = $('#eYear').val();     
 
+    const sval = eYear + eMonth
+    const eval = dYear + dMonth
+    $('#sdate').val(sval);
+    $('#edate').val(eval);
+    console.log(sval);
+    console.log(eval); 
+
+
+  $(document).on('change', '#eYear, #eMonth, #dYear, #dMonth', function() {
+   
+	  const eMonth = $('#eMonth').val();
+	    const dYear = $('#dYear').val();
+	    const dMonth = $('#dMonth').val();
+	    const eYear = $('#eYear').val(); 	    
+	    const sval = eYear + eMonth
+	    const eval = dYear + dMonth
+	    $('#sdate').val(sval);
+	    $('#edate').val(eval);
+	    console.log(sval);
+	    console.log(eval); 
+});
 
  
 //기술 스택 
-const techs = ['java', 'jquery', 'oracle', 'javascript','html/css']; 
+
+    const techs = [];
+
+    <c:forEach var="skill" items="${Skill}">
+        techs.push('${skill.skill_name}');
+    </c:forEach>
+// 미리 스택 받기
+
+
+
 
 //기술 입력 필드에서 Enter 키 입력 처리
 $('#skill').on("keyup", function(key) {
@@ -598,8 +658,9 @@ $('#skill').on("keyup", function(key) {
        const inputValue = $(this).val().trim(); 
        if (techs.includes(inputValue)) {
     	   
-    	   const newDiv = $('<div class="pSkill"></div>').text(inputValue).append('<p class="skillDelete"> &nbsp; x &nbsp; </p>'); 
-           $('#techList').append(newDiv); 
+    	   const newDiv = $('<div class="pSkill"></div>').text(inputValue).append('<p class="skillDelete"> &nbsp; x &nbsp; </p>')
+    	                                                 .append('<input type="hidden" name="skill_name" value="'+inputValue+'"/>'); 
+    	   $('#techList').append(newDiv); 
            $(this).val(''); 
        } else {
            alert('유효하지 않은 기술입니다.');

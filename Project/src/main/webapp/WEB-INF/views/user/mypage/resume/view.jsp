@@ -7,7 +7,7 @@
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
-
+<script src="/js/common.js" defer></script>
 
 <style>
 main {
@@ -32,7 +32,7 @@ main {
    margin:0;
    
     position: sticky; 
-    top: 20px; 
+    top: 124px; 
     z-index: 1000;
   
  }
@@ -295,15 +295,15 @@ p {
       
       <div class="container" >
       <div class="contain-body">       
-      <h2 class="main-title">이력서 제목</h2>
+      <h2 class="main-title">${resumeVo.resume_title}</h2>
       <hr>
       <div id="info">
         <img src="" alt=""/>
         <div id="info-content">
-           <h3 id="info-title">회원이름</h3>
-           <p>성별,나이 (태어난 연도)</p>
-           <p>email@email.com</p>
-           <p>010-1234-1234<p/>
+           <h3 id="info-title">${resumeVo.user_name}</h3>
+           <p>${resumeVo.user_gender},${resumeVo.user_age}세 (${resumeVo.user_year}년)</p>
+           <p>${resumeVo.user_email}</p>
+           <p>${resumeVo.user_tel}</p>
         </div>
       </div>
 
@@ -313,7 +313,7 @@ p {
         <table class="sub-topic">
         <tr>
           <td>최종학력</td>
-          <td>00대학교 졸업</td>
+          <td>${resumeVo.eb_name} &nbsp;${resumeVo.edu_name} </td>
         </tr>	
 		
         </table>
@@ -327,7 +327,7 @@ p {
 		   <td colspan="2" class="sub-skill">
            <div class="sub-skill-layout">
 
-              <div>JAVA </div> <div>HTML/CSS </div> 
+              <div>${resumeVo.skill_name}</div> 
            </div> 
          </td>
 		</tr>
@@ -340,15 +340,15 @@ p {
 	    <table class="sub-topic">
 		<tr>
 	      <td>희망근무지</td>
-	      <td>부산</td>
+	      <td>${resumeVo.city_name}</td>
 	    </tr>
 	    <tr>
 	      <td>희망직무</td>
-	      <td>IT개발</td>
+	      <td>${resumeVo.duty_name}</td>
 	    </tr>
 	    <tr>
 	      <td>희망고용형태</td>
-	      <td>정규직</td>
+	      <td>${resumeVo.emp_name}</td>
 	    </tr>
 	   </table>
 	  </div>	  
@@ -359,16 +359,16 @@ p {
 	    <table class="sub-topic">
 	     <tr>
 	       <td>회사명</td>
-	       <td>회사명</td>
+	       <td>${resumeVo.career_cname}</td>
 	     </tr>
    
         <tr>
           <td>근무기간</td>
-          <td>2024.07 ~ 2025.01</td>
+          <td>${resumeVo.career_sdate} ~ ${resumeVo.career_edate}</td>
         </tr>
         <tr id="sub-duty">
            <td><div>담당업무</div></td>
-           <td><div>담당업무를 작성하세요</div></td>
+           <td><div>${resumeVo.career_description}</div></td>
         </tr>
        </table>
      </div>
@@ -376,14 +376,14 @@ p {
       <div class="sub-filed">
 	    <h4 class="sub-title" >자기소개서</h4>
 	    <hr> 
-	    <div class ="sub-content"> 나에 대해 자유롭게 설명하고 채용기회의 확률을 높이세요</div>
+	    <div class ="sub-content">${resumeVo.cover_letter}</div>
 	  </div>     
      
     
           </div>
           <div class="btn-layout">
-              <div class="btn btn-update"><a href ="#">수정</a></div>
-              <div class="btn btn-back"><a href ="#">돌아가기</a></div>
+              <div class="btn btn-update"><a href ="/User/MyPage/Resume/UpdateForm?resume_idx=${resumeVo.resume_idx}">수정</a></div>
+              <div class="btn btn-back"><a href ="/User/MyPage/Resume/List?resume_idx=${resumeVo.resume_idx}">돌아가기</a></div>
          </div>
       </div>
    </div>

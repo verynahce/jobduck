@@ -35,7 +35,7 @@ justify-content: space-between;
 
 #job{
    font-family: pretendard; 
-    background-color:#F5F5F5;
+    background-color:#F0F2F5;
     padding-top:30px; 
     padding-bottom:60px; 
     position: relative; 
@@ -306,7 +306,6 @@ justify-content: space-between;
    left: 50%;
    transform: translate(-50%, -50%); 
    width: 600px; 
-   height: 580px; 
    background-color: white; 
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
    z-index: 3 
@@ -388,20 +387,17 @@ cursor: pointer;
 	<%@include file="/WEB-INF/include/header.jsp" %>
 	<div class="overlay">  
 	<c:choose>
-		<c:when test="">
+		<c:when test="${not empty postVo}">
 			 <div class="support"> 
 			   <div class="s-header">
 			      <h2 class="s-title">채용제의</h2><span class="s-delete">x</span>
 			   </div>
-			   <select class="s-select">
-			     <option>공고선택</option>
+			   <select class="s-select" name="post_idx">
 			     <c:forEach var="post" items="${sessionScope.post}">
-			     	<option>공고1</option>
-			     	<option>공고2</option>
+			     	<option value="${post.post_idx}">${post.post_title}</option>
 			     </c:forEach>
 			   </select>
-			   <textarea class="s-content" placeholder="제의내용"></textarea>
-			   <div class="s-btn" ><a href ="#">채용제의</a></div> 
+			   <div class="s-btn" ><a class="apply-val" href ="">채용제의</a></div> 
 			</div>
 		</c:when>
 		  <c:otherwise>
@@ -423,7 +419,7 @@ cursor: pointer;
       <h2 class="main-title">${vo.resume_title}</h2>
       <hr>
       <div id="info">
-        <img src="" alt=""/>
+        <img src="/images/icon/user-profile.png" alt="유저 이미지"/>
         <div id="info-content">
            <h3 id="info-title">${vo.user_name}</h3>
            <p>${vo.user_gender},${vo.user_age}세 (${vo.user_year})</p>
@@ -547,32 +543,41 @@ cursor: pointer;
   <script>
   
   $(function(){
+		$('#btn-apply').on('click', function(e){
+			$('.overlay').show();
+			
+					
+		})
+		$('.s-delete').on('click', function(){
+			$('.overlay').hide();				
+		})
+		$('.s-btn').on('click', function(){
+			$('.overlay').hide();				
+		})
+			$(".overlay").on('click', function(e) {
+     if($(e.target).closest('.support').length == 0) { 
+          $(".overlay").hide();
+     }
+	
+	})
+	
 
-	$('#btn-apply').on('click', function(){
-		$('.overlay').fadeIn();
-				
-	})
-	$('.s-delete').on('click', function(){
-		$('.overlay').fadeOut();				
-	})
-	$('.s-btn').on('click', function(){
-		$('.overlay').fadeOut();				
-	})
-
+		  window.addEventListener('wheel', e => {
+			  const scrollUp = e.deltaY <= 0;
+			  if ( window.scrollY > 100 &&  scrollUp ||  scrollUp != 0) {
+				  $("header").slideDown();	
+			  } else {
+				  $("header").slideUp();	
+			  }
+			});
   })
+		
+  $(".s-select").change(function(e){
+			console.log(e.target.value)
+			$(".apply-val").attr("href","Apply?resume_idx=${vo.resume_idx}&post_idx="+e.target.value)
+		})
   
-
-  window.addEventListener('wheel', e => {
-  const scrollUp = e.deltaY <= 0;
-  if ( window.scrollY > 100 &&  scrollUp ||  scrollUp != 0) {
-	  $("header").slideDown();	
-  } else {
-	  $("header").slideUp();	
-  }
-});
-  
-  
-  
+ 
   
   </script>
   

@@ -23,7 +23,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display:none;
-  transition: all 0.3s  ease-in;
+    transition: all 0.3s  ease-in;
  }
  /*body*/
 .inner {
@@ -33,7 +33,7 @@ justify-content: space-between;
 
 #job{
    font-family: pretendard; 
-    background-color:#F5F5F5;
+    background-color:#F0F2F5;
     padding-top:30px; 
     padding-bottom:60px; 
 
@@ -379,7 +379,7 @@ cursor: pointer;
 <%@include file="/WEB-INF/include/header.jsp" %>
 <div class="overlay">  
 <c:choose>
-  <c:when test="${not empty resumeVo }">
+  <c:when test="${not empty resumeVo}">
  <div class="support"> 
   	<div class="s-header">
       <h2 class="s-title">이력서</h2><span class="s-delete">x</span>
@@ -388,12 +388,12 @@ cursor: pointer;
    <table class="s-list">
      <c:forEach var="resume" items="${resumeVo}">
        <tr>
-	     <td><input type="checkbox"name="" id="resume_id1"> <label for="resume_id1">${resume.resume_title}</label></td>
+	     <td><input type="checkbox" name="resume_idx" id="resume_id1" class="resume-input" value="${resume.resume_idx}"> <label for="resume_id1">${resume.resume_title}</label></td>
 	     <td><p>${resume.resume_fdate}</p></td>
    	   </tr>
      </c:forEach>
   </table>  
-   <div class="s-btn" ><a href ="#">입사지원</a></div> 
+   <div class="s-btn" ><a class="apply-val" href ="">입사지원</a></div> 
  </div>
   </c:when>
   <c:otherwise>
@@ -411,7 +411,7 @@ cursor: pointer;
       <h2 class="main-title">${vo.post_title}</h2>
       <hr>
       <div id="info">
-        <img src="" alt=""/>
+        <img src="/images/icon/company-profile.png" alt="회사 이미지"/>
         <div id="info-content">
            <h3 id="info-title">${vo.company_name}</h3>
            <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (${vo.tot_point })</p>
@@ -526,7 +526,8 @@ cursor: pointer;
   $(function(){
 
 	$('#btn-apply').on('click', function(){
-		$('.overlay').fadeIn();
+		$('.overlay').show();
+		
 				
 	})
 	$('.s-delete').on('click', function(){
@@ -535,13 +536,33 @@ cursor: pointer;
 	$('.s-btn').on('click', function(){
 		$('.overlay').hide();				
 	})
-	$(".overlay").click(()=>{
-		$('.overlay').hide();	
-		$(".support").click(e=>{
-			e.stopPropagation();	
-		})
-	})
 
+
+	$(".overlay").on('click', function(e) {
+     if($(e.target).closest('.support').length == 0) { 
+          $(".overlay").hide();
+     }
+	
+	})
+	
+	
+	
+	  window.addEventListener('wheel', e => {
+		  const scrollUp = e.deltaY <= 0;
+		  if ( window.scrollY > 100 &&  scrollUp ||  scrollUp != 0) {
+			  $("header").slideDown();	
+		  } else {
+			  $("header").slideUp();	
+		  }
+		});
+	
+	
+		$(".resume-input").change(function(e){
+			console.log(e.target.value)
+			$(".apply-val").attr("href","Apply?post_idx=${vo.post_idx}&reume_idx="+e.target.value)
+			
+		})
+	
   })
 
   </script>

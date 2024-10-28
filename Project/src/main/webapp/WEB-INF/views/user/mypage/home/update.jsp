@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/common.js" defer></script>
+
 <style>
  .innercontents {
    display:flex;
@@ -172,17 +175,14 @@
    width: 200px; 
    height: 60px;   
    border-radius: 8px;
- 
-   a {
-   display: block;
-   text-decoration: none; 
-   width: 100%; 
-   height: 100%;
-   text-align: center;
-   line-height: 60px;
+   font-size: 16.1px; 
+   
  }
- }
- 
+   
+ .btn:hover {
+  background-color:#666577;
+  color: white;
+   } 
  .btn-back {
    background: #585766; 
    color: white;
@@ -216,10 +216,11 @@
       	    <span id="profileimage-update"><a href="" id="profileimage-updatebtn">프로필 변경</a></span>
       	  </div>
       	  <div class="info-content">
-      	  	<h3 id="info-title">회원이름</h3>
-      	    <p id="info-year">성별, 나이 (태어난 연도)</p>
+      	  	<h3 id="info-title">${userVo.user_name}</h3>
+      	    <p id="info-year">${userVo.user_gender}, ${age}세(${UYear}년)</p>
       	  </div>      	 
       	 </div>
+       <form action="/User/MyPage/Home/update" method="POST">
       	 <div class="info-sub">
       	  <table class="updatetitles">
       	  	<tr>
@@ -234,13 +235,13 @@
       	  </table>
       	  <table class="updateinputs">
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="아이디"></td>
+      	   	  <td class="underline"><input type="text" class="inputs"name="user_id" value="${userVo.user_id}" readonly></td>
       	  	</tr>
       	  	<tr>
-      	   	  <td class="underline"><input type="password" class="inputs" value="비밀번호 확인"></td>
+      	   	  <td class="underline"><input type="password"  name="user_pw"class="inputs passwd1" value=""placeholder="비밀번호"required></td>
       	  	</tr>
     	  	<tr>
-      	   	  <td class="underline"><input type="password" class="inputs" value="비밀번호 확인"></td>
+      	   	  <td class="underline"><input type="password" class="inputs passwd2"  value="" placeholder="비밀번호 확인"required></td>
       	  	</tr>
       	  </table>
       	 </div>
@@ -261,22 +262,25 @@
       	  </table>
       	  <table class="updateinputs">
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="이름"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="user_name"value="${userVo.user_name}" required></td>
       	  	</tr>
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="생년월일 6자리"></td>
+      	   	  <td class="underline"><input type="text" class="inputs"name="user_birthdate" value="${userVo.user_birthdate}"required></td>
       	  	</tr>
     	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="전화번호"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="user_tel"value="${userVo.user_tel}"required></td>
       	  	</tr>
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="이메일"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="user_email"value="${userVo.user_email}"required></td>
       	  	</tr>
-      	  </table>
-      	 </div>
+      	  </table>     	 
+      	</div>
+      	   
       	   <div class="btn-layout">
-             <div class="btn btn-back"><a href ="#">회원정보 수정</a></div>
+      	      <input  type="hidden"  name="user_idx"value="${userVo.user_idx}"/>
+              <input class="btn btn-back" type="submit" value="이력서저장"/>             
          </div>
+          </form>
       	</div>
        </div>
       </div>
@@ -286,6 +290,9 @@
    <%@include file="/WEB-INF/include/footer.jsp" %>
    
 <script>
+$(function() {
+	
+
     const links = document.querySelectorAll(".link");
 
     links.forEach(link => {
@@ -301,6 +308,36 @@
             img.src = originalSrc;
         });
     });
+    
+    
+
+    $('.btn-back').on('click', function() {
+      
+    	const passwd1 = $('.passwd1').val().trim()
+        const passwd2 = $('.passwd2').val().trim()
+        const serverPassword = '${userVo.user_pw}';
+        
+         if( passwd1 == '') {
+    		alert('비밀번호를 입력하세요')
+    		$('.passwd1').focus()
+    		return false
+    	}else if( passwd1 !== serverPassword) {
+    		alert('비밀번호가 틀립니다')
+    		$('.passwd1').focus()
+    		return false
+    	}else if(passwd2 !== passwd1) {
+    		alert('비밀번호가 다릅니다')
+    		$('.passwd2').focus()
+    		return false
+    	}else {
+    		return true;
+    	}
+    	
+    	
+    })
+    
+})
+ 
 </script>
 
 </body>

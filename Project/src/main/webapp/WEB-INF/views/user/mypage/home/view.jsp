@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="/js/common.js" defer></script>
 <style>
  .innercontents {
    display:flex;
@@ -145,29 +146,29 @@
          <table>
          <tr><th>개인서비스</th></tr>
          <tr><td><a href="" class="active-color"><img src="/images/myhome.svg" class="img">MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="/User/MyPage/Resume/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
+         <tr><td><a href="/User/MyPage/BookMark/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
+         <tr><td><a href="/User/MyPage/ApplyList/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">
         <div class="content">
   		    <img src="/images/profile.png" class="profile-image">
   		  <div class="text-box">
-           	<span class="highlight">회원이름</span><br>
-           	<span>성별, 나이(태어난 연도)</span><br>
-            <span>Email@email.com</span><br>
-            <span>010-1234-1234</span><br>
+           	<span class="highlight">${userVo.user_name}</span><br>
+           	<span>${userVo.user_gender}, ${age}세(${UYear}년)</span><br>
+            <span>${userVo.user_email}</span><br>
+            <span>${userVo.user_tel}</span><br>
           </div>
-            <a href=""><img src="/images/settings.png" class="settings-image"></a>
+            <a href="/User/MyPage/Home/updateForm?user_idx=${userVo.user_idx}"><img src="/images/settings.png" class="settings-image"></a>
        </div>
         <div class="content2">
          <table class="headache">
             <tr>
-               <td><a href="">0<br>이력서</a></td>
-               <td><a href="">0<br>관심기업</a></td>
-               <td><a href="">0<br>받은제의</a></td>
-               <td><a href="">0<br>지원내역</a></td>
+               <td><a href="">${CountR}<br>이력서</a></td>
+               <td><a href="">${CountB}<br>관심기업</a></td>
+               <td><a href="">${CountS}<br>받은제의</a></td>
+               <td><a href="">${CountA}<br>지원내역</a></td>
             </tr>
          </table>
         </div>

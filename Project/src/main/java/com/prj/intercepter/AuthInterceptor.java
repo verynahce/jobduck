@@ -22,7 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor {@Override
 	
 		String requestURI	= request.getRequestURI();
 		String uri = requestURI.split("/")[1];
-		System.out.println(uri);
+		System.out.println(requestURI);
 		
 		// /Users/LoginForm, // /Users/Login 를 제외
 		if(requestURI.contains("/User/Login") || 

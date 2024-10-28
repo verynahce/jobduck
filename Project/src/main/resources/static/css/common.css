@@ -57,6 +57,28 @@ div.login-alter{
 }
 
 
+.pop-bg{
+	display : none;
+	position: fixed;
+	background: rgba(0,0,0,.4);
+	top : 0;
+	left : 0;
+	width: 100%;
+	height: 100%;
+	z-index : 5;
+}
+
+.login-pop{
+	position: absolute;
+	left : 50%;
+	top : 50%;
+	width : 300px;
+	border-radius : 12px;
+	transform : translate(-50%,-50%);
+	background: #fff;
+	
+}
+
 /*side & layout 통일정리 =================================================*/
 
 
@@ -924,6 +946,7 @@ footer {
       .review-inner{
         border-bottom: solid 1px #ccc;
         padding-bottom: 40px;
+        margin-bottom : 24px;
         & ul{
           display: flex; gap: 16px; color: #767676; font-size: 16px;
           align-items: center; margin-bottom: 24px;
@@ -988,7 +1011,7 @@ footer {
 		& li:first-child{
 			font-size : 24px;
 			font-weight: 700;
-			margin-bottom: 6px
+			margin-bottom: 6px;
 		};
 		& span{
 			font-size : 16px;
@@ -1034,9 +1057,11 @@ footer {
 				font-size: 24px;
 				line-height: 100px;
 				height: 100px;
-				padding : 0 30px;
+				padding : 0 60px;
 				font-weight: 700;
 				border-bottom : solid 1px #333;
+				cursor: default;
+
 			}
 			
 			& li:last-child {
@@ -1045,6 +1070,13 @@ footer {
 			
 			
 		};
+	}
+	
+	.quset-user li:first-child{
+						background: url("/images/icon/cust-user.png") no-repeat left center;
+	}
+	.quset-company li:first-child{
+		background: url("/images/icon/cust-company.png") no-repeat left center;
 	}
 
 /* review/writeForm ========================================== */
@@ -1061,13 +1093,18 @@ footer {
 		}
 	}
 	
-	& .company-select{
+	& .cname{
 	    border : none;
-		border-bottom : solid 1px #ccc;
-		height: 50px;
-		width: 100%
+			font-size : 24px;
+			height: 50px;
+			width: 100%;
+			font-weight: 500;	
 	}
 }
+
+ .review-writeFrom input.cname
+ {border-bottom : solid 1px #ccc;
+ padding : 24px}
 
 .writeForm-review-title{
 	width : 100%;
@@ -1103,6 +1140,16 @@ footer {
 	line-height: 50px
 }
 
+.review-duty{
+	margin-left : 12px;
+}
+
+.total{
+	background: url("/images/icon/smpoint.png") no-repeat left center;
+	padding-left : 30px;
+	font-weight: 700;
+}
+
 /* myReview ===================================== */
 .myReview{
 	& ul{
@@ -1116,7 +1163,7 @@ footer {
 		}
 		
 		& li:first-child {
-			font-weight: 500
+			font-weight: 500;
 }
 	}
 	
@@ -1144,3 +1191,16 @@ footer {
 	
 }
 
+.myReview-title{
+	text-align: left
+}
+
+.myReview-btn{
+	& a{
+		display : block;
+		padding : 4px 6px;
+		border : solid 1px #ccc;
+		border-radius: 4px;
+		margin-left: 12px;
+	}
+}

@@ -17,7 +17,7 @@
 	           <li class="user-bar">${sessionScope.login.user_name }
 	              <ul class="user-login">
 	                 <li><a href="#">회원정보 수정</a></li>
-	                 <li><a href="#">마이페이지</a></li>
+	                 <li><a href="/User/MyPage/Home/View">마이페이지</a></li>
 	                 <li><a href="#">이력서</a></li>
 	                 <li><a href="/User/Logout">로그아웃</a></li>
 	              </ul>

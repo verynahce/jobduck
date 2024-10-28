@@ -24,7 +24,7 @@
 			<div class="qna">
 				<p class="qna-title">자주 묻는 질문</p>
 				<ul class="quset-user">
-					<li>개인회원</li>
+					<li class="cust-icon">개인회원</li>
 					<li class="quset">이력서는 어떻게 작성하나요?
 						<p class="answer">이력서 작성방법</p>
 					</li>
@@ -42,7 +42,7 @@
 					</li>
 				</ul>
 				<ul class="quset-company">
-					<li>개인회원</li>
+					<li class="cust-icon">기업회원</li>
 					<li class="quset">채용공고를 어떻게 등록해야 하나요?
 						<p class="answer">채용공고 작성방법</p>
 					</li>

@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="/js/common.js" defer></script>
 <style>
 
  .innercontents {
@@ -20,6 +22,8 @@
    border-radius:15px;
    overflow:hidden;
    margin:0;
+   position: sticky; 
+    top: 124px; 
  }
  
  .sidebar table {
@@ -144,24 +148,17 @@
           <td><a href=""><img src="/images/plus.png"><br>새 이력서 작성</a></td>
          </tr>
         </table>
+        <c:forEach var="item" items="${resumeList}">
         <table class="post-box">
          <tr>
-          <td id="postname"><a href="">이력서 제목</a></td>
+          <td id="postname"><a href="/User/MyPage/Resume/View?resume_idx=${item.resume_idx}">${item.resume_title}</a></td>
           <td id="dots"><a href="" class="link"><img src="/images/dots.png" class="img" data-hover="/images/dots2.png"></a></td>
          </tr>
          <tr>
-          <td id="posteddate">2024. 10. 14</td>
+          <td id="posteddate">${item.resume_cdate}</td>
          </tr>
         </table>
-        <table class="post-box">
-         <tr>
-          <td id="postname"><a href="">이력서 제목</a></td>
-          <td id="dots"><a href="" class="link"><img src="/images/dots.png" class="img" data-hover="/images/dots2.png"></a></td>
-         </tr>
-         <tr>
-          <td id="posteddate">2024. 10. 14</td>
-         </tr>
-        </table>
+        </c:forEach>
        </div>
        </div>
    </div>

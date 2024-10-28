@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.prj.main.mapper.MainMapper">  
 
+	<!-- 공용 ======================================= -->
 	<select id="getCityList">
 	SELECT *
 	FROM CITY
@@ -27,6 +28,7 @@
 	FROM SKILL
 	</select>
 	
+	<!-- 채용정보 ======================================= -->
 	<select id="getPost">
 		SELECT 
 		    P.POST_IDX,
@@ -126,6 +128,9 @@ FROM POST P LEFT JOIN COMPANYS C   ON P.COMPANY_IDX = C.COMPANY_IDX
 		 WHERE P.COMPANY_IDX = #{company_idx}
 	</select>
  
+ <update id="updatePostHit">
+	 	UPDATE POST SET POST_HIT = POST_HIT + 1 WHERE POST_IDX = #{post_idx}
+ </update>
  
  
  
@@ -177,6 +182,8 @@ FROM POST P LEFT JOIN COMPANYS C   ON P.COMPANY_IDX = C.COMPANY_IDX
 	    </if>
   </select>
   
+  
+  <!-- 인재정보 ======================================= -->
   <select id="getResume">
 	 SELECT
 	    R.RESUME_IDX,
@@ -345,6 +352,135 @@ FROM POST P LEFT JOIN COMPANYS C   ON P.COMPANY_IDX = C.COMPANY_IDX
 	      AND RS.skill_id = #{skill_id}
 	    </if>
 	</select>
+ <update id="updateResumeHit">
+	 	UPDATE RESUME SET RESUME_HIT = RESUME_HIT + 1 WHERE RESUME_IDX = #{resume_idx}
+ </update>
+	
+	
+	<select id="getCompanyList">
+		SELECT 
+			C.COMPANY_IDX,
+			C.COMPANY_NAME,
+			C.COMPANY_AREA,
+			COUNT(P.POST_IDX) COUNT
+		FROM 
+			COMPANYS C LEFT JOIN POST   P  ON C.COMPANY_IDX = P.COMPANY_IDX
+		GROUP BY 	 C.COMPANY_IDX,C.COMPANY_NAME,C.COMPANY_AREA
+	</select>
+	
+	
+	<!-- 지원현황 관련 -->
+	<insert id="insertApply">
+		INSERT INTO APPLICATION (
+    appli_idx,
+    resume_idx,
+    post_idx
+
+) VALUES (
+    (SELECT NVL(MAX(APPLI_IDX)+1,0) FROM APPLICATION),
+    #{resume_idx},
+    #{post_idx}
+)
+	</insert>
+	
+	<insert id="insertReview">
+		INSERT INTO review (
+    review_idx,
+    user_idx,
+    company_idx,
+    wc_point,
+    wlb_point,
+    cc_point,
+    po_point,
+    em_point,
+    review_pros,
+    review_con
+) VALUES (
+    (SELECT NVL(MAX(REVIEW_IDX)+1,0) FROM REVIEW),
+		#{user_idx},
+		 (SELECT COMPANY_IDX FROM COMPANYS
+							WHERE COMPANY_NAME = #{review_cname}),
+		#{wc_point},
+		#{wlb_point},
+		#{cc_point},
+		#{po_point},
+		#{em_point},
+		#{review_pros},
+    #{review_con}
+)
+	</insert>
+	
+	<select id="getCompanyInfo">
+		SELECT 
+	    C.COMPANY_IDX,
+	    C.COMPANY_NAME,
+	    C.COMPANY_TEL,
+	    C.COMPANY_EMAIL,
+	    C.COMPANY_AREA,
+	    (AVG(WC_POINT)+AVG(WLB_POINT)+AVG(CC_POINT)+AVG(PO_POINT)+AVG(EM_POINT))/5 TOT_POINT,
+	    AVG(WC_POINT) WC_POINT,
+	    AVG(WLB_POINT) WLB_POINT,
+	    AVG(CC_POINT) CC_POINT,
+	    AVG(PO_POINT) PO_POINT,
+	    AVG(EM_POINT) EM_POINT
+		FROM COMPANYS C LEFT JOIN REVIEW R ON C.COMPANY_IDX = R.COMPANY_IDX
+		WHERE C.COMPANY_IDX = #{company_idx}
+		GROUP BY   C.COMPANY_IDX,C.COMPANY_NAME,C.COMPANY_TEL,C.COMPANY_EMAIL,C.COMPANY_AREA
+	</select>
+	
+	<select id="getReviewCount">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE COMPANY_IDX = #{company_idx}
+	</select>
+	
+	<select id = "getUserReview">
+		
+	SELECT
+	    REVIEW_IDX,
+	    USER_IDX,
+	    COMPANY_IDX,
+	    (AVG(WC_POINT)+AVG(WLB_POINT)+AVG(CC_POINT)+AVG(PO_POINT)+AVG(EM_POINT))/5 TOT_POINT,
+	    REVIEW_TITLE,
+	    REVIEW_PROS,
+	    REVIEW_CON,
+	    TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') REVIEW_DATE
+	FROM
+	    REVIEW
+			WHERE COMPANY_IDX = #{company_idx}
+			GROUP BY  REVIEW_IDX,
+	    					USER_IDX,
+	    					COMPANY_IDX,
+	    					REVIEW_TITLE,
+						    REVIEW_PROS,
+						    REVIEW_CON,
+	    					REVIEW_DATE
+	</select>
+	
+	
+	<select id="getMyReview">
+		SELECT
+	    REVIEW_IDX,
+	    USER_IDX,
+	    COMPANY_IDX,
+	    (AVG(WC_POINT)+AVG(WLB_POINT)+AVG(CC_POINT)+AVG(PO_POINT)+AVG(EM_POINT))/5 TOT_POINT,
+	    REVIEW_TITLE,
+	    REVIEW_PROS,
+	    REVIEW_CON,
+	    TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') REVIEW_DATE
+	FROM
+	    REVIEW
+			WHERE USER_IDX = #{user_idx}
+			GROUP BY  REVIEW_IDX,
+	    					USER_IDX,
+	    					COMPANY_IDX,
+	    					REVIEW_TITLE,
+						    REVIEW_PROS,
+						    REVIEW_CON,
+	    					REVIEW_DATE
+	</select>
+
+	
 </mapper>
 
 

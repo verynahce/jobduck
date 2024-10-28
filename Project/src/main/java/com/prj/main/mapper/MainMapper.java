@@ -11,9 +11,13 @@ import com.prj.main.vo.CityVo;
 import com.prj.main.vo.DutyVo;
 import com.prj.main.vo.EmpVo;
 import com.prj.main.vo.PostListVo;
-import com.prj.main.vo.PostVo;
 import com.prj.main.vo.ResumeListVo;
+import com.prj.main.vo.ReviewCompanyInfoVo;
+import com.prj.main.vo.ReviewCompanyListVo;
+import com.prj.main.vo.ReviewWriterVo;
 import com.prj.main.vo.SkillVo;
+import com.prj.main.vo.UserReviewVo;
+import com.prj.users.vo.ApplicationVo;
 
 @Mapper
 public interface MainMapper {
@@ -23,7 +27,7 @@ public interface MainMapper {
 	List<EmpVo>		getEmpList();
 	List<SkillVo> 	getSkillList();
 	
-	
+	 /* 채용정보 부분 */
 	PostListVo 			getPost(String post_idx);
 	List<PostListVo>	getCompanyPost(int company_idx);
     List<PostListVo> 	getPostList();
@@ -32,8 +36,10 @@ public interface MainMapper {
 	                                 	 @Param("career_id")  String careerId,
 	                                 	 @Param("emp_id") 	  String empId,
 	                                 	 @Param("skill_id")   String skillId);
+    void updatePostHit(String post_idx);
 	
     
+    /* 인재정보 부분 */
     ResumeListVo getResume(String resume_idx);
     List<ResumeListVo>  getUserResume(int user_idx);
 	List<ResumeListVo> 	getResumeList();
@@ -42,6 +48,14 @@ public interface MainMapper {
 							        	  @Param("career_id") String careerId,
 							        	  @Param("emp_id") 	  String empId,
 							        	  @Param("skill_id")  String skillId);
+	void updateResumeHit(String resume_idx);
+	List<ReviewCompanyListVo> getCompanyList();
+	void insertApply(ApplicationVo vo);
+	void insertReview(ReviewWriterVo vo);
+	ReviewCompanyInfoVo getCompanyInfo(String company_idx);
+	Integer getReviewCount(String company_idx);
+	List<ReviewWriterVo> getUserReview(String company_idx);
+	List<UserReviewVo> getMyReview(int user_idx);
 
 	
 }

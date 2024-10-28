@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,21 +26,32 @@
 	 </ul>
      <h2>내가 쓴 리뷰</h2>
      <table>
+     <colgroup>
+     	<col width="20%">
+     	<col width="40%">
+     	<col width="20%">
+     	<col width="10%">
+     	<col width="10%">
+     </colgroup>
      	<thead>
      		<tr>
      			<th>분류</th>
      			<th>제목</th>
-     			<th>조회</th>
      			<th>작성일</th>
+     			<th></th>
+     			<th></th>
      		</tr>
      	</thead>
      	<tbody>
+     	  <c:forEach var="review" items="${myReview}">
      		<tr>
      			<td>기업리뷰</td>
-     			<td>나의 기업리뷰입니다.</td>
-     			<td>1</th>
-     			<td>2024-10-14</td>
+     			<td class="myReview-title">${review.review_title}</td>
+     			<td>${review.review_date}</td>
+     			<td class="myReview-btn"><a href="#">수정</a></td>
+     			<td class="myReview-btn"><a href="#">삭제</a></td>
      		</tr>
+     	  </c:forEach>
      	</tbody>
      </table> 	 
     </div>

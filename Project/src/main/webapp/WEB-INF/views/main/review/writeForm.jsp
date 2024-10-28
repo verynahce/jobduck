@@ -18,15 +18,13 @@
           <p class="company-name form-style">기업리뷰 작성</p>
         </div>
       </div>
-      <form action="">
-      	  <input type="hidden" name="user_idx">
+      <form action="Write">
+      	 <input type="hidden" name="user_idx" value="${sessionScope.login.user_idx}">
 	      <table class="review-table review-writeFrom">
 	      	<tr>
-	          <td>기업선택</td>
+	          <td class="cname">기업선택</td>
 	          <td>
-	          	<select class="company-select" name="company_idx">
-	          		<option>내기업</option>
-	          	</select>
+	          	<input class="cname" name="review_cname" placeholder="회사명을 입력하세요.">
 	          </td>
 	        </tr>
 	        <tr>

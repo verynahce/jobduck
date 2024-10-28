@@ -19,6 +19,7 @@ import com.prj.main.vo.EmpVo;
 import com.prj.main.vo.PostListVo;
 import com.prj.main.vo.ResumeListVo;
 import com.prj.main.vo.SkillVo;
+import com.prj.users.vo.ApplicationVo;
 import com.prj.users.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,7 +66,6 @@ public class JopsController {
 	    
 	    List<PostListVo> jopsFilter = mainMapper.getFilteredPosts(city_id, duty_id, career_id, emp_id, skill_id);
 	    
-	    System.out.println(jopsFilter);
 	    
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("postList", jopsFilter);
@@ -75,16 +75,32 @@ public class JopsController {
 	
 	@RequestMapping("/Jobs/View")
 	public ModelAndView view(HttpServletRequest request,@RequestParam(required = true, value="post_idx")  String post_idx) {
-		HttpSession session = request.getSession();
-		ModelAndView mv = new ModelAndView();
+		mainMapper.updatePostHit(post_idx);
 		PostListVo vo = mainMapper.getPost(post_idx);
-		UserVo userVo = (UserVo) session.getAttribute("login");
-		if(userVo != null) {			
-			List<ResumeListVo> resumeVo = mainMapper.getUserResume(userVo.getUser_idx());
-			mv.addObject("resumeVo",resumeVo);
+		
+		HttpSession session = request.getSession();
+		Object userObject = session.getAttribute("login");
+		ModelAndView mv = new ModelAndView();
+		if (userObject instanceof UserVo) {
+			UserVo userVo = (UserVo) session.getAttribute("login");
+			if(userVo != null ) {			
+				List<ResumeListVo> resumeVo = mainMapper.getUserResume(userVo.getUser_idx());
+				mv.addObject("resumeVo",resumeVo);
+			}	
 		}
 		mv.addObject("vo",vo);
+		mv.addObject("userObject",userObject);
 		mv.setViewName("main/jobs/view");
+		return mv;
+	}
+	
+	@RequestMapping("/Jobs/Apply")
+	public ModelAndView apply(ApplicationVo vo) {
+		System.out.println(vo);
+		mainMapper.insertApply(vo);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/Main/Jobs/View?post_idx="+vo.getResume_idx());
 		return mv;
 	}
 	

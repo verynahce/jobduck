@@ -11,13 +11,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.prj.companys.vo.CompanyVo;
 import com.prj.main.mapper.MainMapper;
 import com.prj.main.vo.CareerVo;
 import com.prj.main.vo.CityVo;
 import com.prj.main.vo.DutyVo;
 import com.prj.main.vo.EmpVo;
+import com.prj.main.vo.PostListVo;
 import com.prj.main.vo.ResumeListVo;
 import com.prj.main.vo.SkillVo;
+import com.prj.users.vo.ApplicationVo;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("Main")
@@ -38,7 +44,6 @@ public class HrsController {
 		List<SkillVo> 	skillList 	= mainMapper.getSkillList();
 		
 		List<ResumeListVo> resumeList   = mainMapper.getResumeList(); 
-		System.out.println(resumeList);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("cityList",cityList);
 		mv.addObject("dutyList",dutyList);
@@ -60,7 +65,6 @@ public class HrsController {
 	        @RequestParam(required = false, value="skill_id") 	String skill_id) {
 		
 	    List<ResumeListVo> hrsFilter = mainMapper.getFilteredResumes(city_id, duty_id, career_id, emp_id, skill_id);
-	    System.out.println(hrsFilter);
 	    
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("resumeList", hrsFilter);
@@ -73,13 +77,40 @@ public class HrsController {
 	
 	
 	@RequestMapping("/Hrs/View")
-	public ModelAndView view(@RequestParam(required = true, value="resume_idx")  String resume_idx) {
+	public ModelAndView view(HttpServletRequest request
+			,@RequestParam(required = true, value="resume_idx")  String resume_idx) {
 
+		mainMapper.updateResumeHit(resume_idx);
+		
+		HttpSession session = request.getSession();
 		ResumeListVo vo   = mainMapper.getResume(resume_idx); 
+		System.out.println("vo" + vo);
 		ModelAndView mv = new ModelAndView();
+
+		
+		Object userObject = session.getAttribute("login");
+		System.out.println(userObject);
+		if (userObject instanceof CompanyVo) {
+			CompanyVo userVo = (CompanyVo) session.getAttribute("login");
+			if(userVo != null ) {			
+				List<PostListVo> postVo = mainMapper.getCompanyPost(userVo.getCompany_idx());
+				mv.addObject("postVo",postVo);
+				System.out.println(postVo);
+			}	
+		}
 		mv.addObject("vo",vo);
+		mv.addObject("userObject",userObject);
 		mv.setViewName("main/hrs/view");
 		return mv;
+	}
+	
+	@RequestMapping("/Hrs/Apply")
+	public ModelAndView apply(ApplicationVo vo) {
+		mainMapper.insertApply(vo);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/Main/Hrs/View?resume_idx="+vo.getResume_idx());
+		return mv;
+		
 	}
 	
 	

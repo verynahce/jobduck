@@ -29,13 +29,13 @@
 						현재 <span>${count}</span>개의 기업리뷰가 등록됐어요!
 					</h2>
 					<p>회사 리뷰 남기고, 나와 맞는 기업을 저장하세요!</p>
-					<span class="myreview"><a href="MyReview" class="review-mybtn">내가 쓴 리뷰보기</a></span>
+					<span class="myreview"><a href="MyReview" class="review-mybtn">내가 쓴 리뷰관리</a></span>
 				</div>
 			</div>
 		</div>
 		<div class="inner">
 			<div class="company-list">
-				<c:forEach var="vo" items="${companyList}">
+				<c:forEach var="vo" items="${response.list}">
 					<div class="company-card">
 					<div class="company-content">
 						<div class="company-img">
@@ -51,20 +51,34 @@
 							<p>현재 채용 중 ${vo.count}건</p>
 						</div>
 					</div>
-					<a href="#"><p class="bookmark">관심기업</p></a>
+					<a href="#" class="bookmark">관심기업</a>
 				</div>
 				</c:forEach>
 			</div>
-			<div class="paging-container">
-				<ul>
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-					<li>4</li>
-					<li>5</li>
-				</ul>
-				<p>다음 ></p>			
-			</div>
+		<c:set var="startNum" value="${response.pagination.startPage}"/>
+		<c:set var="endNum" value="${response.pagination.endPage}"/>
+		<c:set var="totalpagecount" value="${response.pagination.totalPageCount}"/>
+		<div class="paging-container">
+    <ul>
+        <c:if test="${nowpage ne 1}">
+            <li class="paging-btn">
+                <a href="/Main/Review/List?nowpage=${nowpage-1}">< 이전</a>
+            </li>
+        </c:if>
+        
+        <c:forEach var="pagenum" begin="${startNum}" end="${endNum}" step="1">
+            <li class="paging-list">
+                <a href="/Main/Review/List?nowpage=${pagenum}">${pagenum}</a>
+            </li>
+        </c:forEach>
+        
+        <c:if test="${nowpage lt totalpagecount}">
+            <li class="paging-btn">
+                <a href="/Main/Review/List?nowpage=${nowpage+1}">다음 ></a>
+            </li>
+        </c:if>
+    </ul>
+</div>
 		</div>
 	</main>
 	<div class="pop-bg">
@@ -93,6 +107,8 @@
 	    			e.stopPropagation();	
 	    		})
 	    	})
+	    	
+	    	$(".paging-list").eq(${nowpage-1}).addClass("paging-active");
 	    });
 	</script>
 </body>

@@ -13,7 +13,10 @@ import com.prj.main.vo.ResumeListVo;
 import com.prj.main.vo.SkillVo;
 import com.prj.users.vo.ApplicationVo;
 import com.prj.users.vo.EduVo;
+import com.prj.users.vo.ResumeCareerVo;
+import com.prj.users.vo.ResumeSkillVo;
 import com.prj.users.vo.ResumeVo;
+import com.prj.users.vo.ScoreVo;
 import com.prj.users.vo.UserApplicationListVo;
 import com.prj.users.vo.UserBookmarkVo;
 import com.prj.users.vo.UserScoutVo;
@@ -54,17 +57,15 @@ public interface UserMapper {
 
 	List<ResumeVo> getSRList(int user_idx);
 
-	void insertApply(ApplicationVo aVO);
-
 	List<UserScoutVo> getScoutList(int user_idx);
 
 	void deleteBookmark(int ub_idx);
 
-	void insertBookmark(int post_idx, int user_idx);
+	void insertBookmark(int user_idx, int company_idx);
 
 	List<ResumeVo> getResumeList(ResumeVo resumeVo);
 
-	ResumeListVo getResumeLong(ResumeListVo resumeListVo);
+	ResumeListVo getResumeLong(int resume_idx);
 
 	List<EduVo> getEduList();
 
@@ -78,12 +79,48 @@ public interface UserMapper {
 
 	void updateResume(ResumeVo resumeVo);
 
-	void updateSkill(int resume_idx, String skill_name);
+	void updateSkill(String skill_name, int resume_idx);
 
 	void updateCareer(String career_cname, String career_description, String career_sdate, String career_edate);
 
 	void updateCareer(String career_cname, String career_description, String career_sdate, String career_edate,
 			int resume_idx);
+
+	void insertResume(ResumeVo resumeVo);
+
+	void insertSkill(int user_idx, String skill_name);
+
+	ResumeVo getResumeIdx(int user_idx);
+
+	void insertCarrer(int user_idx, String career_cname, String career_description, String career_sdate,
+			String career_edate);
+
+	void deleteResume(int resume_idx);
+
+	void deleteSkill(int resume_idx);
+
+	void deleteCarrer(int resume_idx);
+
+	ResumeSkillVo getSkill(ResumeVo resumeVo);
+
+	void insertSkill2(int resume_idx, String skill_name);
+
+	ResumeCareerVo getCarrer(ResumeVo resumeVo);
+
+	void insertCareer2(int resume_idx, String career_cname, String career_description, String career_sdate,
+			String career_edate);
+
+	void deleteScope(int scout_idx);
+
+	ScoreVo getReviewScore(int post_idx);
+
+	ApplicationVo getApplyConfig(int post_idx, int resume_idx);
+
+	void insertApply(ApplicationVo aVO);
+
+
+
+
 
 	
 

@@ -7,11 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserBookmarkVo {
-
-	private int ub_idx;
-	private int user_idx;
-	private int company_idx;
-	private String company_area;
-	private String company_name;
+public class ScoreVo {	
+	
+	private String score;
 }

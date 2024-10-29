@@ -30,16 +30,16 @@
               <input type="text" name="company_area" placeholder="산업군">
             </li>
             <li>
-              <input type="text" name="company_brnum" placeholder="사업자등록번호">
+              <input type="text" name="company_brnum" maxlength="12" placeholder="사업자등록번호" oninput="formatBRNumber(this)">
             </li>
           </ul>
           <ul class="login-input">
             <li><input type="text" name="rep_name" placeholder="담당자 이름"></li>
             <li>
-              <input type="text" name="company_tel" placeholder="연락처">
+              <input type="text" name="company_tel" maxlength="13" placeholder="연락처" oninput="formatPhoneNumber(this)">
             </li>
             <li>
-              <input type="text" name="company_email" placeholder="담당자 이메일">
+              <input type="email" name="company_email" placeholder="담당자 이메일">
             </li>
           </ul>
           <div class="login-btn">
@@ -49,5 +49,40 @@
           </form>
         </div>
       </main>
+      <script>
+	      function formatPhoneNumber(input) {
+	    	    // 숫자만 허용
+	    	    let cleanedInput = input.value.replace(/[^0-9]/g, '');
+	
+	    	    // 010으로 시작하는지 확인
+	    	    if (cleanedInput.startsWith('010')) {
+	    	        if (cleanedInput.length > 7) {
+	    	            input.value = cleanedInput.replace(/(\d{3})(\d{4})(\d{1})/, '$1-$2-$3');
+	    	            
+	    	        } else if(cleanedInput.length > 3){
+	    	        	 input.value = cleanedInput.replace(/(\d{3})(\d{1})/, '$1-$2');
+	    	        } else {
+	    	            input.value = cleanedInput; // 11자리가 아닐 경우 하이픈 추가하지 않음
+	    	        }
+	    	    }
+	    	  }
+      
+      function formatBRNumber(input) {
+  	    // 숫자만 허용
+  	    let cleanedInput = input.value.replace(/[^0-9]/g, '');
+
+  	    // 010으로 시작하는지 확인
+
+  	        // 11자리 숫자일 경우
+  	        if (cleanedInput.length > 5) {
+  	            input.value = cleanedInput.replace(/(\d{3})(\d{2})(\d{1})/, '$1-$2-$3');
+  	            
+  	        } else if(cleanedInput.length > 3){
+  	        	 input.value = cleanedInput.replace(/(\d{3})(\d{1})/, '$1-$2');
+  	        } else {
+  	            input.value = cleanedInput; // 11자리가 아닐 경우 하이픈 추가하지 않음
+  	        }
+  	    } 
+			</script>
 </body>
 </html>

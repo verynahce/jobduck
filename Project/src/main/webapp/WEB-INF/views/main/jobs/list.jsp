@@ -134,6 +134,16 @@ $skillInput.addEventListener("input", function(e) {
     $skillUl.innerHTML = html;
 });
 
+	$("main").on('click', function(e) {
+	     if($(e.target).closest($skillInput).length == 0) { 
+	          $($skillUl).hide()
+	     }
+		
+		})
+  
+  
+  
+  
 // 스킬 목록에서 클릭 이벤트 처리
 $skillUl.addEventListener("click", function(e) {
     if (e.target.tagName === 'LI') {

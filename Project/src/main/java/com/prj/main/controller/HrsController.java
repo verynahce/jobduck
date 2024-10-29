@@ -44,6 +44,7 @@ public class HrsController {
 		List<SkillVo> 	skillList 	= mainMapper.getSkillList();
 		
 		List<ResumeListVo> resumeList   = mainMapper.getResumeList(); 
+		System.out.println(resumeList);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("cityList",cityList);
 		mv.addObject("dutyList",dutyList);
@@ -84,12 +85,10 @@ public class HrsController {
 		
 		HttpSession session = request.getSession();
 		ResumeListVo vo   = mainMapper.getResume(resume_idx); 
-		System.out.println("vo" + vo);
 		ModelAndView mv = new ModelAndView();
 
 		
 		Object userObject = session.getAttribute("login");
-		System.out.println(userObject);
 		if (userObject instanceof CompanyVo) {
 			CompanyVo userVo = (CompanyVo) session.getAttribute("login");
 			if(userVo != null ) {			
@@ -106,6 +105,7 @@ public class HrsController {
 	
 	@RequestMapping("/Hrs/Apply")
 	public ModelAndView apply(ApplicationVo vo) {
+		System.out.println(vo);
 		mainMapper.insertApply(vo);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/Main/Hrs/View?resume_idx="+vo.getResume_idx());

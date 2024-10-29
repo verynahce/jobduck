@@ -14,7 +14,7 @@ public class ResumeCareerVo {
 	private int	 resume_idx;
 	private String career_cname;
 	private String career_description;
-	private int career_sdate;
-	private int career_edate;
+	private String career_sdate;
+	private String career_edate;
 	
 }

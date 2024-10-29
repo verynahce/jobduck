@@ -35,7 +35,6 @@
 		    P.COMPANY_IDX,
 		    P.POST_TITLE,
 		    C.COMPANY_NAME,
-		     (SELECT (AVG(WC_POINT)+AVG(WLB_POINT)+AVG(CC_POINT)+AVG(PO_POINT)+AVG(EM_POINT))/5 FROM REVIEW) TOT_POINT,
 		    C.COMPANY_EMAIL,
 		    C.COMPANY_TEL,
 		    D.DUTY_NAME,
@@ -79,7 +78,13 @@
                      POST_CDATE,
                      POST_FDATE
 	</select>
+	<select id="getTotPoint">
+	  SELECT (AVG(WC_POINT)+AVG(WLB_POINT)+AVG(CC_POINT)+AVG(PO_POINT)+AVG(EM_POINT))/5 FROM REVIEW R JOIN POST P ON R.COMPANY_IDX = P.COMPANY_IDX
+	 WHERE P.POST_IDX = #{post_idx}
+	 
+	 
 	
+	</select>
 	
   	<select id="getPostList">
 	SELECT 
@@ -295,7 +300,7 @@
 	</select>
 
  	<select id="getResumeList">
-      SELECT
+  SELECT
 	    R.RESUME_IDX,
 	    U.USER_NAME,
 	    TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(U.USER_BIRTHDATE,'YYYYMMDD')) / 12) USER_AGE,
@@ -362,10 +367,10 @@
 	             LEFT JOIN CITY C 			ON R.CITY_ID 	= C.CITY_ID
 	             LEFT JOIN EMP E  			ON R.EMP_ID 	= E.EMP_ID
 	             LEFT JOIN EDU ED 			ON R.EDU_ID 	= ED.EDU_ID 
-                 LEFT JOIN USERS U 		    ON R.USER_IDX 	= U.USER_IDX
-                 LEFT JOIN RESUME_SKILL RS  ON R.RESUME_IDX = RS.RESUME_IDX
-                 LEFT JOIN SKILL S          ON RS.SKILL_ID 	= S.SKILL_ID
-                 LEFT JOIN RESUME_CAREER RC ON R.RESUME_IDX = RC.RESUME_IDX
+               LEFT JOIN USERS U 		    ON R.USER_IDX 	= U.USER_IDX
+               LEFT JOIN RESUME_SKILL RS  ON R.RESUME_IDX = RS.RESUME_IDX
+               LEFT JOIN SKILL S          ON RS.SKILL_ID 	= S.SKILL_ID
+               LEFT JOIN RESUME_CAREER RC ON R.RESUME_IDX = RC.RESUME_IDX
 	WHERE U.USER_IDX = #{user_idx}
 	</select>
 	

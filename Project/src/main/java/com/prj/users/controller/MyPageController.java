@@ -21,7 +21,9 @@ import com.prj.users.mapper.UserMapper;
 import com.prj.users.vo.ApplicationVo;
 import com.prj.users.vo.EduVo;
 import com.prj.users.vo.ResumeCareerVo;
+import com.prj.users.vo.ResumeSkillVo;
 import com.prj.users.vo.ResumeVo;
+import com.prj.users.vo.ScoreVo;
 import com.prj.users.vo.UserApplicationListVo;
 import com.prj.users.vo.UserBookmarkVo;
 import com.prj.users.vo.UserScoutVo;
@@ -43,8 +45,11 @@ public class MyPageController {
 		
 		//변수 받기
 		HttpSession session = request.getSession();
-		UserVo login = (UserVo) session.getAttribute("login");	 
-		System.out.println(session);
+		UserVo slogin = (UserVo) session.getAttribute("login");
+		
+		//Update 시 변동 값을 가져 오기 위해서 다시 변수 받기
+		UserVo login = userMapper.getUser(slogin);	 
+				
 		//나이 계산		
 		String UYearStr =login.getUser_birthdate().substring(0, 4);
 		int UYear = Integer.parseInt(UYearStr);
@@ -134,6 +139,27 @@ public class MyPageController {
 		return mv;
 	
 	}
+	
+	@RequestMapping("/ApplyList/View")
+	public ModelAndView applylistview(@RequestParam("post_idx") int post_idx,
+                                      @RequestParam("user_idx") int user_idx) {
+		
+		//view 내릴 정보
+		PostListVo vo = userMapper.getPost(post_idx);
+		CompanyVo cvo= userMapper.getCompany(post_idx);		
+		ScoreVo score = userMapper.getReviewScore(post_idx);		
+		
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/mypage/applyList/view");
+		mv.addObject("postVo",vo);	
+		mv.addObject("companyVo",cvo);	
+		mv.addObject("user_idx",user_idx);			
+		mv.addObject("score",score.getScore());
+		
+		return mv;
+	}
+	
 	@RequestMapping("/BookMark/List")
 	public ModelAndView bookmarklist(UserVo uservo) {
 		
@@ -142,55 +168,69 @@ public class MyPageController {
 		
 		//받은 제안
 		List<UserScoutVo> ScoutList = userMapper.getScoutList(uservo.getUser_idx());
-				
+		
+		//이력서 리스트
+		List<ResumeVo> SRList = userMapper.getSRList(uservo.getUser_idx());
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("BookmarkList",BookmarkList);	
 		mv.addObject("ScoutList",ScoutList);	
+		mv.addObject("resumeList",SRList);	
+		mv.addObject("user_idx",uservo.getUser_idx());	
 		mv.setViewName("user/mypage/bookmark/list");
 		return mv;
 	}
 	
 	@RequestMapping("/BookMark/View")
-	public ModelAndView bookmarkview(UserBookmarkVo bVo) {
+	public ModelAndView bookmarkview(@RequestParam("post_idx") int post_idx,
+			                         @RequestParam("user_idx") int user_idx) {
 		
 		//view 내릴 정보
-		PostListVo vo = userMapper.getPost(bVo.getPost_idx());
-		CompanyVo cvo= userMapper.getCompany(bVo.getPost_idx());
+		PostListVo vo = userMapper.getPost(post_idx);
+		CompanyVo cvo= userMapper.getCompany(post_idx);
+		ScoreVo score = userMapper.getReviewScore(post_idx);
 		
 		//이력서 도출
-		List<ResumeVo> SRList = userMapper.getSRList(bVo.getUser_idx());
+		List<ResumeVo> SRList = userMapper.getSRList(user_idx);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/mypage/bookmark/view");
 		mv.addObject("postVo",vo);	
 		mv.addObject("companyVo",cvo);	
 		mv.addObject("resumeList",SRList);	
-		mv.addObject("user_idx",bVo.getUser_idx());	
+		mv.addObject("user_idx",user_idx);	
+		mv.addObject("score",score.getScore());	
 		return mv;
 	}
 	
-	@RequestMapping("/Apply")
-	public ModelAndView apply(ApplicationVo aVO) {
+	
+	
+	@RequestMapping("/BookMark/Apply")
+	public ModelAndView bmapply(ApplicationVo aVO, @RequestParam("scout_idx") int scout_idx) {
 		
 		//insert
+
 		userMapper.insertApply(aVO);
-		
+
 		//경로 변수
-		int pidx =aVO.getPost_idx();
 		int ridx =aVO.getResume_idx();
 		ResumeVo rvo = userMapper.getResume(ridx);
 		
+		//받은 제안 삭제
+		userMapper.deleteScope(scout_idx);
+		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/User/MyPage/BookMark/View?post_idx=" +pidx+"&user_idx="+rvo.getUser_idx());
+
+		mv.setViewName("redirect:/User/MyPage/BookMark/List?user_idx="+rvo.getUser_idx());
 				
 		return mv;
-	}	
-	
+	}
+
 	@RequestMapping(value="/BookMark/On")
 	@ResponseBody
-	public String on(@RequestParam("post_idx") int post_idx,@RequestParam("user_idx") int user_idx) {
+	public String on(@RequestParam("company_idx") int company_idx,@RequestParam("user_idx") int user_idx) {
 		
-		userMapper.insertBookmark(post_idx,user_idx);
+		userMapper.insertBookmark(user_idx,company_idx);
 		
 		return "";	
 	}
@@ -207,32 +247,41 @@ public class MyPageController {
 	@RequestMapping("/Resume/List")
 	public ModelAndView resumeList(ResumeVo resumeVo) {
 	
+    //정보구하기
 	List <ResumeVo> resumeList =userMapper.getResumeList(resumeVo);
+	
 	
 	ModelAndView mv = new ModelAndView();	
 	mv.addObject("resumeList",resumeList);
+	mv.addObject("user_idx",resumeVo.getUser_idx());
 	mv.setViewName("user/mypage/resume/list");
 	return mv;
 	}
 	
 	@RequestMapping("/Resume/View")
-	public ModelAndView resumeView (ResumeListVo resumeListVo) {
+	public ModelAndView resumeView (@RequestParam("resume_idx") int resume_idx) {
 	
 	//이력서 정보
-	ResumeListVo vo  =userMapper.getResumeLong(resumeListVo);
+	ResumeListVo vo  =userMapper.getResumeLong(resume_idx);
+	
+	//경로설정을 위한 user_idx 구하기
+	ResumeVo rvo = userMapper.getResume(resume_idx);
 	
 	ModelAndView mv = new ModelAndView();	
 	mv.addObject("resumeVo",vo);
+	mv.addObject("user_idx",rvo.getUser_idx());
 	mv.setViewName("user/mypage/resume/view");
 	return mv;
 	}
 	
 	@RequestMapping("/Resume/UpdateForm")
-	public ModelAndView resumeUpdateForm (ResumeListVo resumeListVo) {
+	public ModelAndView resumeUpdateForm (@RequestParam("resume_idx") int resume_idx) {
 	
 	//이력서 정보
-	ResumeListVo vo  =userMapper.getResumeLong(resumeListVo);
+	ResumeListVo vo  =userMapper.getResumeLong(resume_idx);
 	
+	//경로 설정을 위한 user_idx 구하기
+	ResumeVo rvo = userMapper.getResume(resume_idx);
 
 	//필터 정보
 	List<EduVo> edVo =userMapper.getEduList();
@@ -246,9 +295,11 @@ public class MyPageController {
 	//년도 날짜 계산 
 	if(vo.getCareer_sdate() != null) {
 	String sYear = vo.getCareer_sdate().substring(0, 4);
-	String eYear = vo.getCareer_edate().substring(0, 4);
-	String sMonth = vo.getCareer_sdate().substring(6, 7);
-	String eMonth = vo.getCareer_edate().substring(6, 7);
+	String eYear = vo.getCareer_edate().substring(0, 4);	
+	String sMonth = vo.getCareer_sdate().substring(5, 7);
+	String eMonth = vo.getCareer_edate().substring(5, 7);
+	
+	
 	mv.addObject("sYear",sYear);
 	mv.addObject("eYear",eYear);
 	mv.addObject("sMonth",sMonth);
@@ -258,6 +309,7 @@ public class MyPageController {
 	
 
 	mv.addObject("resumeVo",vo);
+	mv.addObject("user_idx",rvo.getUser_idx());
 	mv.addObject("Edu",edVo);
 	mv.addObject("City",cVo);
 	mv.addObject("Duty",dVo);
@@ -270,7 +322,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/Resume/Update")
-	public ModelAndView resumeupdate(ResumeVo resumeVo, 
+	public ModelAndView resumeUpdate(ResumeVo resumeVo, 
 			                         @RequestParam(value="skill_name", 
 			                        		       required = false) String skill_name,
 			                         @RequestParam(value="career_cname",required = false) String career_cname,
@@ -280,21 +332,125 @@ public class MyPageController {
 		
 	//이력서 정보 업데이트	
 	userMapper.updateResume(resumeVo);	
-	//기술 정보 업데이트
+	
+	
+    //기술 정보 업데이트   	
+	  //기술이 이미 INSERT 되있는지 확인-> skill_name 값이 존재할때 : 있으면 UPDATE / 없으면 INSERT 진행
+	  //                              -> 값이추가 되지 않은경우(null) : 원래 값이 있다면 DELETE 진행
+	ResumeSkillVo svo = userMapper.getSkill(resumeVo);
+	 
+	
 	if(skill_name != null ) {
-	userMapper.updateSkill(resumeVo.getResume_idx(),skill_name); }	
-	//경력 정보 업데이트
-	if(career_cname != null) {
-	userMapper.updateCareer(career_cname,career_description,career_sdate,career_edate,resumeVo.getResume_idx());
+	  if(svo != null) {
+	     userMapper.updateSkill(skill_name,resumeVo.getResume_idx()); 
+	  }else if(svo == null) {		
+	     userMapper.insertSkill2(resumeVo.getResume_idx(),skill_name);	
+	    }
+	}else {				
+		userMapper.deleteSkill(resumeVo.getResume_idx());
+		
 	}
 	
+	//경력 정보 업데이트
+	ResumeCareerVo cvo = userMapper.getCarrer(resumeVo);
+	
+	if(career_cname != null) {
+		if(cvo != null)	{		
+	    userMapper.updateCareer(career_cname,career_description,career_sdate,career_edate,resumeVo.getResume_idx());
+		}else if(cvo == null) {
+		userMapper.insertCareer2(resumeVo.getResume_idx(), career_cname, career_description, career_sdate, career_edate);		
+		}	
+	}else {		
+		userMapper.deleteCarrer(resumeVo.getResume_idx());
+	}
 	
 		ModelAndView mv = new ModelAndView();	
-		mv.setViewName("redirect:/User/MyPage/Resume/UpdateForm?resume_idx="+resumeVo.getResume_idx());
+		mv.setViewName("redirect:/User/MyPage/Resume/View?resume_idx="+resumeVo.getResume_idx());
 		return mv;
 		
 	
 	}
+	
+	@RequestMapping("/Resume/WriteForm")
+	public ModelAndView resumeWirteForm(UserVo userVo) {
+	
+	//기본정보	
+	UserVo uVo = userMapper.getUser(userVo);	
+	
+	//나이 계산		
+	String UYearStr =uVo.getUser_birthdate().substring(0, 4);
+	int UYear = Integer.parseInt(UYearStr);
+	int CYear = LocalDate.now().getYear();
+	int age = CYear - UYear;
+		
+	//필터 정보
+	List<EduVo> edVo =userMapper.getEduList();
+	List<CityVo> cVo =userMapper.getCityList();
+	List<DutyVo> dVo =userMapper.getDutyList();
+	List<EmpVo> epVo =userMapper.getEmpList();
+	List<SkillVo> sVo =userMapper.getSkillList();	
+		
+	ModelAndView mv = new ModelAndView();	
+	mv.setViewName("user/mypage/resume/write");
+	mv.addObject("userVo",uVo);
+	mv.addObject("age",age);
+	mv.addObject("year",UYear);
+	mv.addObject("Edu",edVo);
+	mv.addObject("City",cVo);
+	mv.addObject("Duty",dVo);
+	mv.addObject("Emp",epVo);
+	mv.addObject("Skill",sVo);
+	return mv;
+		
+	}
+	
+	@RequestMapping("/Resume/Write")
+	public ModelAndView resumeWrite(ResumeVo resumeVo, 
+            						@RequestParam(value="skill_name", 
+            									  required = false) String skill_name,
+            						@RequestParam(value="career_cname",required = false) String career_cname,
+            						@RequestParam(value="career_description",required = false) String career_description,
+            						@RequestParam(value="career_sdate",required = false) String career_sdate,
+            						@RequestParam(value="career_edate",required = false) String career_edate) {
+        
+		//유저 변수 
+		int user_idx =resumeVo.getUser_idx(); 
+		
+		// 이력서 , 스킬, 경력 인서트
+		userMapper.insertResume(resumeVo);		
+		if(skill_name != null ) {
+		userMapper.insertSkill(user_idx,skill_name); }
+		if(career_cname != null) {
+		userMapper.insertCarrer(user_idx,career_cname,career_description,career_sdate,career_edate);
+		}
+		
+		//입력한 이력서 idx 도출하기
+		ResumeVo rvo = userMapper.getResumeIdx(user_idx);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/User/MyPage/Resume/View?resume_idx="+ rvo.getResume_idx());
+		return mv;
+	}
+	
+	@RequestMapping("/Resume/Delete")
+	public ModelAndView resuemDelete(@RequestParam("resume_idx") int resume_idx) {
+		
+		//user_idx 도출하기
+		ResumeVo rvo = userMapper.getResume(resume_idx);
+	    int user_idx =rvo.getUser_idx();
+	    
+		//삭제
+		userMapper.deleteSkill(resume_idx);
+		userMapper.deleteCarrer(resume_idx);
+		userMapper.deleteResume(resume_idx);
+		
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/User/MyPage/Resume/List?resume_idx="+ user_idx);
+		return mv;
+		
+	}
+	
 	
 	
 	

@@ -66,11 +66,11 @@
     <table class="main-resume">
       <colgroup>
         <col width="17.5%">
-        <col width="40%">
-        <col width="7.5%">
+        <col width="42.5%">
+        <col width="10%">
         <col width="10%">
         <col width="7.5%">
-        <col width="17.5%">
+        <col width="12.5%">
       </colgroup>
       <thead>
         <tr>
@@ -89,13 +89,13 @@
             <td>
               <div><a href="View?resume_idx=${resume.resume_idx}">${resume.resume_title}</a></div>
               <ul class="stack-list">
-                <c:if test="${resume.skill_name}"><li>${resume.skill_name}</li></c:if>
+                <c:if test="${not empty resume.skill_name}"><li>${resume.skill_name}</li></c:if>
               </ul>
             </td>
             <td>
               <c:choose>
-                <c:when test="${resume.career_year != 0}">${resume.career_year}년</c:when>
-                <c:when test="${resume.career_month != 0}">${resume.career_month}개월</c:when>
+                <c:when test="${not empty resume.career_year and resume.career_year != 0}">${resume.career_year}년 ${resume.career_month}개월</c:when>
+                <c:when test="${not empty resume.career_month and resume.career_month != 0}">${resume.career_month}개월</c:when>
                 <c:otherwise>신입</c:otherwise>
               </c:choose>
             </td>
@@ -159,6 +159,16 @@ $skillUl.addEventListener("click", function(e) {
         fillterAjax(); // AJAX 호출
     }
 });
+
+$("main").on('click', function(e) {
+    if($(e.target).closest($skillInput).length == 0) { 
+         $($skillUl).hide()
+    }
+	
+	})
+
+
+
 
 // 스택에 스킬 추가
 function addSkillToStack(skillName, skillId) {

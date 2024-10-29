@@ -7,7 +7,7 @@
        <li><a href="/Main/Jobs/List">채용정보</a></li>
        <li><a href="/Main/Hrs/List">인재정보</a></li>
        <li class="header-comunity">
-         <a href="/Main/Review/List">기업리뷰</a>
+         <a href="/Main/Review/List?nowpage=1">기업리뷰</a>
        </li>
        <li><a href="/Main/Cust/Center">고객센터</a></li>
      </ul>

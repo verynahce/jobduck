@@ -77,19 +77,23 @@ public class JopsController {
 	public ModelAndView view(HttpServletRequest request,@RequestParam(required = true, value="post_idx")  String post_idx) {
 		mainMapper.updatePostHit(post_idx);
 		PostListVo vo = mainMapper.getPost(post_idx);
-		
+		Double    totPoint = (Double) mainMapper.getTotPoint(post_idx);
+		System.out.println(totPoint);
 		HttpSession session = request.getSession();
 		Object userObject = session.getAttribute("login");
 		ModelAndView mv = new ModelAndView();
 		if (userObject instanceof UserVo) {
 			UserVo userVo = (UserVo) session.getAttribute("login");
+			System.out.println("userlogin : " + userVo);
 			if(userVo != null ) {			
 				List<ResumeListVo> resumeVo = mainMapper.getUserResume(userVo.getUser_idx());
+				System.out.println(resumeVo);
 				mv.addObject("resumeVo",resumeVo);
+				mv.addObject("userObject",userObject);
 			}	
 		}
 		mv.addObject("vo",vo);
-		mv.addObject("userObject",userObject);
+		mv.addObject("totPoint",totPoint);
 		mv.setViewName("main/jobs/view");
 		return mv;
 	}

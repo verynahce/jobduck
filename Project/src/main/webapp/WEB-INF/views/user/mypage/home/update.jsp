@@ -23,7 +23,7 @@
    overflow:hidden;
    margin:0;
    position:sticky;
-   top:20px;
+   top:124px;
  }
  
  .sidebar table {
@@ -199,10 +199,10 @@
        <div class="sidebar">
          <table>
          <tr><th>개인서비스</th></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/myhome.svg" class="img">MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="/User/MyPage/Home/View" class="active-color"><img src="/images/myhome.svg" class="img">MY홈</a></td></tr>
+         <tr><td><a href="/User/MyPage/Resume/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
+         <tr><td><a href="/User/MyPage/BookMark/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
+         <tr><td><a href="/User/MyPage/ApplyList/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
        </div>
        <div class="container">
@@ -265,13 +265,13 @@
       	   	  <td class="underline"><input type="text" class="inputs" name="user_name"value="${userVo.user_name}" required></td>
       	  	</tr>
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs"name="user_birthdate" value="${userVo.user_birthdate}"required></td>
+      	   	  <td class="underline"><input type="text" class="inputs"name="user_birthdate" id="bdate"value="${userVo.user_birthdate}"required></td>
       	  	</tr>
     	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" name="user_tel"value="${userVo.user_tel}"required></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="user_tel"id="tel" value="${userVo.user_tel}"required></td>
       	  	</tr>
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" name="user_email"value="${userVo.user_email}"required></td>
+      	   	  <td class="underline"><input type="email" class="inputs" name="user_email"value="${userVo.user_email}"required></td>
       	  	</tr>
       	  </table>     	 
       	</div>
@@ -308,14 +308,16 @@ $(function() {
             img.src = originalSrc;
         });
     });
-    
-    
 
     $('.btn-back').on('click', function() {
       
     	const passwd1 = $('.passwd1').val().trim()
         const passwd2 = $('.passwd2').val().trim()
+        const bdate = $('#bdate').val().trim()
+        const tel = $('#tel').val().trim()
         const serverPassword = '${userVo.user_pw}';
+       
+        const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
         
          if( passwd1 == '') {
     		alert('비밀번호를 입력하세요')
@@ -329,10 +331,18 @@ $(function() {
     		alert('비밀번호가 다릅니다')
     		$('.passwd2').focus()
     		return false
-    	}else {
+    	}else  if(bdate.length !== 8) {
+    		alert('생년월일은 8글자입력해주세요')
+    		$('#bdate').focus()
+    		return false
+    	}else  if(!phoneRegex.test(tel)) {
+    		alert('올바른 전화번호 형식이 아닙니다')
+    		$('#tel').focus()
+    		return false
+    	}else{
     		return true;
     	}
-    	
+         
     	
     })
     

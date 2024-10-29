@@ -27,13 +27,13 @@
           <ul class="login-input regist-radio">
             <li><input type="text" name="user_name" placeholder="이름"></li>
             <li>
-              <input type="text" name="user_birthdate" placeholder="생년월일 6자리">
+              <input type="text" name="user_birthdate" maxlength="8" placeholder="생년월일 8자리"  oninput="formatBirthNumber(this)">
             </li>
             <li>
-              <input type="text" name="user_tel" placeholder="전화번호">
+              <input type="text" name="user_tel" maxlength="13" placeholder="전화번호" oninput="formatPhoneNumber(this)">
             </li>
             <li>
-              <input type="text" name="user_email" placeholder="이메일">
+              <input type="email" name="user_email" placeholder="이메일">
             </li>
           </ul>
           <ul class="input-radio">
@@ -47,5 +47,33 @@
           </form>
         </div>
       </main>
+      <script>
+      function formatPhoneNumber(input) {
+    	    // 숫자만 허용
+    	    let cleanedInput = input.value.replace(/[^0-9]/g, '');
+
+    	    // 010으로 시작하는지 확인
+    	    if (cleanedInput.startsWith('010')) {
+    	        // 11자리 숫자일 경우
+    	        if (cleanedInput.length > 7) {
+    	            input.value = cleanedInput.replace(/(\d{3})(\d{4})(\d{1})/, '$1-$2-$3');
+    	            
+    	        } else if(cleanedInput.length > 3){
+    	        	 input.value = cleanedInput.replace(/(\d{3})(\d{1})/, '$1-$2');
+    	        } else {
+    	            input.value = cleanedInput; // 11자리가 아닐 경우 하이픈 추가하지 않음
+    	        }
+    	    } else {
+    	        // 010이 아닐 경우 입력값 초기화
+    	        input.value = cleanedInput;
+    	    }
+    	}
+      
+      function formatBirthNumber(input) {
+  	    // 숫자만 허용
+  	    let cleanedInput = input.value.replace(/[^0-9]/g, '');
+  	    input.value = cleanedInput;
+      }
+			</script>
 </body>
 </html>

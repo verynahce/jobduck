@@ -376,8 +376,40 @@ width: 170px;
 font-weight: 300;
 font-size: 36px;  
 cursor: pointer;
-
 }
+
+.noob{
+	padding-top :20px;
+	font-size: 20px;
+}
+
+.s-list{
+  border-collapse: collapse;
+  width:100%;
+   & tr {
+	   & td {padding:18px 0 18px;};
+	   & td:nth-child(1){
+		   width:80%;
+		   text-align: left;
+		   input{
+		   width: 17px;
+		   height: 17px;
+		   border-bottom: #cccccc;
+	      };
+	   & label{
+	   margin-left:8px;
+	   font-size: 20px;
+	   color: #333333;
+	     }
+	   }
+	   & td:nth-child(2){
+	   width:20%;
+	   text-align: right;
+	   color: #767676;
+	   }
+   }
+}
+
 
 
 </style>
@@ -392,17 +424,22 @@ cursor: pointer;
 			   <div class="s-header">
 			      <h2 class="s-title">채용제의</h2><span class="s-delete">x</span>
 			   </div>
-			   <select class="s-select" name="post_idx">
-			     <c:forEach var="post" items="${sessionScope.post}">
-			     	<option value="${post.post_idx}">${post.post_title}</option>
-			     </c:forEach>
-			   </select>
+			    <table class="s-list">
+			     <c:forEach var="post" items="${postVo}">
+              <tr>
+                <td>
+									<input type="radio" name="post_idx" id="post_id${post.post_idx}" class="resume-input" value="${post.post_idx}">
+									<label for="post_id${post.post_idx}">${post.post_title}</label>
+                </td>
+              </tr>
+            </c:forEach>
+          </table>
 			   <div class="s-btn" ><a class="apply-val" href ="">채용제의</a></div> 
 			</div>
 		</c:when>
 		  <c:otherwise>
 		  	<div class="support login-alter">
-		      <h2 class="s-title">로그인이 필요합니다.</h2>
+		      <h2 class="s-title">기업회원 로그인이 필요합니다.</h2>
 			  <a href ="/Company/LoginForm">로그인</a>
 		   </div>
 		  </c:otherwise>
@@ -422,7 +459,7 @@ cursor: pointer;
         <img src="/images/icon/user-profile.png" alt="유저 이미지"/>
         <div id="info-content">
            <h3 id="info-title">${vo.user_name}</h3>
-           <p>${vo.user_gender},${vo.user_age}세 (${vo.user_year})</p>
+           <p>${vo.user_gender},${vo.user_age}세 (${vo.user_year}년생)</p>
            <p>${vo.user_email}</p>
            <p>${vo.user_tel}<p/>
         </div>
@@ -475,25 +512,32 @@ cursor: pointer;
 	  </div>
 	  
 	  
+	  
        <div class="sub-filed">
 	    <h4 class="sub-title">경력</h4>
 	    <hr> 
-	    <table class="sub-topic">
-	     <tr>
-	       <td>회사명</td>
-	       <td>${vo.career_cname}</td>
-	     </tr>
-   
-        <tr>
-          <td>근무기간</td>
-          <td>${vo.career_sdate} ~ ${vo.career_edate}</td>
-        </tr>
-        <tr id="sub-duty">
-           <td><div>담당업무</div></td>
-           <td><div>${vo.career_description}</div></td>
-        </tr>
-       </table>
-     </div>
+	  <c:choose>
+		  <c:when test="${not empty vo.career_cname}">
+				<table class="sub-topic">
+		     <tr>
+		       <td>회사명</td>
+		       <td>${vo.career_cname}</td>
+		     </tr>
+	   
+	        <tr>
+	          <td>근무기간</td>
+	          <td>${vo.career_sdate} ~ ${vo.career_edate}</td>
+	        </tr>
+	        <tr id="sub-duty">
+	           <td><div>담당업무</div></td>
+	           <td><div>${vo.career_description}</div></td>
+	        </tr>
+	       </table>
+		  </c:when>
+	  	<c:otherwise>
+	  		<spna class="noob">신입</spna>
+	  	</c:otherwise>
+	  </c:choose>
 
 	
       <div class="sub-filed">
@@ -571,8 +615,10 @@ cursor: pointer;
 			  }
 			});
   })
+  
+  $(".apply-val").attr("href","Apply?resume_idx=${vo.resume_idx}&post_idx=${0}")
 		
-  $(".s-select").change(function(e){
+  $(".resume-input").click(function(e){
 			console.log(e.target.value)
 			$(".apply-val").attr("href","Apply?resume_idx=${vo.resume_idx}&post_idx="+e.target.value)
 		})

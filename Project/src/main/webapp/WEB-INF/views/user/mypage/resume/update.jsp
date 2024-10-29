@@ -33,7 +33,7 @@
    
     position: sticky; 
     top: 124px; 
-    z-index: 1000;
+    
   
  }
  
@@ -348,10 +348,10 @@ textarea {
       <div class="sidebar">
         <table>
          <tr><th>개인서비스</th></tr>
-         <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/icon22.svg" class="img" >이력서</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="/User/MyPage/Home/View" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
+         <tr><td><a href="/User/MyPage/Resume/List?user_idx=${user_idx}" class="active-color"><img src="/images/icon22.svg" class="img">이력서</a></td></tr>
+         <tr><td><a href="/User/MyPage/BookMark/List?user_idx=${user_idx}" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
+         <tr><td><a href="/User/MyPage/ApplyList/List?user_idx=${user_idx}" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       
@@ -360,10 +360,10 @@ textarea {
     <input type="hidden" name="resume_idx" value="${resumeVo.resume_idx}"/>   
       <div class="contain-body">  
        
-      <h2 class="main-title">이력서 제목</h2>
+      <h2 class="main-title">${resumeVo.resume_title}</h2>
       <hr>
       <div id="info">
-        <img src="" alt=""/>
+        <img src="/images/icon/user-profile.png" alt="${userVo.user_name}이미지"/>
         <div id="info-content">
            <h3 id="info-title">${resumeVo.user_name}</h3>
            <p>${resumeVo.user_gender},${resumeVo.user_age}세 (${resumeVo.user_year}년)</p>
@@ -551,7 +551,7 @@ $('.option').click(function() {
          <c:if test="${empty sMonth}">
          <option >입사월</option>
          </c:if>        
-             <c:forEach var="month" begin="1" end="12">
+             <c:forEach var="month" begin="01" end="12">
                  <option value="${month}" <c:if test="${month == sMonth}">selected</c:if>>${month}월</option>
              </c:forEach>
          </select>
@@ -559,26 +559,27 @@ $('.option').click(function() {
          <select  id="dYear">
          <c:if test="${empty eYear}">
          <option >퇴사년도</option>
-         </c:if>   
-         
-         
+         </c:if>                 
              <c:forEach var="year" begin="1930" end="2024">
                  <option value="${year}"<c:if test="${year == eYear}">selected</c:if>>${year}년</option>
              </c:forEach>
          </select>
+         
+         
          <select  id="dMonth">
-         <c:if test="${empty eYear}">
+         <c:if test="${empty eMonth}">
          <option >퇴사월</option>
          </c:if>
          
-             <c:forEach var="month" begin="1" end="12">
-                 <option value="${month}" <c:if test="${month == eMonth} ">selected</c:if>>${month}월</option>
+             <c:forEach var="month" begin="01" end="12">
+                 <option value="${month}" <c:if test="${month == eMonth}">selected</c:if>>${month}월</option>
              </c:forEach>
          </select>
+         
      </td>
  </tr>
  <tr class="dynamic-row">
-     <td><div id="sub-duty">담당업무 </div></td>
+     <td><div id="sub-duty">담당업무</div></td>
      <td>
          <textarea name="career_description" id="DutyContent" placeholder="담당업무와 업무를 적어주세요">${resumeVo.career_description}</textarea>
          <input type="hidden" name="career_sdate" id="sdate" />
@@ -609,8 +610,7 @@ $('#newbie').click(function(){
 })	 
 
 
-// 경력 기간 value값 보내기
-  
+// 경력 기간 value값 보내기  
    
     const eMonth = $('#eMonth').val();
     const dYear = $('#dYear').val();
@@ -621,9 +621,6 @@ $('#newbie').click(function(){
     const eval = dYear + dMonth
     $('#sdate').val(sval);
     $('#edate').val(eval);
-    console.log(sval);
-    console.log(eval); 
-
 
   $(document).on('change', '#eYear, #eMonth, #dYear, #dMonth', function() {
    
@@ -635,8 +632,7 @@ $('#newbie').click(function(){
 	    const eval = dYear + dMonth
 	    $('#sdate').val(sval);
 	    $('#edate').val(eval);
-	    console.log(sval);
-	    console.log(eval); 
+
 });
 
  
@@ -662,6 +658,8 @@ $('#skill').on("keyup", function(key) {
     	                                                 .append('<input type="hidden" name="skill_name" value="'+inputValue+'"/>'); 
     	   $('#techList').append(newDiv); 
            $(this).val(''); 
+           console.log($('[name=skill_name]').val())
+           
        } else {
            alert('유효하지 않은 기술입니다.');
        }
@@ -683,11 +681,7 @@ $(formEl).on('keydown', function(event) {
  
  //폼 제출시 null값 방지
  formEl.onsubmit = function() { 
-     if ($('#title').val().trim() == '') {
-         alert('제목을 입력하세요');
-         $('#title').focus();
-         return false;
-     } else if ($('#school').val().trim() == '') {
+    if ($('#school').val().trim() == '') {
          alert('학교를 입력하세요');
          $('#school').focus();
          return false;

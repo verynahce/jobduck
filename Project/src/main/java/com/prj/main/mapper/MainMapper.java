@@ -59,6 +59,7 @@ public interface MainMapper {
 	void updateReview(UserReviewVo vo);
 	void deleteReview(UserReviewVo vo);
 	int getCount();
+	Double getTotPoint(String post_idx);
 
 	
 }

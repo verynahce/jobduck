@@ -145,7 +145,7 @@
       <div class="sidebar">
          <table>
          <tr><th>개인서비스</th></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/myhome.svg" class="img">MY홈</a></td></tr>
+         <tr><td><a href="/User/MyPage/Home/View" class="active-color"><img src="/images/myhome.svg" class="img">MY홈</a></td></tr>
          <tr><td><a href="/User/MyPage/Resume/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
          <tr><td><a href="/User/MyPage/BookMark/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심기업 / 받은제의</a></td></tr>
          <tr><td><a href="/User/MyPage/ApplyList/List?user_idx=${userVo.user_idx}" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
@@ -153,7 +153,7 @@
       </div>
       <div class="container">
         <div class="content">
-  		    <img src="/images/profile.png" class="profile-image">
+  		   <img class="profile-image"src="/images/icon/user-profile.png" alt="${userVo.user_name}이미지"/>
   		  <div class="text-box">
            	<span class="highlight">${userVo.user_name}</span><br>
            	<span>${userVo.user_gender}, ${age}세(${UYear}년)</span><br>

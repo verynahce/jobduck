@@ -27,22 +27,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/Login")
-	public String login(HttpServletRequest request,
+	public String login(HttpServletRequest requset,
 					    HttpServletRequest response ) {
 
-		String 		 userid = request.getParameter("user_id");
-		String 		 passwd = request.getParameter("user_pw");
-		String 		 uri = request.getHeader("Refere");
-		if (uri != null && !uri.contains("/login")) {
-	        request.getSession().setAttribute("prevPage", uri);
-	    }
-		
-		
+		System.out.println(requset);
+		System.out.println(response);
+		String 		 userid = requset.getParameter("user_id");
+		String 		 passwd = requset.getParameter("user_pw");
+		String 		 uri = requset.getParameter("uri");
 		// db 조회
 		System.out.println(uri);
+		System.out.println(passwd);
 		UserVo 		 vo     = userMapper.login(userid,passwd);
+		System.out.println(vo);
 		
-		HttpSession session = request.getSession();
+		HttpSession session = requset.getSession();
 		session.setAttribute("login", vo);
 		return "redirect:/";
 	}	

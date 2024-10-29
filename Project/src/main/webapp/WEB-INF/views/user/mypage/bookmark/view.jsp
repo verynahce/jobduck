@@ -106,13 +106,13 @@ main {
     min-height: 1840px;
     background-color: white;
     border-radius: 20px;
-    margin: 0px auto 60px  auto  ;
+    margin: 0px auto 60px  auto;
     padding: 0 60px 50px 60px;
   }
 
 .main-title {
     color: #333333;
-    font-size: 36px; 
+    font-size: 34px;  
     font-weight: 600; 
     line-height: 50.40px;
     padding-bottom: 14px; 
@@ -165,7 +165,9 @@ p {
             }   
     .sub-skill {
                    padding-bottom:15px; 
-                   padding-top: 15px;      
+                   padding-top: 15px;   
+                   height: 86px;
+                      
               }             
         td:nth-child(1) {                   
            color: #333333; 
@@ -291,8 +293,8 @@ p {
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%); 
-   width: 570px; 
-   height: 700px; 
+   width: 550px; 
+   height: 630px;
    background-color: white; 
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
    z-index: 3 
@@ -373,8 +375,7 @@ p {
    <div class="s-header">
       <h2 class="s-title">이력서</h2><span class="s-delete">x</span>
    </div>
-   <hr>
-   
+   <hr>  
    <table class="s-list">
    
    <c:forEach var="item" items="${resumeList}">
@@ -401,10 +402,10 @@ p {
       <div class="sidebar">
         <table>
           <tr><th>개인서비스</th></tr>
-         <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/icon33.svg" class="img" >관심기업 / 받은제의</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="/User/MyPage/Home/View" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
+         <tr><td><a href="/User/MyPage/Resume/List?user_idx=${user_idx}" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">이력서</a></td></tr>
+         <tr><td><a href="/User/MyPage/BookMark/List?user_idx=${user_idx}" class="active-color"><img src="/images/icon33.svg" class="img" >관심기업 / 받은제의</a></td></tr>
+         <tr><td><a href="/User/MyPage/ApplyList/List?user_idx=${user_idx}" class="link"><img src="/images/arrow.svg" class="img"   data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       
@@ -413,10 +414,10 @@ p {
         <h2 class="main-title">${postVo.post_title}</h2>
       <hr>
       <div id="info">
-        <img src="" alt=""/>
+        <img src="/images/icon/company-profile.png" alt="${postVo.company_name}이미지"/>
         <div id="info-content">
            <h3 id="info-title">${postVo.company_name}</h3>
-           <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (5.0)</p>
+           <p><img id="star-size1"src="/images/star1.png" alt="Star Image">&nbsp;(${score})</p>
            <p>${companyVo.company_email}</p>
            <p>${companyVo.company_tel}<p/>
         </div>
@@ -445,8 +446,9 @@ p {
 		<tr>
 		  <td colspan="2" class="sub-skill">업무스킬
            <div class="sub-skill-layout">
-
+            <c:if test="${not empty postVo.skill_name}">
               <div>${postVo.skill_name} </div> 
+           </c:if>
            </div> 
          </td>
 		</tr>
@@ -506,7 +508,7 @@ p {
          
           </div>
           <div class="btn-layout">
-              <div class="btn btn-update"><a href ="#">입사지원</a></div>
+
               <div class="btn btn-back"><a href ="/User/MyPage/BookMark/List?user_idx=${user_idx}">돌아가기</a></div>
          </div>
       </div>
@@ -556,7 +558,8 @@ p {
 
  })
 
- 
+ // 입사 지원 버튼
+ // <div class="btn btn-update"><a href ="#">입사지원</a></div>
  </script>
  
 </body>

@@ -371,6 +371,13 @@ cursor: pointer;
 
 }
 
+.jobs-view-title{
+	font-size : 36px;
+	margin-top : 60px;
+	text-align: center;
+	font-weight: 500;
+}
+
 </style>
 
 </head>
@@ -379,28 +386,47 @@ cursor: pointer;
 <%@include file="/WEB-INF/include/header.jsp" %>
 <div class="overlay">  
 <c:choose>
-  <c:when test="${not empty resumeVo}">
- <div class="support"> 
-  	<div class="s-header">
-      <h2 class="s-title">이력서</h2><span class="s-delete">x</span>
-   </div>
-   <hr>
-   <table class="s-list">
-     <c:forEach var="resume" items="${resumeVo}">
-       <tr>
-	     <td><input type="checkbox" name="resume_idx" id="resume_id1" class="resume-input" value="${resume.resume_idx}"> <label for="resume_id1">${resume.resume_title}</label></td>
-	     <td><p>${resume.resume_fdate}</p></td>
-   	   </tr>
-     </c:forEach>
-  </table>  
-   <div class="s-btn" ><a class="apply-val" href ="">입사지원</a></div> 
- </div>
+  <c:when test="${not empty userObject}">
+    <div class="support">
+      <div class="s-header">
+        <h2 class="s-title">이력서</h2>
+        <span class="s-delete">x</span>
+      </div>
+      <hr>
+      <c:choose>
+        <c:when test="${not empty resumeVo}">
+          <table class="s-list">
+            <c:forEach var="resume" items="${resumeVo}">
+              <tr>
+                <td>
+                  <input type="radio" name="resume_idx" class="resume-input" value="${resume.resume_idx}">
+                  <label for="resume_id${resume.resume_idx}">${resume.resume_title}</label>
+                </td>
+                <td>
+                  <p>${resume.resume_fdate}</p>
+                </td>
+              </tr>
+            </c:forEach>
+          </table>
+          <div class="s-btn">
+            <a class="apply-val" href="">입사지원</a>
+          </div>
+        </c:when>
+        <c:otherwise>
+        <div class="jobs-view-title">등록된 이력서가 없습니다.</div>
+          <div class="s-btn">
+          	
+            <a class="apply-val,resume-add" href="">이력서 등록</a>
+          </div>
+        </c:otherwise>
+      </c:choose>
+    </div>
   </c:when>
   <c:otherwise>
-  	<div class="support login-alter">
-      <h2 class="s-title">로그인이 필요합니다.</h2>
-	  <a href ="/User/LoginForm">로그인</a>
-   </div>
+    <div class="support login-alter">
+      <h2 class="s-title">개인회원 로그인이 필요합니다.</h2>
+      <a href="/User/LoginForm">로그인</a>
+    </div>
   </c:otherwise>
 </c:choose>
 </div>
@@ -414,7 +440,7 @@ cursor: pointer;
         <img src="/images/icon/company-profile.png" alt="회사 이미지"/>
         <div id="info-content">
            <h3 id="info-title">${vo.company_name}</h3>
-           <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (${vo.tot_point })</p>
+           <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (${not empty totPoint ? totPoint : 0.0 })</p>
            <p>${vo.company_email}</p>
            <p>${vo.company_tel }<p/>
         </div>
@@ -557,7 +583,7 @@ cursor: pointer;
 		});
 	
 	
-		$(".resume-input").change(function(e){
+		$(".resume-input").click(function(e){
 			console.log(e.target.value)
 			$(".apply-val").attr("href","Apply?post_idx=${vo.post_idx}&reume_idx="+e.target.value)
 			

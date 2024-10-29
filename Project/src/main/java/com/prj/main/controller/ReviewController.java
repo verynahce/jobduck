@@ -1,5 +1,6 @@
 package com.prj.main.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.prj.main.mapper.MainMapper;
+import com.prj.main.mapper.PagingMapper;
+import com.prj.main.vo.Pagination;
+import com.prj.main.vo.PagingResponse;
 import com.prj.main.vo.ReviewCompanyInfoVo;
 import com.prj.main.vo.ReviewCompanyListVo;
+import com.prj.main.vo.SearchVo;
 import com.prj.main.vo.UserReviewVo;
 import com.prj.users.vo.UserVo;
 
@@ -24,15 +29,44 @@ public class ReviewController {
 	@Autowired
 	private MainMapper mainMapper;
 	
+	@Autowired
+	private PagingMapper pagingMapper;
+	
 	/* review 관련 */
 	/*================================================================================*/
 	@RequestMapping("/List")
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam("nowpage") int nowpage) {
 		int count = mainMapper.getCount();
-		List<ReviewCompanyListVo> companyList = mainMapper.getCompanyList(); 
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("companyList",companyList);
-		mv.addObject("count",count);
+		
+		
+		int  companyCount  = pagingMapper.companyCount();
+		
+	    PagingResponse<ReviewCompanyListVo> response = null;
+	    if( companyCount < 1 ) { // 현재 조회한 자료가 없다면
+	    	response = new PagingResponse<>(
+	    		Collections.emptyList(), null);}
+	    
+
+	    // 페이징을 위한 초기 설정
+	    SearchVo searchVo = new SearchVo();
+	    searchVo.setPage(nowpage);      // 현재 페이지 정보
+	    searchVo.setRecordSize(5);     // 페이지당 5개
+	    searchVo.setPageSize(5);       // paging.jsp에 출력할 페이지번호수
+	    
+	    // Pagination 설정
+	    Pagination pagination = new Pagination(companyCount, searchVo);
+
+	    int 	offset		= searchVo.getOffset();
+	    int		recordSize	= searchVo.getRecordSize();
+
+    	List<ReviewCompanyListVo> list = pagingMapper.getCompanyPagingList(offset,recordSize);;
+	    response = new PagingResponse<>(list, pagination);
+	    System.out.println("response : " + response);
+	    mv.addObject("count",count);
+		mv.addObject("response",response);
+		mv.addObject("nowpage",nowpage);		
+		mv.addObject("searchVo",searchVo);		
 		mv.setViewName("main/review/list");
 		return mv;
 	}

@@ -24,7 +24,7 @@
    overflow:hidden;
    margin:0;
    position:sticky;
-   top:124px;
+   top:20px;
  }
  
  .sidebar table {
@@ -155,7 +155,7 @@
    font-size:14px;
  }
  
- .posttitle {
+ #posttitle {
    font-weight:500;
    font-size:17px;
  }
@@ -193,7 +193,7 @@
        	  <c:forEach var="item" items="${applyList}">      	  
        	  <tr>
        	   <td>${item.appli_date}</td>
-       	   <td ><a href="/User/MyPage/ApplyList/View?post_idx=${item.post_idx}&user_idx=${user_idx}"><span id="coname">${item.company_name}</span><br><span class="posttitle">${item.post_title}</span></a></td>
+       	   <td ><a href="/User/MyPage/ApplyList/View?post_idx=${item.post_idx}&user_idx=${user_idx}"><span id="coname">${item.company_name}</span><br><span id="posttitle">${item.post_title}</span></a></td>
        	   
        	   <td>~${item.post_ddate}</td>
        	   <td>${item.appli_status}</td>
@@ -228,15 +228,7 @@ $(function(){
         });
     });
     
-    //세부 레이아웃 조정
-    $('.posttitle').each(function() {
-        let linkText = $(this).text(); 
-        
-        if (linkText.length > 23) {
-            // 12글자까지만 남기고 "..." 추가
-            $(this).text(linkText.slice(0, 23) + '...');
-        }
-    });
+    
     
 })         
     

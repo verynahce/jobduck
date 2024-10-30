@@ -13,7 +13,7 @@
       <main>
         <div class="login-inner">
           <h1>
-            <a href="/">JOBDUCK</a>
+            <a href="/"><img src="/images/logo.png" alt="logo"></a>
           </h1>
           <ul class="login-type">
             <li><a href="/User/RegisterForm">개인회원</a></li>

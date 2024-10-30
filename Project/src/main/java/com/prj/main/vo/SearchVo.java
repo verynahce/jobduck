@@ -20,7 +20,7 @@ public class SearchVo {
 
     // 생성자 : 초기값 설정 SearchVo searchVo = new SearchVo();
     public SearchVo() {
-        this.page = 1;
+        this.page = 1; 
         this.recordSize = 10;
         this.pageSize = 10;
     }

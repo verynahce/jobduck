@@ -21,6 +21,7 @@ import com.prj.main.vo.PostListVo;
 import com.prj.main.vo.ResumeListVo;
 import com.prj.main.vo.SkillVo;
 import com.prj.users.vo.ApplicationVo;
+import com.prj.users.vo.UserScoutVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -102,13 +103,14 @@ public class HrsController {
 		mv.setViewName("main/hrs/view");
 		return mv;
 	}
-	
-	@RequestMapping("/Hrs/Apply")
-	public ModelAndView apply(ApplicationVo vo) {
-		System.out.println(vo);
-		mainMapper.insertApply(vo);
+	@RequestMapping("/Hrs/Scout")
+	public ModelAndView scout(@RequestParam (value = "resume_idx") String resumeIdx,
+							  @RequestParam (value = "post_idx") String postIdx) {
+		System.out.println(resumeIdx);
+		System.out.println(postIdx);
+		mainMapper.insetScout(resumeIdx,postIdx);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/Main/Hrs/View?resume_idx="+vo.getResume_idx());
+		mv.setViewName("redirect:/Main/Hrs/List");
 		return mv;
 		
 	}

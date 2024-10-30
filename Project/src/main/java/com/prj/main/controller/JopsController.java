@@ -100,11 +100,11 @@ public class JopsController {
 	
 	@RequestMapping("/Jobs/Apply")
 	public ModelAndView apply(ApplicationVo vo) {
-		System.out.println(vo);
+		System.out.println("vo" + vo);
 		mainMapper.insertApply(vo);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/Main/Jobs/View?post_idx="+vo.getResume_idx());
+		mv.setViewName("redirect:/Main/Jobs/View?post_idx="+vo.getPost_idx());
 		return mv;
 	}
 	

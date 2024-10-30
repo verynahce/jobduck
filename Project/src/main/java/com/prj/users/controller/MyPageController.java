@@ -113,7 +113,7 @@ public class MyPageController {
 	public ModelAndView appplylist(UserVo uservo) {
 	
      List <UserApplicationListVo> applyList =userMapper.getApplycation(uservo.getUser_idx());
-
+     System.out.println(applyList);
      
      
 	ModelAndView mv = new ModelAndView();	

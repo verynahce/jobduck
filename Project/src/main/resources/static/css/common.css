@@ -31,6 +31,10 @@ body{
   font-weight: 300;
 }
 
+.logo img{
+	height: 50px
+}
+
 .postSkill{
 	background: #f1f3f5;
 	color : #8890b9;
@@ -72,7 +76,7 @@ div.login-alter{
 	position: absolute;
 	left : 50%;
 	top : 50%;
-	width : 300px;
+	width : 400px;
 	border-radius : 12px;
 	transform : translate(-50%,-50%);
 	background: #fff;
@@ -108,7 +112,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 0;
+    padding: 16px 0;
+    align-items: center;
   }
 
   & .header-gnb {
@@ -303,10 +308,9 @@ footer {
 }
 
 .main-visual {
-  background: #ccc;
+  background: linear-gradient(#F5EBE0, #fff);
   height: 400px;
-  border-radius: 24px;
-  padding-top: 90px;
+  padding-top: 120px;
   text-align: center;
   margin-bottom: 100px;
 
@@ -337,16 +341,18 @@ footer {
     font-weight: 500;
     border-radius: 16px;
     margin: 0 12px;
+    cursor: pointer;
   }
 
   & a:first-child {
-    background: #333;
+    background: #ffd700;
     color: #fff;
   }
 
   & a:last-child {
-    background: #eee;
+    background : #fff;
     color: #333;
+    border : solid 1px #333
 }
 
 }
@@ -500,10 +506,11 @@ footer {
     }
 
     & button{
-      background: #333;
+      background: #ffd700;
       color: #fff;
       margin-bottom: 12px;
       cursor: pointer;
+      border : none;
     }
     
     & a{
@@ -872,6 +879,10 @@ footer {
     }
   }
 }
+
+.company-list .company-card button.book-on{
+    	 background: url("/images/star1.png") no-repeat right 12px center;
+ };
 
 .paging-container{
 	display: flex;
@@ -1243,4 +1254,8 @@ footer {
 
 .review-view-title input, .review-textarea{
 	padding : 30px;
+}
+
+.book-off{
+	cursor: pointer
 }

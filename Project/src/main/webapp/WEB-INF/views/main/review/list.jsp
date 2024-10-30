@@ -51,7 +51,7 @@
 							<p>현재 채용 중 ${vo.count}건</p>
 						</div>
 					</div>
-					<a href="#" class="bookmark">관심기업</a>
+					<button class="bookmark book-off" data-id="${vo.company_idx}">관심기업</button>
 				</div>
 				</c:forEach>
 			</div>
@@ -109,7 +109,29 @@
 	    	})
 	    	
 	    	$(".paging-list").eq(${nowpage-1}).addClass("paging-active");
-	    });
+	    	
+	    	
+	    	$(".book-off").each(function(i, a) {
+	    	    $(a).on('click', function() {
+	    	        var ub_idx = $(this).attr('alt');
+	    	        $(this).removeClass('book-off')
+	    	        $(this).addClass('book-on')
+	    	        $.ajax({
+	    	            url: '/Main/Review/BookMarkOn',
+	    	            data: { "user_idx": "${sessionScope.login.user_idx}","company_idx": a.dataset.id },
+	    	            success: function(data) {
+	    	         			
+	    	            },
+	    	            error: function(err) {
+	    	                console.error("북마크 설정 실패:", err);
+	    	            }
+	    	        });
+	    	    	alert("관심기업으로 등록했습니다.")
+	    			});
+	    	    
+				}) 	 
+	        
+	 })
 	</script>
 </body>
 </html>

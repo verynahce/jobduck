@@ -16,6 +16,7 @@ import com.prj.main.vo.ReviewCompanyListVo;
 import com.prj.main.vo.SkillVo;
 import com.prj.main.vo.UserReviewVo;
 import com.prj.users.vo.ApplicationVo;
+import com.prj.users.vo.UserScoutVo;
 
 @Mapper
 public interface MainMapper {
@@ -60,6 +61,9 @@ public interface MainMapper {
 	void deleteReview(UserReviewVo vo);
 	int getCount();
 	Double getTotPoint(String post_idx);
+	void insetScout(String resumeIdx, String postIdx);
+	void bookMarkOn(String user_idx,String company_idx);
+	void bookMarkOff(String user_idx,String company_idx);
 
 	
 }

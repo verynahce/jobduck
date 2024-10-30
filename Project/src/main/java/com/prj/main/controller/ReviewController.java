@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +36,8 @@ public class ReviewController {
 	/* review 관련 */
 	/*================================================================================*/
 	@RequestMapping("/List")
-	public ModelAndView list(@RequestParam("nowpage") int nowpage) {
+	public ModelAndView list(@RequestParam(value="nowpage", 
+		    required = false, defaultValue="1") int nowpage) {
 		int count = mainMapper.getCount();
 		ModelAndView mv = new ModelAndView();
 		
@@ -142,4 +144,16 @@ public class ReviewController {
 		mv.setViewName("main/review/myReview");
 		return mv;
 	}
+	
+	@RequestMapping("/BookMarkOn")
+	public void bookMarkOn(@RequestParam ("company_idx") String company_idx , @RequestParam ("user_idx") String user_idx) {
+		mainMapper.bookMarkOn(user_idx,company_idx );
+	}
+	
+	@RequestMapping("/BookMarkOff")
+	public void bookMarkOff(@RequestParam ("company_idx") String company_idx , @RequestParam ("user_idx") String user_idx) {
+		mainMapper.bookMarkOff(user_idx,company_idx );
+	}
+	
+	
 }

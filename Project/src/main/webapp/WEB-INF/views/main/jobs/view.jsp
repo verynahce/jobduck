@@ -416,7 +416,7 @@ cursor: pointer;
         <div class="jobs-view-title">등록된 이력서가 없습니다.</div>
           <div class="s-btn">
           	
-            <a class="apply-val,resume-add" href="">이력서 등록</a>
+            <a onclick="alert('채용제의를 완료했습니다.')" class="apply-val,resume-add" href="">이력서 등록</a>
           </div>
         </c:otherwise>
       </c:choose>
@@ -583,9 +583,10 @@ cursor: pointer;
 		});
 	
 	
+	$(".apply-val").attr("href","Apply?post_idx=${vo.post_idx}&resume_idx=0")
 		$(".resume-input").click(function(e){
 			console.log(e.target.value)
-			$(".apply-val").attr("href","Apply?post_idx=${vo.post_idx}&reume_idx="+e.target.value)
+			$(".apply-val").attr("href","Apply?post_idx=${vo.post_idx}&resume_idx="+e.target.value)
 			
 		})
 	

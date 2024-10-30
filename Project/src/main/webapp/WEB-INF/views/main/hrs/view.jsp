@@ -434,7 +434,7 @@ cursor: pointer;
               </tr>
             </c:forEach>
           </table>
-			   <div class="s-btn" ><a class="apply-val" href ="">채용제의</a></div> 
+			   <div class="s-btn" ><a onclick="alert('채용제의를 완료했습니다.')" class="apply-val" href ="">채용제의</a></div> 
 			</div>
 		</c:when>
 		  <c:otherwise>
@@ -616,11 +616,11 @@ cursor: pointer;
 			});
   })
   
-  $(".apply-val").attr("href","Apply?resume_idx=${vo.resume_idx}&post_idx=${0}")
+  $(".apply-val").attr("href","Scout?resume_idx=${vo.resume_idx}&post_idx=0")
 		
   $(".resume-input").click(function(e){
 			console.log(e.target.value)
-			$(".apply-val").attr("href","Apply?resume_idx=${vo.resume_idx}&post_idx="+e.target.value)
+			$(".apply-val").attr("href","Scout?resume_idx=${vo.resume_idx}&post_idx="+e.target.value)
 		})
   
  

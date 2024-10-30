@@ -94,7 +94,7 @@ public class JopsController {
 		}
 		mv.addObject("vo",vo);
 		mv.addObject("totPoint",totPoint);
-		mv.setViewName("main/jobs/view");
+		mv.setViewName("main/ view");
 		return mv;
 	}
 	

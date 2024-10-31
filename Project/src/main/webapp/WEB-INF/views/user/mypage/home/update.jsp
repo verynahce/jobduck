@@ -278,7 +278,7 @@
       	   
       	   <div class="btn-layout">
       	      <input  type="hidden"  name="user_idx"value="${userVo.user_idx}"/>
-              <input class="btn btn-back" type="submit" value="이력서저장"/>             
+              <input class="btn btn-back" type="submit" value="회원정보 수정"/>             
          </div>
           </form>
       	</div>

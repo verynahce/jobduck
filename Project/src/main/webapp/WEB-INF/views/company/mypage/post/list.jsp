@@ -177,7 +177,7 @@
           <td class="dots"><a href="" class="link"><img src="/images/dots.png" class="img dot" data-hover="/images/dots2.png" data-idx="${post.post_idx}"></a></td>
          </tr>
          <tr>
-          <td id="posteddate">${post.post_cdate}</td>
+          <td id="posteddate">${post.post_ddate}</td>
          </tr>
         </table>
         </c:forEach>
@@ -227,13 +227,14 @@
             console.log(post_idx)
             const company_idx = ${sessionScope.login.company_idx};
             console.log(post_idx);
+            const appli_idx = ${comApplyVo.appli_idx};
             
            if(count === 0) {
          
            const dotdiv = $('<div class="mini-box"></div>')
                 .append('<a href="/Company/Mypage/Post/UpdateForm?post_idx='+post_idx+'&company_idx='+company_idx+'">수정</a>')
                 .append('<hr>')
-                .append('<a href="/Company/Mypage/Post/Delete?post_idx='+post_idx+'&company_idx='+company_idx+'">삭제</a>');
+                .append('<a href="/Company/Mypage/Post/Delete?post_idx='+post_idx+'&company_idx='+company_idx+'&appli_idx='+appli_idx+'">삭제</a>');
             $('.space').html(dotdiv)
                         .css({    position: 'absolute',
                              top: dotOffset.top + dotHeight + 5, 

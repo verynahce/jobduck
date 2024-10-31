@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.prj.companys.mapper.CompanyMapper;
+import com.prj.companys.vo.ComApplyVo;
 import com.prj.companys.vo.CompanyVo;
 import com.prj.companys.vo.PostSkillVo;
 import com.prj.companys.vo.PostWriteVo;
@@ -91,11 +92,12 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/Post/List")
-	public ModelAndView postList(PostVo postVo) {
+	public ModelAndView postList(PostVo postVo, ComApplyVo comApplyVo) {
 	
 	List <PostVo> postList = companyMapper.getPostList(postVo);
 	
 	ModelAndView mv = new ModelAndView();
+	mv.addObject("comApplyVo", comApplyVo);
 	mv.addObject("postList", postList);
 	mv.setViewName("company/mypage/post/list");
 	return mv;
@@ -144,8 +146,11 @@ public class MypageController {
 	postWriteVo.getCompany_idx();
 	
 	companyMapper.insertPost(postWriteVo);
+	if (postWriteVo.getSkill_name() != null) {
+        companyMapper.insertPostSkill(postWriteVo);
+    }
 	
-	companyMapper.insertPostSkill(postWriteVo);
+	/*companyMapper.insertPostSkill(postWriteVo);*/
 	
 	ModelAndView mv = new ModelAndView();
 	mv.setViewName("redirect:/Company/Mypage/Post/List?company_idx=" + postWriteVo.getCompany_idx());
@@ -229,10 +234,11 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/Post/Delete")
-	public ModelAndView postDelete(PostWriteVo postWriteVo) {
+	public ModelAndView postDelete(@RequestParam("appli_idx") int appli_idx, PostWriteVo postWriteVo) {
 		
 	postWriteVo.getCompany_idx();
 	
+	companyMapper.deleteApply(appli_idx);
 	companyMapper.deletePostSkill(postWriteVo);
 	companyMapper.deletePost(postWriteVo);
 	System.out.println(postWriteVo);

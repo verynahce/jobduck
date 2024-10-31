@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ScoreVo {	
 	
-	private String score;
+	private double score;
 }

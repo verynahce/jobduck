@@ -204,7 +204,18 @@
 			</c:choose>			
        	    </td>
        	    
-       	   <td>${b.cyears}년 ${b.cmonths}개월</td>
+       	   <td>
+       	    <c:choose>
+       	    <c:when test="${not empty b.cyears and not empty b.cmonths}">
+       	   ${b.cyears}년 ${b.cmonths}개월
+       	   </c:when>
+       	   <c:otherwise>
+       	   신입</td>
+       	   </c:otherwise>
+       	   </c:choose>
+       	   </td>
+       	   
+       	   
        	   <td><a href="/Company/Mypage/Bookmark/Delete?cb_idx=${b.cb_idx}&company_idx=${b.company_idx}" class="link"><img src="/images/trashcan.png" class="img2" data-hover="/images/trashcan2.png"></a></td>
        	  </tr>
        	  </c:forEach>       	  

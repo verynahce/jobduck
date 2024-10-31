@@ -235,8 +235,17 @@
 			</c:otherwise>
 			</c:choose>			
        	    </td>
-       	   <td>${a.cyears}년 ${a.cmonths}개월</td>
-       	   
+       	    
+       	    <td>
+       	    <c:choose>
+       	    <c:when test="${not empty a.cyears and not empty a.cmonths}">
+       	   ${a.cyears}년 ${a.cmonths}개월
+       	   </c:when>
+       	   <c:otherwise>
+       	   신입</td>
+       	   </c:otherwise>
+       	   </c:choose>
+       	   </td>
        	   <td>
        	     <select class="select" data-idx="${a.appli_idx}">
        	       <option <c:if test="${a.appli_status == '면접대기'}">selected</c:if>>면접대기</option>

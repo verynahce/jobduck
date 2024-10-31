@@ -551,7 +551,7 @@ $('.option').click(function() {
      <td>
          <select id="eYear">
              <option>입사년도</option>
-             <c:forEach var="year" begin="1930" end="2024">
+             <c:forEach var="year" begin="2000" end="2024">
                  <option value="${year}">${year}</option>
              </c:forEach>
          </select>
@@ -564,7 +564,7 @@ $('.option').click(function() {
          &nbsp;-&nbsp;
          <select id="dYear">
              <option>퇴사년도</option>
-             <c:forEach var="year" begin="1930" end="2024">
+             <c:forEach var="year" begin="2000" end="2024">
                  <option value="${year}">${year}</option>
              </c:forEach>
          </select>

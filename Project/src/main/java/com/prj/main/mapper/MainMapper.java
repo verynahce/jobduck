@@ -64,6 +64,11 @@ public interface MainMapper {
 	void insetScout(String resumeIdx, String postIdx);
 	void bookMarkOn(String user_idx,String company_idx);
 	void bookMarkOff(String user_idx,String company_idx);
+	
+	//북마크
+	void insertBookC(int company_idx, int resume_idx);
+	void deleteBookC(int company_idx, int resume_idx);
+	String getBookC(int company_idx, String resume_idx);
 
 	
 }

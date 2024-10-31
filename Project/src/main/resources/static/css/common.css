@@ -895,7 +895,7 @@ footer {
 
 .company-list .company-card button.book-on{
     	 background: url("/images/star1.png") no-repeat right 12px center;
- };
+ }
 
 .paging-container{
 	display: flex;

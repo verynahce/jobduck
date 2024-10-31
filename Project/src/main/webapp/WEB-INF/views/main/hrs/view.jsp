@@ -410,7 +410,11 @@ cursor: pointer;
    }
 }
 
-
+.star, .rats {
+margin-top:2px;
+width: 28px;
+height: 28px;
+}
 
 </style>
 
@@ -428,8 +432,8 @@ cursor: pointer;
 			     <c:forEach var="post" items="${postVo}">
               <tr>
                 <td>
-									<input type="radio" name="post_idx" id="post_id${post.post_idx}" class="resume-input" value="${post.post_idx}">
-									<label for="post_id${post.post_idx}">${post.post_title}</label>
+				<input type="radio" name="post_idx" id="post_id${post.post_idx}" class="resume-input" value="${post.post_idx}">
+				<label for="post_id${post.post_idx}">${post.post_title}</label>
                 </td>
               </tr>
             </c:forEach>
@@ -565,7 +569,16 @@ cursor: pointer;
          <div id="side-bottom">
            <button class="btn" id="btn-apply">채용제의</button>
            <div id="btn-scrape" >
-            <input type="image" src="/images/star1.png" alt="Star Image"class="image">
+           
+           <c:choose>
+           <c:when test="${empty cb_idx}">
+            <input type="image" class="star"src="/images/bookmark/staroff.png" alt="Star Image"class="image" data-com="${login.company_idx}" data-re="${vo.resume_idx}">
+           </c:when>
+           <c:otherwise>
+            <input type="image" class="rats"src="/images/bookmark/staron.png" alt="Star Image"class="image" data-com="${login.company_idx}" data-re="${vo.resume_idx}">          
+           </c:otherwise>
+           </c:choose>
+           
            </div>
          </div>
        </div>
@@ -614,7 +627,59 @@ cursor: pointer;
 				  $("header").slideUp();	
 			  }
 			});
+		
+		
+//북마크 이벤트	
+
+		var count = '${cb_idx}' ? 1 : 0;
+		console.log(count);
+		$('.star, .rats').on('click',function() {
+		
+		if(count === 0)	{
+			$(this).attr('src', '/images/bookmark/staron.png');
+			 alert('북마크 되었습니다');
+			 console.log($(this).data('com'))
+			 console.log($(this).data('re'))
+			
+			 $.ajax({
+        			url:'/Main/Hrs/BookMark/On',
+        			data:{company_idx: $(this).data('com'),
+        				 resume_idx: $(this).data('re')}
+        		}).done(function(data){           			
+        			console.log()
+        		}).fail(function(err){
+        			console.log(err)
+        		})
+        	
+			 count = 1; 
+			 
+		}else {
+			$(this).attr('src', '/images/bookmark/staroff.png');
+			 alert('북마크 해제되었습니다');
+			 console.log($(this).data('com'))
+			 console.log($(this).data('re'))
+			 
+			 $.ajax({
+     			url:'/Main/Hrs/BookMark/Off',
+     			data:{company_idx: $(this).data('com'),
+     				  resume_idx: $(this).data('re')}
+     		}).done(function(data){           			
+     			console.log()
+     		}).fail(function(err){
+     			console.log(err)
+     		})
+			 
+			count = 0; 
+			
+		} 
+			
+			
+		})	
+		
+
   })
+  
+
   
   $(".apply-val").attr("href","Scout?resume_idx=${vo.resume_idx}&post_idx=0")
 		

@@ -99,8 +99,16 @@ public class HrsController {
 				System.out.println(postVo);
 			}	
 		}
+		
+		//북마크 확인 
+		CompanyVo configVo = (CompanyVo) session.getAttribute("login");
+		String cb_idx = mainMapper.getBookC(configVo.getCompany_idx(),resume_idx);
+		
+		
+		
 		mv.addObject("vo",vo);
 		mv.addObject("userObject",userObject);
+		mv.addObject("cb_idx",cb_idx);
 		mv.setViewName("main/hrs/view");
 		return mv;
 	}
@@ -115,6 +123,26 @@ public class HrsController {
 		return mv;
 		
 	}
+	
+	@RequestMapping(value="Hrs/BookMark/On")
+	@ResponseBody
+	public String bookmarkon(@RequestParam("company_idx") int company_idx,@RequestParam("resume_idx") int resume_idx) {
+		
+		mainMapper.insertBookC(company_idx,resume_idx);
+		
+		return "";	
+	}
+	
+	@RequestMapping(value="Hrs/BookMark/Off")
+	@ResponseBody
+	public String bookmarkoff(@RequestParam("company_idx") int company_idx,@RequestParam("resume_idx") int resume_idx) {
+		
+		mainMapper.deleteBookC(company_idx,resume_idx);
+		
+		return "";	
+	}
+	
+	
 	
 	
 }

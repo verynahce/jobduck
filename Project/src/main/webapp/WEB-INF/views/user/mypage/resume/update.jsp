@@ -256,7 +256,7 @@ display: inline-block;
  
  
 /*input 정리*/
-input[type="text"] {
+input[type="text"]:not(.title-input) {
     height: 47px;
 
     border: 1px solid #cccccc; 
@@ -269,6 +269,16 @@ input[type="text"] {
         color: #cccccc; 
     }
 }
+
+.title-input {
+    border: 0px solid #cccccc;
+     height: 47px; 
+     color: black; 
+    font-size: 36px; 
+    font-weight: 600; 
+     width:100%;
+}
+
 
 .input-size2{
  width:100%;
@@ -360,7 +370,7 @@ textarea {
     <input type="hidden" name="resume_idx" value="${resumeVo.resume_idx}"/>   
       <div class="contain-body">  
        
-      <h2 class="main-title">${resumeVo.resume_title}</h2>
+      <h2 class="main-title"><input class="title-input"type="text" name="resume_title"value="${resumeVo.resume_title}" placeholder="제목을 입력하세요"/></h2>
       <hr>
       <div id="info">
         <img src="/images/icon/user-profile.png" alt="${userVo.user_name}이미지"/>
@@ -543,7 +553,7 @@ $('.option').click(function() {
          <c:if test="${empty sYear}">
          <option>입사년도</option>
          </c:if>
-             <c:forEach var="year" begin="1930" end="2024">
+             <c:forEach var="year" begin="2000" end="2024">
                  <option value="${year}"<c:if test="${year == sYear}">selected</c:if>>${year}년</option>
              </c:forEach>
          </select>
@@ -560,7 +570,7 @@ $('.option').click(function() {
          <c:if test="${empty eYear}">
          <option >퇴사년도</option>
          </c:if>                 
-             <c:forEach var="year" begin="1930" end="2024">
+             <c:forEach var="year" begin="2000" end="2024">
                  <option value="${year}"<c:if test="${year == eYear}">selected</c:if>>${year}년</option>
              </c:forEach>
          </select>
@@ -678,10 +688,14 @@ $(formEl).on('keydown', function(event) {
    }
 });
  
- 
+
  //폼 제출시 null값 방지
  formEl.onsubmit = function() { 
-    if ($('#school').val().trim() == '') {
+	 if ($('.title-input').val().trim() == '') {
+         alert('제목을 입력하세요');
+         $('.title-input').focus();
+         return false;
+     }else if ($('#school').val().trim() == '') {
          alert('학교를 입력하세요');
          $('#school').focus();
          return false;

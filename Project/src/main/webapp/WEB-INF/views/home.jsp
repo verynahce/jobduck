@@ -37,7 +37,7 @@
 									 <p><a class="resume-add" href="/User/MyPage/Resume/WriteForm?user_idx=${sessionScope.login.user_idx}">이력서 등록</a><a class="post-add">공고 등록</a></p>
 				         </c:when>
 				         <c:when test="${sessionScope.login.role == '기업회원'}">
-										<p><a class="resume-add">이력서 등록</a><a class="post-add" href="/Company/MyPage/Post/WriteForm?company_idx=${sessionScope.login.company_idx}">공고 등록</a></p>
+										<p><a class="resume-add">이력서 등록</a><a class="post-add" href="/Company/Mypage/Post/WriteForm?company_idx=${sessionScope.login.company_idx}">공고 등록</a></p>
 				         </c:when>
 				        <c:otherwise>
 										<p><a class="resume-add">이력서 등록</a><a class="post-add">공고 등록</a></p>

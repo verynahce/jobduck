@@ -32,8 +32,8 @@ main {
    margin:0;
    
     position: sticky; 
-    top: 20px; 
-    z-index: 1000;
+    top: 124px; 
+
   
  }
  

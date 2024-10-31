@@ -39,7 +39,7 @@
 					<div class="company-card">
 					<div class="company-content">
 						<div class="company-img">
-							<a href="View">
+							<a href="View?company_idx=${vo.company_idx}">
 								  <img src="/images/icon/company-profile.png" alt="회사 이미지"/>
 							</a>
 						</div>

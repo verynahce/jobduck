@@ -95,20 +95,17 @@ public class HrsController {
 			CompanyVo userVo = (CompanyVo) session.getAttribute("login");
 			if(userVo != null ) {			
 				List<PostListVo> postVo = mainMapper.getCompanyPost(userVo.getCompany_idx());
+				String cb_idx = mainMapper.getBookC(userVo.getCompany_idx(),resume_idx);
+				mv.addObject("cb_idx",cb_idx);
 				mv.addObject("postVo",postVo);
 				System.out.println(postVo);
 			}	
 		}
-		
-		//북마크 확인 
-		CompanyVo configVo = (CompanyVo) session.getAttribute("login");
-		String cb_idx = mainMapper.getBookC(configVo.getCompany_idx(),resume_idx);
-		
-		
+
 		
 		mv.addObject("vo",vo);
 		mv.addObject("userObject",userObject);
-		mv.addObject("cb_idx",cb_idx);
+		
 		mv.setViewName("main/hrs/view");
 		return mv;
 	}

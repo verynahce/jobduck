@@ -67,6 +67,7 @@ public class HrsController {
 	        @RequestParam(required = false, value="skill_id") 	String skill_id) {
 		
 	    List<ResumeListVo> hrsFilter = mainMapper.getFilteredResumes(city_id, duty_id, career_id, emp_id, skill_id);
+	    System.out.println(hrsFilter);
 	    
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("resumeList", hrsFilter);

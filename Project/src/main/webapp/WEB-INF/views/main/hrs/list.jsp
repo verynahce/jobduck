@@ -223,9 +223,9 @@ document.addEventListener('keydown', function(event) {
 	                    html += "</ul>";
 	                    html += "</td>";
 	                    html += "<td>";
-	                    if (a.career_year !== "0") {html += a.career_year + "년"} 
-	                    if (a.career_month !== "0") {html += a.career_month + "개월";} else {
-	                    if (a.career_year == "0" && a.career_month == "0"){html += "신입"};
+	                    if (a.career_year !== "0" && a.career_year != null) {html += a.career_year + "년"} 
+	                    if (a.career_month !== "0" && a.career_year != null) {html += a.career_month + "개월";} else {
+	                    if (a.career_year == null && a.career_month == null){html += "신입"};
 	                    }
 	                    html += "</td>";
 	                    html += "<td>" + a.duty_name + "</td>";
@@ -234,6 +234,7 @@ document.addEventListener('keydown', function(event) {
 	                    html += "</tr>";
 	                });
 	                $('.resume-list').append(html);
+	                console.log(response.resumeList)
 	            },
 	            error: function(jqXHR, textStatus, errorThrown) {
 	                console.error(textStatus, errorThrown);

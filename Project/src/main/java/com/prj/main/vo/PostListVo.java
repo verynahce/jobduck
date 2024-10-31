@@ -15,6 +15,7 @@ public class PostListVo {
     private double tot_point;
     private String company_email;
     private String company_tel;
+    private int    duty_id;
     private String duty_name;
     private String career_name;
     private String edu_name;

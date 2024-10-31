@@ -121,6 +121,13 @@ header {
     gap: 32px;
     font-size: 18px;
     font-weight: 500;
+     & li{
+     	transition : all .4s;
+     }
+    
+     & li:hover{
+     	color : #ffd700;
+     }
   }
 
   & .header-logo {
@@ -321,8 +328,12 @@ footer {
 
   & span {
     font-size: 28px;
-    color: #555;
-    font-weight: 500;
+    color: #ffd700;
+    font-weight: 700;
+  }
+  
+  & span:last-of-type{
+  	color : #4876EF;
   }
 
   & h2 {
@@ -350,9 +361,9 @@ footer {
   }
 
   & a:last-child {
-    background : #fff;
-    color: #333;
-    border : solid 1px #333
+    background : #4876EF;
+    color: #fff;
+    border : none;
 }
 
 }
@@ -383,6 +394,7 @@ footer {
     line-height: 160px;
     text-align: center;
     padding : 0;
+    overflow : hidden;
     
     & a{
     display : block;
@@ -517,7 +529,7 @@ footer {
      display: block;
      width: 100%; 
      color: #767676;
-     border: solid 1px #767676;
+     border: solid 1px #ccc;
     }
 
     & .regist-info{

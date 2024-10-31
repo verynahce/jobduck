@@ -18,7 +18,6 @@ public class PrjController {
 	
 	@RequestMapping("/")
 	public ModelAndView home() {
-		
 		List<PostListVo> postList = mainMapper.getPostList();
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("postList",postList);

@@ -43,13 +43,11 @@ public class ReviewController {
 		
 		
 		int  companyCount  = pagingMapper.companyCount();
-		
 	    PagingResponse<ReviewCompanyListVo> response = null;
 	    if( companyCount < 1 ) { // 현재 조회한 자료가 없다면
 	    	response = new PagingResponse<>(
 	    		Collections.emptyList(), null);}
 	    
-
 	    // 페이징을 위한 초기 설정
 	    SearchVo searchVo = new SearchVo();
 	    searchVo.setPage(nowpage);      // 현재 페이지 정보
@@ -58,7 +56,6 @@ public class ReviewController {
 	    
 	    // Pagination 설정
 	    Pagination pagination = new Pagination(companyCount, searchVo);
-
 	    int 	offset		= searchVo.getOffset();
 	    int		recordSize	= searchVo.getRecordSize();
 

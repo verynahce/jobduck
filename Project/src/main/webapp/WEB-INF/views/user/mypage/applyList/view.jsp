@@ -440,7 +440,7 @@ p {
 		</tr>
 		<tr>
 		  <td>급여</td>
-		  <td>${postVo.post_Salary}</td>
+		  <td>${postVo.post_salary}</td>
 		</tr>
 		<tr>
 		  <td colspan="2" class="sub-skill">업무스킬

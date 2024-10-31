@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>        
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="/js/common.js" defer></script>
 <style>
  .innercontents {
    display:flex;
@@ -15,9 +17,12 @@
  .sidebar {
    border :1px solid #ccc;
    width:300px;
+   height:378px;
    border-radius:15px;
    overflow:hidden;
    margin:0;
+   position:sticky;
+   top:123px;
  }
  
  .sidebar table {
@@ -118,10 +123,10 @@
       <div class="sidebar">
          <table>
          <tr><th>기업서비스</th></tr>
-         <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/arrow2.svg" class="img">지원내역</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Home/View?company_idx=${company_idx}" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Post/List?company_idx=${company_idx}" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Bookmark/List?company_idx=${company_idx}" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
+         <tr><td><a href="/Company/Mypage/ApplyList/PostList?company_idx=${company_idx}" class="active-color"><img src="/images/arrow2.svg" class="img">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">
@@ -129,20 +134,16 @@
      	<h2 id="title">지원내역</h2>
        </div>
        <div class="content">
+        <c:forEach var="p" items="${postList}">
         <table class="content-box">
          <tr>
-          <td><a href="">채용공고 제목</a></td>
-          <td>2024.10.30(목) 마감</td>
-          <td>0명</td>
+          <td><a href="/Company/Mypage/ApplyList/ApplyList?post_idx=${p.post_idx}&company_idx=${p.company_idx}">${p.post_title}</a></td>
+          <td>${p.post_ddate}(${p.post_dday}) 마감</td>
+          <td>${p.count}명</td>
          </tr>
         </table>
-        <table class="content-box">
-         <tr>
-          <td><a href="">채용공고 제목</a></td>
-          <td>2024.10.30(목) 마감</td>
-          <td>0명</td>
-         </tr>
-        </table>
+        </c:forEach>
+        
        </div>
        </div>
    </div>

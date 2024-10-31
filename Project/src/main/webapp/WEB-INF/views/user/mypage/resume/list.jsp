@@ -270,9 +270,9 @@ $(function() {
     $('.postname').each(function() {
         let linkText = $(this).find('a').text(); 
         
-        if (linkText.length > 12) {
+        if (linkText.length > 11) {
             // 12글자까지만 남기고 "..." 추가
-            $(this).find('a').text(linkText.slice(0, 12) + '...');
+            $(this).find('a').text(linkText.slice(0, 11) + '...');
         }
     });
     

@@ -7,7 +7,7 @@
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
-
+<script src="/js/common.js" defer></script>
 
 <style>
 main {
@@ -149,7 +149,8 @@ p {
             }   
    .sub-skill {
       padding-bottom:15px; 
-      padding-top: 15px;      
+      padding-top: 15px;
+       height: 86px;      
         }             
       td:nth-child(1) {                   
       color: #333333; 
@@ -283,24 +284,24 @@ p {
       <div class="sidebar">
         <table>
          <tr><th>기업서비스</th></tr>
-         <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/icon22.svg" class="img">채용공고</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Home/View?company_idx=${sessionScope.login.company_idx}" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Post/List?company_idx=${sessionScope.login.company_idx}" class="active-color"><img src="/images/icon22.svg" class="img">채용공고</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Bookmark/List?company_idx=${sessionScope.login.company_idx}" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
+         <tr><td><a href="/Company/Mypage/ApplyList/PostList?company_idx=${sessionScope.login.company_idx}" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       
       <div class="container" >
       <div class="contain-body">       
-        <h2 class="main-title">채용공고제목</h2>
+        <h2 class="main-title">${vo.post_title}</h2>
       <hr>
       <div id="info">
-        <img src="" alt=""/>
+        <img src="/images/icon/company-profile.png" alt="${vo.company_name}이미지"/>
         <div id="info-content">
-           <h3 id="info-title">기업이름</h3>
-           <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (5.0)</p>
-           <p>email@email.com</p>
-           <p>010-1234-1234<p/>
+           <h3 id="info-title">${vo.company_name }</h3>
+           <p><img id="star-size1"src="/images/star1.png" alt="Star Image">&nbsp;(${score})</p>
+           <p>${vo.company_email }</p>
+           <p>${vo.company_tel }</p>
         </div>
       </div>
 
@@ -310,54 +311,50 @@ p {
         <table class="sub-topic">
         <tr>
           <td>직무</td>
-          <td>IT개발</td>
+          <td>${vo.duty_name }</td>
         </tr>
 		<tr>
 		 <td>경력</td>
-		  <td>경력무관</td>
+		  <td>${vo.career_name}</td>
 		</tr>
 		<tr>
 		  <td>최종학력</td>
-		  <td>학력무관</td>
+		  <td>${vo.edu_name }</td>
 		</tr>
 		<tr>
 		  <td>급여</td>
-		  <td>회사내규에 따름</td>
+		  <td>${vo.post_salary }</td>
 		</tr>
 		<tr>
 		  <td colspan="2" class="sub-skill">업무스킬
            <div class="sub-skill-layout">
-
-              <div>JAVA </div> <div>HTML/CSS </div> 
+              <c:if test="${not empty vo.skill_name}">
+              <div>${vo.skill_name }</div>
+              </c:if>
            </div> 
          </td>
 		</tr>
         </table>
       </div>
-
-
-
       <div class="sub-filed">
 	    <h4 class="sub-title">근무조건</h4>
 	    <hr> 
 	    <table class="sub-topic">
 		<tr>
 	      <td>근무형태</td>
-	      <td>정규직</td>
+	      <td>${vo.emp_name}</td>
 	    </tr>
 	    <tr>
 	      <td>근무지역</td>
-	      <td>부산시 부산진구</td>
+	      <td>${vo.city_name}</td>
 	    </tr>
 	   </table>
 	  </div>
 
-
-	
       <div class="sub-filed">
 	    <h4 class="sub-title" >상세내용</h4>
 	    <hr> 
-	    <div class ="sub-content"> 나에 대해 자유롭게 설명하고 채용기회의 확률을 높이세요</div>
+	    <div class ="sub-content">${vo.post_content }</div>
 	  </div>
 	
 	  <div class="sub-filed">
@@ -366,7 +363,7 @@ p {
 	    <table class="sub-topic">
 	     <tr>
 	       <td>접수기간</td>
-	       <td>정규직</td>
+	       <td>${vo.post_cdate}~${vo.post_ddate}</td>
 	     </tr>
    
         <tr>
@@ -386,13 +383,11 @@ p {
         <p>입사지원 서류에 허위사실이 발견될 경우, 채용확정 이후에도 채용이 취소될 수 있습니다<p>
      </div>
      
-         
-     
     
           </div>
           <div class="btn-layout">
-              <div class="btn btn-update"><a href ="#">채용공고 수정</a></div>
-              <div class="btn btn-back"><a href ="#">돌아가기</a></div>
+              <div class="btn btn-update"><a href ="/Company/Mypage/Post/UpdateForm?post_idx=${vo.post_idx}">채용공고 수정</a></div>
+              <div class="btn btn-back"><a href ="/Company/Mypage/Post/List?company_idx=${sessionScope.login.company_idx}">돌아가기</a></div>
          </div>
       </div>
    </div>

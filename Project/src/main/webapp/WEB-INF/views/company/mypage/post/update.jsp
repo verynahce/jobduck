@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/css/common.css" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/common.js" defer></script>
 
 <style>
 
@@ -73,16 +74,13 @@
    margin-right:10px;
    
  }
-
-
  .container {
 
      width:  100%;
      display:flex;
       flex-direction: column; 
     justify-content: center;
- }
- 
+ } 
 .contain-body {
     width:940px;
     min-height: 1840px;
@@ -98,7 +96,6 @@
     font-weight: 600; 
     line-height: 50.40px;
     padding-top: 30px;
-    padding-bottom: 14px;
      }
  
  #info {
@@ -132,8 +129,8 @@ p {
     height: 120px;
     }  
     }
-
  /*서브 분야들*/ 
+ 
  .sub-filed{    
   .sub-topic {
         width:100%;
@@ -248,7 +245,6 @@ width: 230px;
   color: #767676; 
 }
 /*버튼*/
-/*버튼*/
   .btn:hover {
    background-color:#666577;
    color: white;
@@ -327,27 +323,37 @@ textarea {
       <div class="sidebar">
         <table>
          <tr><th>기업서비스</th></tr>
-         <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/icon22.svg" class="img">채용공고</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Home/View?company_idx=${sessionScope.login.company_idx}" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Post/List?company_idx=${sessionScope.login.company_idx}" class="active-color"><img src="/images/icon22.svg" class="img">채용공고</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Bookmark/List?company_idx=${sessionScope.login.company_idx}" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
+         <tr><td><a href="/Company/Mypage/ApplyList/PostList?company_idx=${sessionScope.login.company_idx}" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       
       <div class="container" >
-    <form action="#" method="Post">     
+    <form action="/Company/Mypage/Post/Update" method="get">
+    <input type="hidden" name="company_idx"  value="${sessionScope.login.company_idx }"/>   
+    <input type="hidden" name="post_idx"  value="${vo.post_idx }"/>   
       <div class="contain-body">  
        
-     <h2 class="main-title">채용공고제목</h2>
+      <h2 class="main-title">채용공고 수정</h2>
+
+      
+      <h4 class="sub-title">기본정보</h4>
       <hr>
       <div id="info">
-        <img src="" alt=""/>
+        <img src="/images/profile.png" alt=""/>
         <div id="info-content">
-           <h3 id="info-title">기업이름</h3>
-           <p><img id="star-size1"src="/images/star1.png" alt="Star Image"> (5.0)</p>
-           <p>email@email.com</p>
-           <p>010-1234-1234<p/>
+           <h3 id="info-title">${vo.company_name }</h3>
+           <p><img id="star-size1"src="/images/star1.png" alt="Star Image">&nbsp; (${score})</p>
+           <p>${vo.company_email }</p>
+           <p>${vo.company_tel }<p/>
         </div>
+      </div>
+      <div class="sub-filed">
+        <h4 class="sub-title">채용공고 제목</h4>
+        <hr>
+        <input class="input-size2"  id="title" name="post_title" type="text" value="${vo.post_title}" placeholder="공고제목을 입력하세요"/>
       </div>
       
 
@@ -358,23 +364,22 @@ textarea {
 	     <tr>
 	      <td>직무</td>
 	         <td> 
-	         <select name="" id="field">	      	       
-            <option>직무</option>
-            <option>IT개발</option>
-            <option>마케팅</option>
-            <option>서비스</option>
+	         <select name="duty_id" id="field">	      	       
+            <option value"">직무 선택</option>
+            <c:forEach var="duty" items="${dutyList }">
+            <option value="${duty.duty_id }"<c:if test="${duty.duty_name == vo.duty_name }">selected</c:if>>${duty.duty_name}</option>
+            </c:forEach>
             </select>
           </td>
 	    </tr>
 		<tr>
 	      <td>경력</td>
 	      <td> 
-	         <select name="" id="career">	      	       
-            <option>경력무관</option>
-            <option>신입</option>
-            <option>1년차</option>
-            <option>2년~3년차</option>
-            <option>4년 이상</option>
+	         <select name="career_id" id="career">	      	       
+            <option value"">경력</option>
+            <c:forEach var="career" items="${careerList }">
+            <option value="${career.career_id }"<c:if test="${career.career_name == vo.career_name }">selected</c:if>>${career.career_name}</option>
+            </c:forEach>
             </select>
           </td>
 	    </tr>
@@ -382,11 +387,11 @@ textarea {
 	    <tr>
 	      <td>요구학력</td>
 	      <td> 
-	         <select name="" id="school">	      	       
-            <option>학력무관</option>
-            <option>고졸</option>
-            <option>전문대졸업</option>
-            <option>4년제 졸업</option>
+	         <select name="edu_id" id="school">	      	       
+            <option value"">학력</option>
+            <c:forEach var="edu" items="${eduList }">
+            <option value="${edu.edu_id }"<c:if test="${edu.edu_name == vo.edu_name }">selected</c:if>>${edu.edu_name}</option>
+            </c:forEach>
             </select>
           </td>
 	    </tr>
@@ -394,7 +399,7 @@ textarea {
 	    <tr>
 	      <td>급여</td>
 	      <td>
-	         <input class="input-size1" id="salary" type="text" value="" placeholder="연봉을 입력해주세요"  />           
+	         <input class="input-size1" id="salary" name="post_salary" type="text" value="${vo.post_salary}" placeholder="연봉을 입력해주세요"  />           
           </td>
 	    </tr>
 	    </table>	    
@@ -402,13 +407,21 @@ textarea {
 	     <div class="skill-shape">
 	      업무 및 스킬       
 	      <input class="input-size2" id="skill" type="text" value="" placeholder="스킬을 영어로 입력해주세요" list="skillOptions"/>
-         <div id='techList'></div> 
-           <datalist id ="skillOptions">
-             <option value="java"/>
-             <option value="jquery"/>
-             <option value="oracle"/>
-             <option value="html/css"/>
-             <option value="javascript"/>
+         <div id='techList'>
+       
+      <c:if test="${not empty vo.skill_name}">
+           <div class="pSkill">
+           ${vo.skill_name}
+            <p class="skillDelete"> &nbsp; x &nbsp; </p>
+            <input type="hidden" name="skill_name" value="${vo.skill_name}"/>
+           </div>
+         </c:if>         
+         
+         </div>
+        <datalist id ="skillOptions">
+         <c:forEach var="skill" items="${skillList}">
+         <option value="${skill.skill_name}"/>
+         </c:forEach>
          </datalist>
           </div>
 	    
@@ -417,7 +430,7 @@ textarea {
 	    <tr>
 	      <td>공고마감일</td>
 	      <td> 
-	         <input  id="date" type="date" placeholder='날짜를 선택해주세요'/>           
+	         <input id="date" type="date" name="post_ddate" placeholder='날짜를 선택해주세요'value="${post_ddate}">           
           </td>
 	    </tr>
 	   </table>
@@ -431,23 +444,22 @@ textarea {
 	     <tr>
 	      <td>근무형태</td>
 	      <td> 
-	         <select name="" id="eForm">	      	       
-            <option>근무형태</option>
-            <option>정규직</option>
-            <option>계약직</option>
-            <option>파견직</option>
-            <option>프리랜서</option>
+	         <select name="emp_id" id="eForm">	      	       
+            <option value"">근무형태</option>
+            <c:forEach var="emp" items="${empList}">
+            <option value="${emp.emp_id }"<c:if test="${emp.emp_name == vo.emp_name }">selected</c:if>>${emp.emp_name}
+            </c:forEach>
             </select>
           </td>
 	    </tr>
 		<tr>
 	      <td>근무지역</td>
 	      <td> 
-	         <select name="" id="region">	      	       
-            <option>근무지역</option>
-            <option>부산</option>
-            <option>울산</option>
-            <option>서울</option>
+	         <select name="city_id" id="region">	      	       
+            <option value"">근무지역</option>
+            <c:forEach var="city" items="${cityList}">
+            <option value="${city.city_id }"<c:if test="${city.city_name == vo.city_name }">selected</c:if>>${city.city_name }</option>
+            </c:forEach>
             </select>
           </td>
 	    </tr>
@@ -458,15 +470,15 @@ textarea {
       <div class="sub-filed">
 	    <h4 class="sub-title" >상세내용</h4>
 	    <hr> 
-	    <textarea id="details" placeholder="센스있게 작성하여 입사지원의 확률을 높이세요"></textarea>
+	    <textarea id="details" name="post_content" placeholder="센스있게 작성하여 입사지원의 확률을 높이세요">${vo.post_content}</textarea>
 	  </div>     
      
     
           </div>
           <div class="btn-layout">
-               <input class="btn btn-submit" type="submit" value="채용공고 수정"/>
+               <input class="btn btn-submit" type="submit" value="채용공고 저장"/>
          </div>
-         
+          <input type="hidden" name="company_idx" value="${login.company_idx}"/>
          </form>
       </div>
    </div>
@@ -481,7 +493,7 @@ textarea {
  
  $(function() {
 
-	 
+	 console.log("${companyVo.company_idx }")
 	 
 	 
 //변수
@@ -508,7 +520,11 @@ const links = document.querySelectorAll(".link");
 
 	 
 //기술 스택 
-const techs = ['java', 'jquery', 'oracle', 'javascript','html/css']; 
+const techs = [];
+
+<c:forEach var="skill" items="${skillList}">
+techs.push('${skill.skill_name}');
+</c:forEach>
 
 //기술 입력 필드에서 Enter 키 입력 처리
 $('#skill').on("keyup", function(key) {
@@ -516,7 +532,8 @@ $('#skill').on("keyup", function(key) {
        const inputValue = $(this).val().trim(); 
        if (techs.includes(inputValue)) {
     	   
-    	   const newDiv = $('<div class="pSkill"></div>').text(inputValue).append('<p class="skillDelete"> &nbsp; x &nbsp; </p>'); 
+    	   const newDiv = $('<div class="pSkill"></div>').text(inputValue).append('<p class="skillDelete"> &nbsp; x &nbsp; </p>')
+    	                                                 .append('<input type="hidden" name="skill_name" value="' + inputValue + '"/>'); 
            $('#techList').append(newDiv); 
            $(this).val(''); 
        } else {
@@ -540,7 +557,11 @@ $(formEl).on('keydown', function(event) {
  
  //폼 제출시 null값 방지
  formEl.onsubmit = function() { 
-    if ($('#field').val() == '직무') {
+     if ($('#title').val().trim() == '') {
+         alert('제목을 입력하세요');
+         $('#title').focus();
+         return false;
+     } else if ($('#field').val() == '직무') {
          alert('희망직무를 선택하세요');
          $('#field').focus();
          return false;         

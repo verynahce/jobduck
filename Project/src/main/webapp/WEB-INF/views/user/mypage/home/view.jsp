@@ -165,10 +165,10 @@
         <div class="content2">
          <table class="headache">
             <tr>
-               <td><a href="">${CountR}<br>이력서</a></td>
-               <td><a href="">${CountB}<br>관심기업</a></td>
-               <td><a href="">${CountS}<br>받은제의</a></td>
-               <td><a href="">${CountA}<br>지원내역</a></td>
+               <td><a href="/User/MyPage/Resume/List?user_idx=${userVo.user_idx}">${CountR}<br>이력서</a></td>
+               <td><a href="/User/MyPage/BookMark/List?user_idx=${userVo.user_idx}">${CountB}<br>관심기업</a></td>
+               <td><a href="/User/MyPage/BookMark/List?user_idx=${userVo.user_idx}">${CountS}<br>받은제의</a></td>
+               <td><a href="/User/MyPage/ApplyList/List?user_idx=${userVo.user_idx}">${CountA}<br>지원내역</a></td>
             </tr>
          </table>
         </div>

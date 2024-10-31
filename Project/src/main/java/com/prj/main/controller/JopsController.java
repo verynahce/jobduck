@@ -69,6 +69,7 @@ public class JopsController {
 	    
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("postList", jopsFilter);
+	    System.out.println(jopsFilter);
 	    response.put("message", "데이터를 성공적으로 가져왔습니다.");
 	    return response;
 	}

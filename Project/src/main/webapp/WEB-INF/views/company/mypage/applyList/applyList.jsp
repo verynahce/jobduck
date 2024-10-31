@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/common.js" defer></script>
 <style>
  .innercontents {
    display:flex;
@@ -20,7 +23,7 @@
    overflow:hidden;
    margin:0;
    position:sticky;
-   top:20px;
+   top:123px;
  }
  
  .sidebar table {
@@ -114,7 +117,7 @@
  }
  
  .subtitle th:nth-child(2) {
-   width:400px;
+   width:380px;
  }
  
  .subtitle th:nth-child(3) {
@@ -144,10 +147,13 @@
  }
  
  .subtitle td:nth-child(4) {
-   padding-right:10px;
+   padding-right:24px;
    text-align:right;
  }
- 
+ .subtitle td:nth-child(5) {
+   padding-right:14px;
+   text-align:right;
+ } 
  .namebot {
    font-size:10px;
    color:#AEACAC;
@@ -173,6 +179,18 @@
    color:#AEACAC;
    padding:10px 7px 10px 5px;
  }
+ 
+.restoreDeleted {
+   border:1px solid #C7C6C6;
+   border-radius:7px;
+   padding:10px 7px 10px 5px;
+   cursor: pointer;
+   background-color: white;
+}
+.restoreDeleted:hover {
+	background-color: #F2F2F2;
+}
+
 
 </style>
 </head>
@@ -184,10 +202,10 @@
       <div class="sidebar">
          <table>
          <tr><th>기업서비스</th></tr>
-         <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/arrow2.svg" class="img">지원내역</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Home/View?company_idx=${company_idx}" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Post/List?company_idx=${company_idx}" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Bookmark/List?company_idx=${company_idx}" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
+         <tr><td><a href="/Company/Mypage/ApplyList/PostList?company_idx=${company_idx}" class="active-color"><img src="/images/arrow2.svg" class="img">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">
@@ -202,20 +220,38 @@
        	   <th>이력서 요약</th>
        	   <th colspan="2">경력</th>
        	  </tr>
-       	  <tr>
-       	   <td>홍OO<br><span class="namebot">(남,22세)</span></td>
-       	   <td>이력서 제목<br><span class="stacks">기술 스택</span>&nbsp;<span class="stacks">기술 스택</span>&nbsp;<span class="stacks">기술 스택</span></td>
-       	   <td>0년 0개월</td>
-       	   <td><select class="select"><option>면접대기</option></select></td>
+       	  <c:forEach var="a" items="${applyList}">
+       	  
+       	  <tr class="Dcontent"  data-idx="${a.appli_idx}">
+       	   <td>${a.user_name}<br><span class="namebot">(${a.user_gender},${a.age}세)</span></td>
+       	   <td><a href="/Company/Mypage/ApplyList/View?resume_idx=${a.resume_idx}&company_idx=${company_idx}&post_idx=${post_idx}">${a.resume_title}</a>
+       	   <br>
+       	   <c:choose>      	    
+			<c:when test="${not empty a.skill_name}">
+			    <span class="stacks">${a.skill_name}</span>&nbsp;
+			</c:when>
+			<c:otherwise>
+			     <span class="stacks">미기입</span>&nbsp;
+			</c:otherwise>
+			</c:choose>			
+       	    </td>
+       	   <td>${a.cyears}년 ${a.cmonths}개월</td>
+       	   
+       	   <td>
+       	     <select class="select" data-idx="${a.appli_idx}">
+       	       <option <c:if test="${a.appli_status == '면접대기'}">selected</c:if>>면접대기</option>
+       	       <option <c:if test="${a.appli_status == '불합격'}">selected</c:if>>불합격</option>
+       	       <option <c:if test="${a.appli_status == '합격'}">selected</c:if>>합격</option>
+       	      </select>
+       	    </td>
+       	    <td><a href="" class="link nolink"><img src="/images/trashcan.png" class="img2 delete" data-hover="/images/trashcan2.png"></a></td>
        	  </tr>
-       	  <tr>
-       	   <td>홍OO<br><span class="namebot">(남,22세)</span></td>
-       	   <td>이력서 제목<br><span class="stacks">기술 스택</span>&nbsp;<span class="stacks">기술 스택</span>&nbsp;<span class="stacks">기술 스택</span></td>
-       	   <td>0년 0개월</td>
-       	   <td><select class="select"><option>면접대기</option></select></td>
-       	  </tr>
+       	  
+       	   </c:forEach>  
        	 </table>
        	</div>
+       	<input type="button" class="restoreDeleted" value="전체지원자 다시보기"/>
+       	
        </div>
       </div>
    </div>
@@ -225,6 +261,7 @@
    <%@include file="/WEB-INF/include/footer.jsp" %>
    
 <script>
+$(function(){
     const links = document.querySelectorAll(".link");
 
     links.forEach(link => {
@@ -240,6 +277,73 @@
             img.src = originalSrc;
         });
     });
+
+   $('.select').each(function(){
+	    
+	    $(this).change(function(){
+		   
+		   let state = $(this).val();  
+		   let applyidx = $(this).data('idx')
+		   
+           $.ajax({
+               url: '/Company/Mypage/ApplyList/State', 
+               data: {appli_idx: applyidx,
+            	      appli_status: state}
+           }).done(function(data){           			
+   		   }).fail(function(err){
+   			    console.log(err)
+
+   		    })
+		   
+		   
+	   })
+	   
+   })
+   $('.nolink').on('click',function(event) {
+	   event.preventDefault();
+	   
+   })
+   
+   
+   //리스트만 안보이는 삭제 구현
+   
+    // 초기 체크
+   function checkDeletedItems() {
+       if (localStorage.getItem('deletedItems')) {
+           var deletedItems = JSON.parse(localStorage.getItem('deletedItems'));
+           deletedItems.forEach(function(idx) {
+               $('tr.Dcontent[data-idx="' + idx + '"]').hide();
+           });
+       }
+   }
+
+   checkDeletedItems();
+    
+ 
+   // 삭제 버튼 클릭 이벤트 (이벤트 위임 사용)
+   $(document).on('click', '.delete', function() {
+       var $row = $(this).closest('tr.Dcontent'); 
+       var appliIdx = $row.data('idx'); 
+
+       // localStorage에 삭제된 항목 추가
+       var deletedItems = localStorage.getItem('deletedItems') ? JSON.parse(localStorage.getItem('deletedItems')) : [];
+       deletedItems.push(appliIdx); 
+       localStorage.setItem('deletedItems', JSON.stringify(deletedItems)); 
+     
+       $row.hide(); 
+   });
+
+   // 삭제된 항목 복원 버튼 클릭
+   $('.restoreDeleted').on('click', function() {
+
+       localStorage.removeItem('deletedItems');
+       $('tr.Dcontent').show(); 
+   });
+   
+   
+   
+    
+})   
 </script>
 
 </body>

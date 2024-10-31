@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <header>
    <div class="inner">
-     <h1 class="logo"><a href="/"><img src="/images/logo.png" alt="logo"></a></h1>
+     <h1><a href="/"><img src="/images/logo.png" alt="logo"></a></h1>
      <ul class="header-gnb">
        <li><a href="/Main/Jobs/List">채용정보</a></li>
        <li><a href="/Main/Hrs/List">인재정보</a></li>
@@ -16,9 +16,9 @@
 	        <c:when test="${sessionScope.login.role == '개인회원'}">
 	           <li class="user-bar">${sessionScope.login.user_name }
 	              <ul class="user-login">
-	                 <li><a href="#">회원정보 수정</a></li>
+	                 <li><a href="/User/MyPage/Home/updateForm?user_idx=${login.user_idx}">회원정보 수정</a></li>
 	                 <li><a href="/User/MyPage/Home/View">마이페이지</a></li>
-	                 <li><a href="#">이력서</a></li>
+	                 <li><a href="/User/MyPage/Resume/List?user_idx=${login.user_idx}">이력서</a></li>
 	                 <li><a href="/User/Logout">로그아웃</a></li>
 	              </ul>
 	           </li>
@@ -26,9 +26,9 @@
 	         <c:when test="${sessionScope.login.role == '기업회원'}">
 	           <li class="user-bar">${sessionScope.login.company_name }
 	              <ul class="user-login">
-	                 <li><a href="#">회원정보 수정</a></li>
-	                 <li><a href="#">마이페이지</a></li>
-	                 <li><a href="#">채용공고</a></li>
+	                 <li><a href="/Company/Mypage/Home/UpdateForm?company_idx=${login.company_idx }">회원정보 수정</a></li>
+	                 <li><a href="/Company/Mypage/Home/View">마이페이지</a></li>
+	                 <li><a href="/Company/Mypage/Post/List?company_idx=${login.company_idx}">채용공고</a></li>
 	                 <li><a href="/User/Logout">로그아웃</a></li>
 	              </ul>
 	           </li>

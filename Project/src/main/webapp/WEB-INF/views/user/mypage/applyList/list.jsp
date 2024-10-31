@@ -232,9 +232,9 @@ $(function(){
     $('.posttitle').each(function() {
         let linkText = $(this).text(); 
         
-        if (linkText.length > 23) {
+        if (linkText.length > 22) {
             // 12글자까지만 남기고 "..." 추가
-            $(this).text(linkText.slice(0, 23) + '...');
+            $(this).text(linkText.slice(0, 22) + '...');
         }
     });
     

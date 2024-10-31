@@ -36,6 +36,8 @@ public class UserController {
 		String 		 passwd = requset.getParameter("user_pw");
 		String 		 uri = requset.getParameter("uri");
 		// db 조회
+		System.out.println(uri);
+		System.out.println(passwd);
 		UserVo 		 vo     = userMapper.login(userid,passwd);
 		System.out.println(vo);
 		

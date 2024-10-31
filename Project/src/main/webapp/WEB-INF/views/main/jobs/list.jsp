@@ -201,7 +201,7 @@ document.addEventListener('keydown', function(event) {
 						    $('.main-post-list').append(
 						        '<div class="post-card">' +
 						            '<ul>' +
-						                '<li class="post-card-img"><a href="/Main/Jobs/View?post_idx=0">기업로고/직무이미지</a></li>' +
+						                '<li class="post-card-img"><a href="/Main/Jobs/View?post_idx=0"><img src="/images/duty/'+a.duty_id +'.png"></a></li>' +
 						                '<li class="post-card-company">' + a.company_name + '</li>' +
 						                '<li class="post-card-title"><a href="/Main/Jobs/View?post_idx=' + a.post_idx + '">' + a.post_title + '</a></li>' +
 						                '<li class="post-card-info">' +
@@ -215,7 +215,7 @@ document.addEventListener('keydown', function(event) {
 						    $('.main-post-list').append(
 						        '<div class="post-card">' +
 						            '<ul>' +
-						                '<li class="post-card-img"><a href="/Main/Jobs/View?post_idx=' + a.post_idx + '">기업로고/직무이미지</a></li>' +
+						                '<li class="post-card-img"><a href="/Main/Jobs/View?post_idx=' + a.post_idx + '"><img src="/images/duty/'+a.duty_id +'.png"></a></li>' +
 						                '<li class="post-card-company">' + a.company_name + '</li>' +
 						                '<li class="post-card-title"><a href="/Main/Jobs/View?post_idx=' + a.post_idx + '">' + a.post_title + '</a></li>' +
 						                '<li class="post-card-info">' +

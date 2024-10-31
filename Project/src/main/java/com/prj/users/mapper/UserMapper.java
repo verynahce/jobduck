@@ -118,6 +118,10 @@ public interface UserMapper {
 
 	void insertApply(ApplicationVo aVO);
 
+	void deleteApplyR(int resume_idx);
+
+	void deleteBookmarkR(int resume_idx);
+
 
 
 

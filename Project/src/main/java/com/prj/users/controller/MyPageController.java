@@ -113,7 +113,7 @@ public class MyPageController {
 	public ModelAndView appplylist(UserVo uservo) {
 	
      List <UserApplicationListVo> applyList =userMapper.getApplycation(uservo.getUser_idx());
-     System.out.println(applyList);
+
      
      
 	ModelAndView mv = new ModelAndView();	
@@ -440,13 +440,15 @@ public class MyPageController {
 	    int user_idx =rvo.getUser_idx();
 	    
 		//삭제
-		userMapper.deleteSkill(resume_idx);
 		userMapper.deleteCarrer(resume_idx);
+		userMapper.deleteSkill(resume_idx);
+		userMapper.deleteApplyR(resume_idx);
+		userMapper.deleteBookmarkR(resume_idx);
 		userMapper.deleteResume(resume_idx);
 		
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/User/MyPage/Resume/List?resume_idx="+ user_idx);
+		mv.setViewName("redirect:/User/MyPage/Resume/List?user_idx="+ user_idx);
 		return mv;
 		
 	}

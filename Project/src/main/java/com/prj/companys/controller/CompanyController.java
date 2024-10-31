@@ -2,7 +2,6 @@ package com.prj.companys.controller;
 
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +12,6 @@ import com.prj.companys.mapper.CompanyMapper;
 import com.prj.companys.vo.CompanyVo;
 import com.prj.main.mapper.MainMapper;
 import com.prj.main.vo.PostListVo;
-import com.prj.users.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

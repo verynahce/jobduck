@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="/js/common.js" defer></script>
 <style>
  .innercontents {
    display:flex;
@@ -167,10 +169,10 @@
       <div class="sidebar">
          <table>
          <tr><th>기업서비스</th></tr>
-         <tr><td><a href="" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
-         <tr><td><a href="" class=active-color><img src="/images/icon33.svg" class="img">관심인재</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Home/View?company_idx=${company_idx}" class="link"><img src="/images/myhome2.svg" class="img" data-hover="/images/myhome.svg">MY홈</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Post/List?company_idx=${company_idx}" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Bookmark/List?company_idx=${company_idx}" class=active-color><img src="/images/icon33.svg" class="img">관심인재</a></td></tr>
+         <tr><td><a href="/Company/Mypage/ApplyList/PostList?company_idx=${company_idx}" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
       </div>
       <div class="container">
@@ -185,18 +187,27 @@
        	   <th>이력서 요약</th>
        	   <th colspan="2">경력</th>
        	  </tr>
+       	  <c:forEach var="b" items="${BookList}">
        	  <tr>
-       	   <td>홍OO<br><span class="namebot">(남,22세)</span></td>
-       	   <td>이력서 제목<br><span class="stacks">기술 스택</span>&nbsp;<span class="stacks">기술 스택</span>&nbsp;<span class="stacks">기술 스택</span></td>
-       	   <td>0년 0개월</td>
-       	   <td><a href="" class="link"><img src="/images/trashcan.png" class="img2" data-hover="/images/trashcan2.png"></a></td>
+       	   <td>${b.user_name}<br><span class="namebot">(${b.user_gender},${b.age}세)</span></td>
+       	   <td>
+       	    <a href="/Company/Mypage/Bookmark/View?resume_idx=${b.resume_idx}&company_idx=${b.company_idx}">${b.resume_title}</a>
+       	    <br>
+       	    
+       	    <c:choose>      	    
+			<c:when test="${not empty b.skill_name}">
+			    <span class="stacks">${b.skill_name}</span>&nbsp;
+			</c:when>
+			<c:otherwise>
+			     <span class="stacks">미기입</span>&nbsp;
+			</c:otherwise>
+			</c:choose>			
+       	    </td>
+       	    
+       	   <td>${b.cyears}년 ${b.cmonths}개월</td>
+       	   <td><a href="/Company/Mypage/Bookmark/Delete?cb_idx=${b.cb_idx}&company_idx=${b.company_idx}" class="link"><img src="/images/trashcan.png" class="img2" data-hover="/images/trashcan2.png"></a></td>
        	  </tr>
-       	  <tr>
-       	   <td>홍OO<br><span class="namebot">(남,22세)</span></td>
-       	   <td>이력서 제목<br><span class="stacks">기술 스택</span>&nbsp;<span class="stacks">기술 스택</span>&nbsp;<span class="stacks">기술 스택</span></td>
-       	   <td>0년 0개월</td>
-       	   <td><a href="" class="link"><img src="/images/trashcan.png" class="img2" data-hover="/images/trashcan2.png"></a></td>
-       	  </tr>
+       	  </c:forEach>       	  
        	 </table>
        	</div>
        </div>

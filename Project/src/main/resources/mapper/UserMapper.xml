@@ -371,8 +371,17 @@
      DELETE FROM RESUME_CAREER
      WHERE RESUME_IDX =#{resume_idx}     
      </delete> 
-       
-       
+     
+      <delete id="deleteApplyR">
+     DELETE FROM APPLICATION
+     WHERE RESUME_IDX =#{resume_idx}     
+     </delete>       
+     
+      <delete id="deleteBookmarkR">
+     DELETE FROM COMPANY_BOOKMARK
+     WHERE RESUME_IDX =#{resume_idx}     
+     </delete>  
+            
       <select id="getSkill">
       SELECT * FROM RESUME_SKILL
       WHERE RESUME_IDX =#{resume_idx} 

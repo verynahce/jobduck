@@ -51,7 +51,14 @@
 							<p>현재 채용 중 ${vo.count}건</p>
 						</div>
 					</div>
-					<button class="bookmark book-off" data-id="${vo.company_idx}">관심기업</button>
+					<c:choose>
+						<c:when test="${sessionScope.login.role eq '개인회원'}">
+							<button class="bookmark book-off" data-uid="${sessionScope.login.user_idx}" data-cid="${vo.company_idx}">관심기업</button>
+						</c:when>
+						<c:otherwise>
+							<button class="bookmark book-off" data-cid="${vo.company_idx}">관심기업</button>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				</c:forEach>
 			</div>
@@ -91,7 +98,7 @@
 	<script>
 	 $(document).ready(function() {
 	        // 서버에서 전달된 sessionScope.login.role 값을 JavaScript 변수로 저장
-	        var userRole = "${sessionScope.login.role}";
+	        
 
 	        $(".review-mybtn").click(function(e) {
 	            // 로그인 상태 확인
@@ -110,24 +117,31 @@
 	    	
 	    	$(".paging-list").eq(${nowpage-1}).addClass("paging-active");
 	    	
+	    	console.log("${sessionScope.login.role}")
 	    	
 	    	$(".book-off").each(function(i, a) {
-	    	    $(a).on('click', function() {
-	    	        var ub_idx = $(this).attr('alt');
-	    	        $(this).removeClass('book-off')
-	    	        $(this).addClass('book-on')
-	    	        $.ajax({
-	    	            url: '/Main/Review/BookMarkOn',
-	    	            data: { "user_idx": "${sessionScope.login.user_idx}","company_idx": a.dataset.id },
-	    	            success: function(data) {
-	    	         			
-	    	            },
-	    	            error: function(err) {
-	    	                console.error("북마크 설정 실패:", err);
-	    	            }
-	    	        });
-	    	    	alert("관심기업으로 등록했습니다.")
-	    			});
+	    		const userRole = "${sessionScope.login.role}";
+	    		if(userRole == "개인회원"){
+	    		    $(a).on('click', function() {
+		    	        var ub_idx = $(this).attr('alt');
+		    	        $(this).removeClass('book-off')
+		    	        $(this).addClass('book-on')
+		    	        $.ajax({
+		    	            url: '/Main/Review/BookMarkOn',
+		    	            data: { "user_idx": a.dataset.uid,"company_idx": a.dataset.cid },
+		    	            success: function(data) {
+		    	         			
+		    	            },
+		    	            error: function(err) {
+		    	                console.error("북마크 설정 실패:", err);
+		    	            }
+		    	        });
+		    	    	alert("관심기업으로 등록했습니다.")
+		    			});
+	    			
+	    			
+	    		}
+	    	
 	    	    
 				}) 	 
 	        

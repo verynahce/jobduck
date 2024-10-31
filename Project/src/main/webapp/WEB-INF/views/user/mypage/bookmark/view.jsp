@@ -164,9 +164,9 @@ p {
               padding-top: 30px;  
             }   
     .sub-skill {
-                   padding-bottom:15px; 
-                   padding-top: 15px;   
-                   height: 86px;
+             padding-bottom:15px; 
+             padding-top: 15px;   
+             height: 86px;
                       
               }             
         td:nth-child(1) {                   
@@ -441,7 +441,7 @@ p {
 		</tr>
 		<tr>
 		  <td>급여</td>
-		  <td>${postVo.post_Salary}</td>
+		  <td>${postVo.post_salary}</td>
 		</tr>
 		<tr>
 		  <td colspan="2" class="sub-skill">업무스킬

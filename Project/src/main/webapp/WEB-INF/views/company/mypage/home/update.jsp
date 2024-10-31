@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>잡덕</title>
 <link rel="stylesheet" href="/css/common.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/common.js" defer></script>
 <style>
  .innercontents {
    display:flex;
@@ -21,6 +23,7 @@
    margin:0;
    position:sticky;
    top:20px;
+   z-index:1000;
  }
  
  .sidebar table {
@@ -199,10 +202,10 @@
        <div class="sidebar">
          <table>
          <tr><th>기업서비스</th></tr>
-         <tr><td><a href="" class="active-color"><img src="/images/myhome.svg" class="img" >MY홈</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
-         <tr><td><a href="" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Home/View?company_idx=${companyVo.company_idx }" class="active-color"><img src="/images/myhome.svg" class="img" >MY홈</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Post/List?company_idx=${companyVo.company_idx }" class="link"><img src="/images/icon2.svg" class="img" data-hover="/images/icon22.svg">채용공고</a></td></tr>
+         <tr><td><a href="/Company/Mypage/Bookmark/List?company_idx=${companyVo.company_idx }" class="link"><img src="/images/icon3.svg" class="img" data-hover="/images/icon33.svg">관심인재</a></td></tr>
+         <tr><td><a href="/Company/Mypage/ApplyList/PostList?company_idx=${companyVo.company_idx }" class="link"><img src="/images/arrow.svg" class="img" data-hover="/images/arrow2.svg">지원내역</a></td></tr>
         </table>
        </div>
        <div class="container">
@@ -216,10 +219,12 @@
       	    <span id="profileimage-update"><a href="" id="profileimage-updatebtn">프로필 변경</a></span>
       	  </div>
       	  <div class="info-content">
-      	  	<h3 id="info-title">기업이름</h3>
+      	  	<h3 id="info-title">${login.company_name }</h3>
       	    <p id="info-year">(창립 연도)</p>
       	  </div>      	 
       	 </div>
+      	<form action="/Company/Mypage/Home/Update" method="POST">
+      	<input type="hidden" name="company_idx" value="${companyVo.company_idx }">
       	 <div class="info-sub">
       	  <table class="updatetitles">
       	  	<tr>
@@ -234,13 +239,13 @@
       	  </table>
       	  <table class="updateinputs">
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="아이디"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="company_id" value="${companyVo.company_id}" readonly></td>
       	  	</tr>
       	  	<tr>
-      	   	  <td class="underline"><input type="password" class="inputs" value="비밀번호 확인"></td>
+      	   	  <td class="underline"><input type="password" name="company_pw" class="inputs passwd1" value="" placeholder="비밀번호를 입력하세요" required></td>
       	  	</tr>
     	  	<tr>
-      	   	  <td class="underline"><input type="password" class="inputs" value="비밀번호 확인"></td>
+      	   	  <td class="underline"><input type="password" class="inputs passwd2" value="" placeholder="비밀번호 확인" required></td>
       	  	</tr>
       	  </table>
       	 </div>
@@ -258,13 +263,13 @@
       	  </table>
       	  <table class="updateinputs">
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="기업명"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="company_name" value="${companyVo.company_name}"></td>
       	  	</tr>
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="산업군"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="company_area" value="${companyVo.company_area}" ></td>
       	  	</tr>
     	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="사업자 등록번호"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="company_brnum" value="${companyVo.company_brnum}"></td>
       	  	</tr>
       	  </table>
       	 </div>
@@ -282,28 +287,32 @@
       	  </table>
       	  <table class="updateinputs">
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="담당자 이름"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="rep_name" value="${companyVo.rep_name}"></td>
       	  	</tr>
       	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="연락처"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="company_tel" value="${companyVo.company_tel}"></td>
       	  	</tr>
     	  	<tr>
-      	   	  <td class="underline"><input type="text" class="inputs" value="담당자 이메일"></td>
+      	   	  <td class="underline"><input type="text" class="inputs" name="company_email" value="${companyVo.company_email}"></td>
       	  	</tr>
       	  </table>
       	 </div>
-      	   <div class="btn-layout">
-             <div class="btn btn-back"><a href ="#">회원정보 수정</a></div>
+      	    <div class="btn-layout">
+             <input class="btn btn-back" type="submit" value="회원정보 수정"/>
+            </div>
+           </form>
          </div>
       	</div>
        </div>
       </div>
- </div>
 
 </main>
    <%@include file="/WEB-INF/include/footer.jsp" %>
    
 <script>
+$(function() {
+	   
+
     const links = document.querySelectorAll(".link");
 
     links.forEach(link => {
@@ -319,6 +328,36 @@
             img.src = originalSrc;
         });
     });
+    
+    
+
+    $('.btn-back').on('click', function() {
+      
+       const passwd1 = $('.passwd1').val().trim()
+        const passwd2 = $('.passwd2').val().trim()
+        const serverPassword = '${companyVo.company_pw}';
+        
+         if( passwd1 == '') {
+          alert('비밀번호를 입력하세요')
+          $('.passwd1').focus()
+          return false
+       }else if( passwd1 !== serverPassword) {
+          alert('비밀번호가 틀립니다')
+          $('.passwd1').focus()
+          return false
+       }else if(passwd2 !== passwd1) {
+          alert('비밀번호가 다릅니다')
+          $('.passwd2').focus()
+          return false
+       }else {
+          return true;
+       }
+       
+       
+    })
+    
+})
+    
 </script>
 
 </body>

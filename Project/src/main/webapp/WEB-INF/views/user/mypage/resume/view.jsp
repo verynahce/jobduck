@@ -89,7 +89,7 @@ main {
  
   .contain-body {
     width:940px;
-    min-height: 1840px;
+    min-height: 1250px;
     background-color: white;
     border-radius: 20px;
     margin: 0px auto 60px  auto  ;
@@ -151,7 +151,8 @@ p {
             }   
     .sub-skill {
                    padding-bottom:15px; 
-                   padding-top: 15px;      
+                   padding-top: 15px;
+                   height: 74px;      
               }             
         td:nth-child(1) {                   
            color: #333333; 
@@ -272,7 +273,12 @@ p {
 
    }
  }
-
+.noob{
+	padding:20px 0 0 5px;
+	color: #333333; 
+    font-size: 16px;
+    font-weight: 400;
+}
 
 </style>
 
@@ -319,6 +325,7 @@ p {
         </table>
       </div>
      
+    <c:if test="${not empty resumeVo.skill_name}">
       <div class="sub-filed">
         <h4 class="sub-title">업무 및 스킬</h4>
         <hr>
@@ -326,14 +333,17 @@ p {
          <tr>
 		   <td colspan="2" class="sub-skill">
            <div class="sub-skill-layout">
-
+     
               <div>${resumeVo.skill_name}</div> 
+          
            </div> 
          </td>
 		</tr>
         </table>
       </div>
-
+    </c:if>
+    
+    
       <div class="sub-filed">
 	    <h4 class="sub-title">희망 근무조건</h4>
 	    <hr> 
@@ -353,9 +363,12 @@ p {
 	   </table>
 	  </div>	  
 	  
+	   
        <div class="sub-filed">
 	    <h4 class="sub-title">경력</h4>
 	    <hr> 
+         <c:choose>
+		  <c:when test="${not empty resumeVo.career_cname}">
 	    <table class="sub-topic">
 	     <tr>
 	       <td>회사명</td>
@@ -371,7 +384,13 @@ p {
            <td><div>${resumeVo.career_description}</div></td>
         </tr>
        </table>
+         </c:when>
+	  	<c:otherwise>
+	  		<div class="noob">신입</div>
+	  	</c:otherwise>
+	  </c:choose>
      </div>
+ 
 	
       <div class="sub-filed">
 	    <h4 class="sub-title" >자기소개서</h4>
@@ -383,7 +402,7 @@ p {
           </div>
           <div class="btn-layout">
               <div class="btn btn-update"><a href ="/User/MyPage/Resume/UpdateForm?resume_idx=${resumeVo.resume_idx}">수정</a></div>
-              <div class="btn btn-back"><a href ="/User/MyPage/Resume/List?resume_idx=${resumeVo.resume_idx}">돌아가기</a></div>
+              <div class="btn btn-back"><a href ="/User/MyPage/Resume/List?user_idx=${user_idx}">돌아가기</a></div>
          </div>
       </div>
    </div>

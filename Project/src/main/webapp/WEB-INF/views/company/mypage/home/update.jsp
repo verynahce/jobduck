@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/css/common.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/common.js" defer></script>
+<script src="/js/header.js" defer ></script>
 <style>
  .innercontents {
    display:flex;
@@ -23,7 +24,8 @@
    margin:0;
    position:sticky;
    top:20px;
-   z-index:1000;
+
+
  }
  
  .sidebar table {

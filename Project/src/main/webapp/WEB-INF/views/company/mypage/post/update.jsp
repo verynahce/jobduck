@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/common.js" defer></script>
-
+<script src="/js/header.js" defer ></script>
 <style>
 
  .innercontents {
@@ -31,7 +31,7 @@
    
     position: sticky; 
     top: 20px; 
-    z-index: 1000;
+
   
  }
  

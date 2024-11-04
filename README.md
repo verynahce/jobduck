@@ -27,4 +27,5 @@
 <b>최종</b>
 <img src="https://github.com/user-attachments/assets/ef1d5070-062b-4310-980b-6f62655af689">
 <h2>시연 연상</h2>
+<p>유튜브 : https://youtu.be/Xy2ZWm1QUCk?si=6B-KgNEtc5NRGE21</p>
 

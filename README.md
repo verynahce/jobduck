@@ -6,5 +6,14 @@
 </ul>
 &nbsp
 <h2>프로젝트 소개</h2>
-
-
+<ul>
+  <li>JOBDUCK은 이력서,공고 필터링으로 구직자,채용자가 원하는 이력서,공고를 찾게 해주는 웹입니다.</li>
+  <li>개인회원이 작성한 기업리뷰로 기업의 평점이 정해지고 기업리뷰를 확인할 수 있습니다.</li>
+</ul>
+&nbsp
+<h2>개발환경</h2>
+<ul>
+  <li>Front : HTML,CSS,Javascript,jQuery,JSP</li>
+  <li>back &nbsp: d</li>
+</ul>
+&nbsp

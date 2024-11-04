@@ -6,4 +6,3 @@
 <br>
 <h3>프로젝트 결과물</h3>
 <p> - 노션 : https://www.notion.so/cf09573d65b34ec4bfb489c74c0e37a9</p>
-<p> - 시연영상 : https://www.youtube.com/watch?si=NyaFcv6J8-xSon3f&v=Xy2ZWm1QUCk&feature=youtu.be</p>

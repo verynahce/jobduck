@@ -22,9 +22,11 @@
 
 <h2>담당 업무</h2>
 <ul>
-  <li>개인회원 마이페이지 - 이력서 관리: <strong>CRUD</strong> 기능 및 DB 연동 구현</li>
-  <li>개인회원 마이페이지 - 북마크, 받은 제안, 개인정보 수정 기능 개발</li>
-  <li>기업회원 마이페이지 - 북마크 및 지원자 관리(조회 / 상태 변경) 기능 구현</li>
+  <li>개인회원 마이페이지 - 이력서 관리: <strong>CRUD</strong> 및 지원 내역·받은 제안 <strong>CREATE/READ</strong> 기능 구현</li>
+  <li>개인회원 마이페이지 - 북마크 <strong>ON/OFF</strong>, 유저 정보 <strong>UPDATE</strong> 기능 개발</li>
+  <li>개인회원 마이페이지 - 이력서 FORM·DETAIL 화면(UI) 구현</li>
+  <li>기업회원 마이페이지 - 채용 공고 <strong>UPDATE/DELETE</strong>, 지원 내역 <strong>READ</strong> 기능 구현</li>
+  <li>기업회원 마이페이지 - 채용 공고 FORM·DETAIL 화면(UI) 구현</li>
 </ul>
 &nbsp
 
@@ -117,6 +119,31 @@ if (career_cname != null && !career_cname.isBlank()) {
       </li>
     </ul>
   </li>
+  <br><br> <!-- 사례 간 여백 -->
+  <!-- 사례 4 -->
+  <li>
+    <strong>4. 사례 – 공고·이력서 Bookmark 등록 시 파라미터 인식 오류</strong>
+    <ul>
+      <li>
+        <strong>문제</strong><br>
+        - 공고 내역을 반복문으로 출력하고 선택한 공고와 이력서의 idx를 Bookmark DB에 전달하는 과정에서 문제가 발생  
+        - <code>parameter</code> 값을 컨트롤러에서 인식하지 못하거나, 선택한 공고의 속성 값을 받아오지 못하는 오류 발생
+      </li>
+      <li>
+        <strong>해결</strong><br>
+        - <code>@RequestParam</code>으로 변수명을 고정하여 전달하고, MyBatis XML 쿼리에서는 <code>#{arg0}, #{arg1}</code>를 사용하도록 수정
+      </li>
+    </ul>
+  </li>
+  <br>
+<pre><code class="language-xml">
+<!-- bookmarkMapper.xml -->
+<insert id="insertBookmark">
+    INSERT INTO bookmark_tb (post_idx, resume_idx)
+    VALUES (#{arg0}, #{arg1})
+</insert>
+</code></pre>
+
 
 </ul>
 

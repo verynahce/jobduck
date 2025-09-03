@@ -37,21 +37,89 @@
 &nbsp
 
 <h2>트러블 슈팅</h2>
-<h3>문제 상황</h3>
 <ul>
-  <li>프로젝트 기간이 한정적이라 DB 설계 및 데이터 처리 방식(물리 삭제 vs 논리 삭제)에서 의사결정이 필요했음. 
-      단순 물리 삭제하면, <strong>데이터 복구 불가 · 통계 집계 오류 · 이력 추적 불가</strong> 문제가 발생</li>
-  <li>신입/경력 이력서 등록 기능에서 신입은 경력사항이 없어도 submit이 이루어져야 하나 
-      null 처리가 되지 않아 <strong>경력사항 입력 Validation 오류</strong>가 발생</li>
+
+  <!-- 사례 1 -->
+  <li>
+    <strong>1. 사례 – 지원자 리스트 삭제 기능</strong>
+    <ul>
+      <li>
+        <strong>문제</strong><br>
+        - 지원자 리스트 삭제 기능 구현 시, 새로고침 시 원복되거나 초기화 후 이벤트 미적용 문제 발생
+      </li>
+      <li>
+        <strong>해결</strong><br>
+        - 단순 삭제 대신 <strong>이벤트 위임(Event Delegation)</strong>과 <code>localStorage</code>를 활용해 새로고침·초기화 이후에도 정상 동작하도록 개선
+        <pre><code class="language-javascript">
+// 삭제 버튼 이벤트 (위임 방식)
+$(document).on('click', '.delete', function() {
+    var $row = $(this).closest('tr.Dcontent'); 
+    var appliIdx = $row.data('idx'); 
+
+    var deletedItems = localStorage.getItem('deletedItems') 
+        ? JSON.parse(localStorage.getItem('deletedItems')) 
+        : [];
+    deletedItems.push(appliIdx); 
+    localStorage.setItem('deletedItems', JSON.stringify(deletedItems)); 
+
+    $row.hide(); 
+});
+        </code></pre>
+      </li>
+    </ul>
+  </li>
+
+  <br><br> <!-- 사례 간 여백 -->
+
+  <!-- 사례 2 -->
+  <li>
+    <strong>2. 사례 – Soft Delete(논리 삭제) 패턴</strong>
+    <ul>
+      <li>
+        <strong>문제</strong><br>
+        - DB 설계 및 데이터 처리 방식(물리 삭제 vs 논리 삭제)에서 의사결정 필요, 물리 삭제 시 <strong>데이터 복구 불가 · 통계 집계 오류 · 이력 추적 불가</strong> 문제가 발생
+      </li>
+      <li>
+        <strong>해결</strong><br>
+        - <strong>Soft Delete(논리 삭제) 패턴</strong>을 채택하여 실제 레코드를 삭제하지 않고 Y/N 플래그로 숨김 처리, WHERE절 필터링으로 무결성과 복구 보장
+        <pre><code class="language-java">
+// Controller 단에서 논리 삭제 처리
+@DeleteMapping("/resume/{id}")
+public String deleteResume(@PathVariable Long id) {
+    // 물리 삭제 대신 UPDATE로 is_deleted 플래그만 변경
+    userMapper.updateResumeDeleted(id, "Y");
+    return "redirect:/User/MyPage/Resume/List";
+}
+        </code></pre>
+      </li>
+    </ul>
+  </li>
+
+  <br><br> <!-- 사례 간 여백 -->
+
+  <!-- 사례 3 -->
+  <li>
+    <strong>3. 사례 – 신입/경력 이력서 등록 Validation</strong>
+    <ul>
+      <li>
+        <strong>문제</strong><br>
+        - 신입/경력 이력서 등록 시, 신입 사용자는 경력사항 없이 submit 가능해야 하나 null 처리 오류로 <strong>Validation 에러</strong> 발생
+      </li>
+      <li>
+        <strong>해결</strong><br>
+        - <strong>RequestParam의 Required 옵션을 false</strong>로 설정하고, 조건부 검증 로직을 적용해 신입/경력 구분에 따라 Validation을 유연하게 처리
+        <pre><code class="language-java">
+// 경력 등록 (경력자만 입력하도록 조건부 처리)
+if (career_cname != null && !career_cname.isBlank()) {
+    userMapper.insertCarrer(user_idx, career_cname, career_description, career_sdate, career_edate);
+}
+        </code></pre>
+      </li>
+    </ul>
+  </li>
+
 </ul>
 
-<h3>개선 방안</h3>
-<ul>
-  <li><strong>Soft Delete(논리 삭제) 패턴</strong>을 채택하여 실제 레코드를 삭제하지 않고 Y/N으로 화면에서 노출 및 숨김 처리, 
-      WHERE절 필터링을 적용해 무결성과 이력 복구 보장</li>
-  <li><strong>RequestParam의 Required 옵션을 false</strong>로 설정하고, 
-      비즈니스 로직에서 조건부 검증을 적용해 신입/경력 구분에 따라 Validation을 유연하게 처리</li>
-</ul>
 
 <h2>화면 설계</h2>
 <p>노션 : https://www.notion.so/263e7dcfb28a818d90b4ccb17a8e418b?source=copy_link</p>
